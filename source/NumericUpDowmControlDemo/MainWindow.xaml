@@ -4,37 +4,82 @@
 
         xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
         Title="MainWindow" Height="350" Width="525">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
+    <Grid>
 
-    <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                         MinValue="{Binding MyIntMinimumValue}"
-                         MaxValue="{Binding MyIntMaximumValue}"
-                         ToolTip="{Binding MyToolTip}"
-                         Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+        <TabControl>
+            <TabItem Header="Edit TextBox">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-    <Grid Grid.Column="1" Margin="12,3,3,3">
-      <GroupBox Header="Debugging Values">
-        <StackPanel>
-          <StackPanel Margin="3">
-            <Label Content="Actual Value:" />
-            <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-          </StackPanel>
-          
-          <StackPanel Margin="3">
-            <Label Content="Minimum Value:" />
-            <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-          </StackPanel>
+                    <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                         MinValue="{Binding MyIntMinimumValue}"
+                                         MaxValue="{Binding MyIntMaximumValue}"
+                                         ToolTip="{Binding MyToolTip}"
+                                         IsReadOnly="False"
+                                         Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
 
-          <StackPanel Margin="3">
-            <Label Content="Maximum Value:" />
-            <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-          </StackPanel>
-        </StackPanel>
-      </GroupBox>
+                    <Grid Grid.Column="1" Margin="12,3,3,3">
+                        <GroupBox Header="Debugging Values">
+                            <StackPanel>
+                                <StackPanel Margin="3">
+                                    <Label Content="Actual Value:" />
+                                    <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                                </StackPanel>
+
+                                <StackPanel Margin="3">
+                                    <Label Content="Minimum Value:" />
+                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                                </StackPanel>
+
+                                <StackPanel Margin="3">
+                                    <Label Content="Maximum Value:" />
+                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="ReadOnly TextBox">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                         MinValue="{Binding MyIntMinimumValue}"
+                                         MaxValue="{Binding MyIntMaximumValue}"
+                                         ToolTip="{Binding MyToolTip}"
+                                         IsReadOnly="True"
+                                         Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+
+                    <Grid Grid.Column="1" Margin="12,3,3,3">
+                        <GroupBox Header="Debugging Values">
+                            <StackPanel>
+                                <StackPanel Margin="3">
+                                    <Label Content="Actual Value:" />
+                                    <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                                </StackPanel>
+
+                                <StackPanel Margin="3">
+                                    <Label Content="Minimum Value:" />
+                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                                </StackPanel>
+
+                                <StackPanel Margin="3">
+                                    <Label Content="Maximum Value:" />
+                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
-  </Grid>
 </Window>

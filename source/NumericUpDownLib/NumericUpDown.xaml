@@ -20,13 +20,15 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}" 
+                        <TextBox x:Name="PART_TextBox"
+                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"
                                  Grid.RowSpan="2" Margin="0,0,1,0"
                                  TextAlignment="Right"
                                  HorizontalContentAlignment="Right"
                                  VerticalContentAlignment="Center"
                                  VerticalAlignment="Stretch"
-                                 IsReadOnly="True" />
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"
+                                 />
 
                         <!-- ArrowUp Increase value button -->
                         <local:NumericRepeatButtonControl
