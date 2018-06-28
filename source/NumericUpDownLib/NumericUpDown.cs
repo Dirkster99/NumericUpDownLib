@@ -37,6 +37,11 @@ namespace NumericUpDownLib
                                         new PropertyChangedCallback(OnValueChanged),
                                         new CoerceValueCallback(CoerceValue)));
 
+        private static readonly DependencyProperty StepSizeProperty =
+            DependencyProperty.Register("StepSize",
+                                        typeof(uint), typeof(NumericUpDown),
+                                        new FrameworkPropertyMetadata((uint)1));
+        
         private static readonly DependencyProperty MinValueProperty =
             DependencyProperty.Register("MinValue",
                                         typeof(int), typeof(NumericUpDown),
@@ -139,6 +144,18 @@ namespace NumericUpDownLib
             get { return (int)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets the step size
+        /// (actual distance) of increment or decrement step.
+        /// This value should at leat be one or greater.
+        /// </summary>
+        public uint StepSize
+        {
+            get { return (uint)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+
 
         /// <summary>
         /// Get/set dependency property to define the minimum legal value.
@@ -252,8 +269,8 @@ namespace NumericUpDownLib
             }
             else
             {
-                if (this.Value < this.MaxValue)
-                    this.Value = this.Value + 1;
+                if (this.Value + this.StepSize <= this.MaxValue)
+                    this.Value = (int)(this.Value + this.StepSize);
                 else
                 {
                     if (this.Value <= this.MinValue)
@@ -277,8 +294,8 @@ namespace NumericUpDownLib
             }
             else
             {
-                if (this.Value > this.MinValue)
-                    this.Value = this.Value - 1;
+                if (this.Value - this.StepSize > this.MinValue)
+                    this.Value = (int)(this.Value - this.StepSize);
                 else
                 {
                     if (this.Value >= this.MaxValue)

@@ -14,13 +14,23 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                         MinValue="{Binding MyIntMinimumValue}"
-                                         MaxValue="{Binding MyIntMaximumValue}"
-                                         ToolTip="{Binding MyToolTip}"
-                                         IsReadOnly="False"
-                                         Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+                    <StackPanel Orientation="Vertical">
+                        <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                             MinValue="{Binding MyIntMinimumValue}"
+                                             MaxValue="{Binding MyIntMaximumValue}"
+                                             StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                             ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="False"
+                                             Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
 
+                        <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                Minimum="1"
+                                Maximum="1024"
+                                />
+                        <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </TextBlock>
+                    </StackPanel>
+                    
                     <Grid Grid.Column="1" Margin="12,3,3,3">
                         <GroupBox Header="Debugging Values">
                             <StackPanel>
@@ -51,12 +61,22 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                         MinValue="{Binding MyIntMinimumValue}"
-                                         MaxValue="{Binding MyIntMaximumValue}"
-                                         ToolTip="{Binding MyToolTip}"
-                                         IsReadOnly="True"
-                                         Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+                    <StackPanel Orientation="Vertical">
+                        <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                             MinValue="{Binding MyIntMinimumValue}"
+                                             MaxValue="{Binding MyIntMaximumValue}"
+                                             StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                             ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="True"
+                                             Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+
+                        <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                Minimum="1"
+                                Maximum="1024"
+                                />
+                        <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </TextBlock>
+                    </StackPanel>
 
                     <Grid Grid.Column="1" Margin="12,3,3,3">
                         <GroupBox Header="Debugging Values">
