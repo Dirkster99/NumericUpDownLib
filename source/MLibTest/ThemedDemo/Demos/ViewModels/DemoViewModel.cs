@@ -1,17 +1,25 @@
-﻿namespace NumericUpDowmControlDemo.ViewModel
+﻿namespace ThemedDemo.Demos.ViewModels
 {
     /// <summary>
-    /// Viewmodel class to demonstrate the usage
-    /// of a bound numeric up/down control.
+    /// This viewmodel controls all aspects of the themed control demo in this test application.
     /// </summary>
-    public class DemoViewModel : Base.ViewModelBase
+    public class DemoViewModel : ThemedDemo.ViewModels.Base.ViewModelBase
     {
-        #region fields
+        #region private fields
         private int _MyIntValue = 98;
         private int _MyIntMinimumValue = -3;
         private int _MyIntMaximumValue = 105;
         private uint _MyIntStepSize = 1;
-        #endregion fields
+        #endregion private fields
+
+        #region constructors
+        /// <summary>
+        /// Class constructor
+        /// </summary>
+        public DemoViewModel()
+        {
+        }
+        #endregion constructors
 
         #region properties
         /// <summary>
@@ -103,8 +111,7 @@
         {
             get
             {
-                return string.Format("Enter a value between {0} and {1}",
-                    _MyIntMinimumValue, MyIntMaximumValue);
+                return string.Format("Enter a value between {0} and {1}", _MyIntMinimumValue, MyIntMaximumValue);
             }
         }
         #endregion properties

@@ -5,101 +5,63 @@
         xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <TabControl>
-            <TabItem Header="Edit TextBox">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical">
+            <cntrl:NumericUpDown Name="SampleUpDown"
+                    HorizontalAlignment="Left"
+                    Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                    MinValue="{Binding MyIntMinimumValue}"
+                    MaxValue="{Binding MyIntMaximumValue}"
+                    StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                    IsReadOnly="False"
+                    Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
 
-                    <StackPanel Orientation="Vertical">
-                        <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                             MinValue="{Binding MyIntMinimumValue}"
-                                             MaxValue="{Binding MyIntMaximumValue}"
-                                             StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                             ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                             IsReadOnly="False"
-                                             Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+            <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,12,0,0"
+                    Minimum="1"
+                    Maximum="1024"
+                    ToolTip="The StepSize changes the size of increment on button click."
+                    />
+            <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </TextBlock>
 
-                        <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                Minimum="1"
-                                Maximum="1024"
-                                />
-                        <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        </TextBlock>
-                    </StackPanel>
-                    
-                    <Grid Grid.Column="1" Margin="12,3,3,3">
-                        <GroupBox Header="Debugging Values">
-                            <StackPanel>
-                                <StackPanel Margin="3">
-                                    <Label Content="Actual Value:" />
-                                    <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                                </StackPanel>
+            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
+                      Content="IsReadOnly"
+                      Margin="0,6,0,0"
+                      ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
+                      />
 
-                                <StackPanel Margin="3">
-                                    <Label Content="Minimum Value:" />
-                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                                </StackPanel>
+            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
+                      Content="IsEnabled"
+                      Margin="0,6,0,0"
+                      ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
+                      />
+        </StackPanel>
 
-                                <StackPanel Margin="3">
-                                    <Label Content="Maximum Value:" />
-                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </GroupBox>
-                    </Grid>
-                </Grid>
-            </TabItem>
-
-            <TabItem Header="ReadOnly TextBox">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Vertical">
-                        <cntrl:NumericUpDown Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                             MinValue="{Binding MyIntMinimumValue}"
-                                             MaxValue="{Binding MyIntMaximumValue}"
-                                             StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                             ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                             IsReadOnly="True"
-                                             Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
-
-                        <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                Minimum="1"
-                                Maximum="1024"
-                                />
-                        <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        </TextBlock>
+        <Grid Grid.Column="1" Margin="12,3,3,3">
+            <GroupBox Header="Debugging Values">
+                <StackPanel>
+                    <StackPanel Margin="3">
+                        <Label Content="Actual Value:" />
+                        <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                     </StackPanel>
 
-                    <Grid Grid.Column="1" Margin="12,3,3,3">
-                        <GroupBox Header="Debugging Values">
-                            <StackPanel>
-                                <StackPanel Margin="3">
-                                    <Label Content="Actual Value:" />
-                                    <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                                </StackPanel>
+                    <StackPanel Margin="3">
+                        <Label Content="Minimum Value:" />
+                        <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                    </StackPanel>
 
-                                <StackPanel Margin="3">
-                                    <Label Content="Minimum Value:" />
-                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                                </StackPanel>
-
-                                <StackPanel Margin="3">
-                                    <Label Content="Maximum Value:" />
-                                    <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </GroupBox>
-                    </Grid>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                    <StackPanel Margin="3">
+                        <Label Content="Maximum Value:" />
+                        <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
     </Grid>
 </Window>

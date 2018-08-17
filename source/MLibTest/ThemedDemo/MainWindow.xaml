@@ -1,0 +1,105 @@
+﻿<MWindow:MetroWindow x:Class="ThemedDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 
+        xmlns:reskeys="clr-namespace:MLib.Themes;assembly=MLib"
+        xmlns:MWindow="clr-namespace:MWindowLib;assembly=MWindowLib"
+        xmlns:behav="clr-namespace:ThemedDemo.Behaviors"
+                     
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        ShowIcon="False"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Themes" />
+            <ComboBox Grid.Row="1" ItemsSource="{Binding AppTheme.ListOfThemes}"
+                      DisplayMemberPath="Model.Name"
+                      SelectedItem="{Binding AppTheme.SelectedTheme, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                      behav:SelectionChangedCommand.ChangedCommand="{Binding ThemeSelectionChangedCommand}"
+                      IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    />
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="2"
+              Grid.Row="1"
+              DataContext="{Binding Demo}"
+              xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="200"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical">
+                <cntrl:NumericUpDown Name="SampleUpDown"
+                    HorizontalAlignment="Left"
+                    Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                    MinValue="{Binding MyIntMinimumValue}"
+                    MaxValue="{Binding MyIntMaximumValue}"
+                    StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                    IsReadOnly="False"
+                    Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+
+                <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,12,0,0"
+                    Minimum="1"
+                    Maximum="1024"
+                    ToolTip="The StepSize changes the size of increment on button click."
+                    />
+                <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </TextBlock>
+
+                <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
+                          Content="IsReadOnly"
+                          Margin="0,6,0,0"
+                          ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
+                          />
+
+                <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
+                          Content="IsEnabled"
+                          Margin="0,6,0,0"
+                          ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
+                          />
+            </StackPanel>
+
+            <Grid Grid.Column="1" Margin="12,3,3,3">
+                <GroupBox Header="Debugging Values">
+                    <StackPanel>
+                        <StackPanel Margin="3">
+                            <Label Content="Actual Value:" />
+                            <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Margin="3">
+                            <Label Content="Minimum Value:" />
+                            <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Margin="3">
+                            <Label Content="Maximum Value:" />
+                            <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</MWindow:MetroWindow>

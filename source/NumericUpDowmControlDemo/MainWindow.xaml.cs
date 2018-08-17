@@ -10,9 +10,9 @@
   {
     public MainWindow()
     {
-      this.InitializeComponent();
+      InitializeComponent();
 
-      this.DataContext = new DemoViewModel();
+      DataContext = new DemoViewModel();
     }
   }
 }

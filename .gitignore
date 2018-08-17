@@ -18,3 +18,4 @@ tmp/
 *.sou
 *.suo
 *.sqlite
+/source/packages

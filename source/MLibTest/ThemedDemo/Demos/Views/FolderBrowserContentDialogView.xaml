@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ThemedDemo.Demos.Views.FolderBrowserContentDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             
+             Focusable="True"
+             FocusVisualStyle="{StaticResource {x:Static SystemParameters.FocusVisualStyleKey}}"
+             KeyboardNavigation.DirectionalNavigation="Cycle"
+             KeyboardNavigation.TabNavigation="Cycle"
+             KeyboardNavigation.ControlTabNavigation="Cycle"             >
+    <Grid>
+            <Grid Margin="12,12,3,12"
+                  xmlns:system="clr-namespace:System;assembly=mscorlib"
+                  xmlns:behav="clr-namespace:MWindowDialogLib.Behaviors;assembly=MWindowDialogLib"
+                  xmlns:conv="clr-namespace:MWindowDialogLib.Converters;assembly=MWindowDialogLib"
+                  xmlns:views="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser"
+                >
+                <Grid.Resources>
+                    <conv:NullBoolToVisibilityConverter x:Key="progressBoolToVisConv"  True="Visible" False="Hidden" />
+                    <conv:NullBoolToVisibilityConverter x:Key="boolToVisConv" />
+                    <conv:NullBoolToVisibilityConverter x:Key="negboolToVisConv" True="Collapsed" False="Visible" />
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!--
+                    FontSize="{Binding DialogMessageFontSize, RelativeSource={RelativeSource AncestorType=Dialogs:ProgressDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+                 -->
+                <views:FolderBrowserDialogView Grid.Row="0"
+                                               DataContext="{Binding FolderBrowser}" />
+
+                <Grid Grid.Row="1" HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button MinWidth="80" Grid.Column="0"
+                            Margin="3,12"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                        
+                            Command="{Binding OKCommand}"
+                            IsEnabled="{Binding IsEnabledClose}"
+                            Content="{Binding CloseButtonText, UpdateSourceTrigger=PropertyChanged, FallbackValue='close'}"
+                            >
+                    </Button>
+                    <!-- Style="{DynamicResource AccentedDialogSquareButton}" -->
+                    <Button MinWidth="80" Grid.Column="1"
+                            Margin="3,12"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            
+                            IsDefault="True"
+                            behav:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                            
+                            Content="{Binding CancelButtonText, UpdateSourceTrigger=PropertyChanged,FallbackValue='cancel'}"
+                            Command="{Binding CloseCommand}"
+                            IsEnabled="{Binding IsCancelable}"
+                        >
+                        <Button.Visibility>
+                            <PriorityBinding>
+                                <Binding Path="IsCancelButtonVisible" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource boolToVisConv}" />
+                                <Binding Source="{x:Static Visibility.Visible}" Mode="OneWay" />
+                            </PriorityBinding>
+                        </Button.Visibility>
+                    </Button>
+                </Grid>
+            </Grid>
+    </Grid>
+</UserControl>

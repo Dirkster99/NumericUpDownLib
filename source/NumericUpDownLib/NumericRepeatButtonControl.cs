@@ -1,7 +1,7 @@
 ﻿namespace NumericUpDownLib
 {
     using System.Windows;
-    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
 
@@ -11,7 +11,7 @@
     /// and <seealso cref="ICommand"/> binding to relay a click command
     /// to a hosting control or bound viewmodel.
     /// </summary>
-    public class NumericRepeatButtonControl : Control
+    public class NumericRepeatButtonControl : RepeatButton
     {
         static NumericRepeatButtonControl()
         {

@@ -3,8 +3,12 @@
                     xmlns:local="clr-namespace:NumericUpDownLib"
                     xmlns:reskeys="clr-namespace:NumericUpDownLib.Themes"
                     >
+    
     <Style TargetType="{x:Type local:NumericRepeatButtonControl}">
         <Setter Property="IsTabStop" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Focusable" Value="false" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:NumericRepeatButtonControl}">
@@ -12,13 +16,23 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <RepeatButton Command="{TemplateBinding ClickCommand}"  
-                                          Name="MyRepeatButton">
-                                <Grid x:Name="arrowGlyph" IsHitTestVisible="False" Margin="3">
+                            <RepeatButton Command="{TemplateBinding ClickCommand}"
+                                          HorizontalContentAlignment="Left"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Padding="3"
+                                          Name="MyRepeatButton"
+                                          >
+                                <Grid x:Name="arrowGlyph"
+                                      IsHitTestVisible="False"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center">
                                     <Path x:Name="Arrow"
                                           Fill="{DynamicResource {x:Static reskeys:ResourceKeys.GlyphNormalForegroundKey}}"
                                           Width="7"
-                                          Stretch="Uniform"
+                                          Stretch="UniformToFill"
+                                          Margin="0"
                                           Data="{TemplateBinding RepeatButtonContent}"
                                           />
                                 </Grid>

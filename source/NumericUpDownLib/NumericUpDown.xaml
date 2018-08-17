@@ -32,17 +32,19 @@
 
                         <!-- ArrowUp Increase value button -->
                         <local:NumericRepeatButtonControl
-                                Grid.Column="1" Grid.Row="0"
-                                RepeatButtonContent="M 337.57757568359375,322 C337.57757568359375,322 334,326 334,326 334,326 341,326 341,326 341,326 337.57757568359375,322 337.57757568359375,322 z"
-                                ClickCommand="{x:Static local:NumericUpDown.IncreaseCommand}"
-                            />
+                            Grid.Column="1" Grid.Row="0"
+                            RepeatButtonContent="M 337.57757568359375,322 C337.57757568359375,322 334,326 334,326 334,326 341,326 341,326 341,326 337.57757568359375,322 337.57757568359375,322 z"
+                            ClickCommand="{x:Static local:NumericUpDown.IncreaseCommand}"
+                            HorizontalAlignment="Left"
+                        />
 
                         <!-- ArrowDown Decrease value button -->
                         <local:NumericRepeatButtonControl
-                                Grid.Column="1" Grid.Row="1"
-                                RepeatButtonContent="M 0 0 L 4 4 L 8 0 Z"
-                                ClickCommand="{x:Static local:NumericUpDown.DecreaseCommand}"
-                            />
+                            Grid.Column="1" Grid.Row="1"
+                            RepeatButtonContent="M 0 0 L 4 4 L 8 0 Z"
+                            ClickCommand="{x:Static local:NumericUpDown.DecreaseCommand}"
+                            HorizontalAlignment="Left"
+                        />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
