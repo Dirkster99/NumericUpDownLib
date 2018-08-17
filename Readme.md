@@ -10,6 +10,7 @@ This library implements a numeric up down WPF control that can be used to edit i
 There is a demo application that shows the usage of the control (LIght/Black themes enabled) and documents the features, such as, the ability to configure a minimum and maximum value that can be used to keep the resulting value within a given bound.
 
 ![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo_1.png)
+![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo.png)
 ![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo_light.png)
 ![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/numericupdown_demo.png)
 
