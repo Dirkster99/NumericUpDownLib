@@ -7,12 +7,16 @@
         xmlns:reskeys="clr-namespace:MLib.Themes;assembly=MLib"
         xmlns:MWindow="clr-namespace:MWindowLib;assembly=MWindowLib"
         xmlns:behav="clr-namespace:ThemedDemo.Behaviors"
+        xmlns:conv="clr-namespace:ThemedDemo.Converters"
                      
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
         ShowIcon="False"
         >
     <Grid>
+        <Grid.Resources>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -57,34 +61,17 @@
                     ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                     IsReadOnly="False"
                     Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
-
-                <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,12,0,0"
-                    Minimum="1"
-                    Maximum="1024"
-                    ToolTip="The StepSize changes the size of increment on button click."
-                    />
-                <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                </TextBlock>
-
-                <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
-                          Content="IsReadOnly"
-                          Margin="0,6,0,0"
-                          ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
-                          />
-
-                <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
-                          Content="IsEnabled"
-                          Margin="0,6,0,0"
-                          ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
-                          />
             </StackPanel>
 
             <Grid Grid.Column="1" Margin="12,3,3,3">
                 <GroupBox Header="Debugging Values">
                     <StackPanel>
                         <StackPanel Margin="3">
-                            <Label Content="Actual Value:" />
+                            <Label Content="Actual Value:"/>
+                            <Slider Value="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Minimum="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Maximum="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    />
                             <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
 
@@ -97,6 +84,33 @@
                             <Label Content="Maximum Value:" />
                             <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
+
+                        <StackPanel Margin="3">
+                            <Label Content="Is Visible:" />
+                            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=Visibility,Converter={StaticResource BoolToVisibilityConverter}}"
+                                      ToolTip="Check if value changes as expected when control is invisible."
+                                      />
+                        </StackPanel>
+                        <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0,12,0,0"
+                                Minimum="1"
+                                Maximum="1024"
+                                ToolTip="The StepSize changes the size of increment on button click."
+                                />
+                        <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </TextBlock>
+
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
+                          Content="IsReadOnly"
+                          Margin="0,6,0,0"
+                          ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
+                          />
+
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
+                          Content="IsEnabled"
+                          Margin="0,6,0,0"
+                          ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
+                          />
                     </StackPanel>
                 </GroupBox>
             </Grid>
