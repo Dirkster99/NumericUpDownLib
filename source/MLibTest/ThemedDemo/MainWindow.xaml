@@ -111,6 +111,37 @@
                           Margin="0,6,0,0"
                           ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
                           />
+
+                        <StackPanel Margin="0,6,0,0">
+                            <CheckBox x:Name="IsPopUpOpen" Content="PopUp Test" />
+                            <Popup IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
+                                <Border>
+                                    <StackPanel Margin="3">
+                                        <cntrl:NumericUpDown Name="SamplePopUpDown"
+                                            HorizontalAlignment="Left"
+                                            Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                            MinValue="0"
+                                            MaxValue="255"
+                                            StepSize="1"
+                                            ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                            IsReadOnly="False"
+                                            Grid.Column="0"
+                                            VerticalAlignment="Top"
+                                            Margin="3" MinWidth="80"
+                                            Visibility="Hidden"
+                                            />
+
+                                        <StackPanel Margin="3">
+                                            <Label Content="Is Visible:" />
+                                            <CheckBox IsChecked="{Binding ElementName=SamplePopUpDown,Path=Visibility,Converter={StaticResource BoolToVisibilityConverter}}"
+                                                      ToolTip="Check if value changes as expected when control is invisible."
+                                                      />
+                                        </StackPanel>
+                                        <TextBlock Text="Pop Up Is Open."/>
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
             </Grid>
