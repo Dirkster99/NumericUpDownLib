@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/NumericUpDownLib;component/NumericRepeatButtonControl.xaml" />
-        <ResourceDictionary Source="/NumericUpDownLib;component/NumericUpDown.xaml" />
+        <ResourceDictionary Source="/NumericUpDownLib;component/AbstractBaseUpDown.xaml" />
         <ResourceDictionary Source="/NumericUpDownLib;component/Themes/LightBrushs.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

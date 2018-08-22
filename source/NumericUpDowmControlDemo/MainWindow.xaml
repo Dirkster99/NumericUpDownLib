@@ -13,9 +13,9 @@
         <StackPanel Orientation="Vertical">
             <cntrl:NumericUpDown Name="SampleUpDown"
                     HorizontalAlignment="Left"
-                    Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                     MinValue="{Binding MyIntMinimumValue}"
                     MaxValue="{Binding MyIntMaximumValue}"
+                    Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                     StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                     ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                     IsReadOnly="False"

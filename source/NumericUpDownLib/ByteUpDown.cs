@@ -5,27 +5,27 @@ namespace NumericUpDownLib
     using System.Windows.Controls;
 
     /// <summary>
-    /// Implements an Integer based Numeric Up/Down control.
+    /// Implements a Byte based Numeric Up/Down control.
     /// 
     /// Source: http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
     [TemplatePart(Name = Part_TextBoxName, Type = typeof(TextBox))]
-    public partial class NumericUpDown : AbstractBaseUpDown<int>
+    public partial class ByteUpDown : AbstractBaseUpDown<byte>
     {
         #region constructor
         /// <summary>
         /// Static class constructor
         /// </summary>
-        static NumericUpDown()
+        static ByteUpDown()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown),
-                       new FrameworkPropertyMetadata(typeof(NumericUpDown)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ByteUpDown),
+                       new FrameworkPropertyMetadata(typeof(ByteUpDown)));
         }
 
         /// <summary>
         /// Initializes a new instance of the AbstractBaseUpDown Control.
         /// </summary>
-        public NumericUpDown()
+        public ByteUpDown()
             : base()
         {
         }
@@ -59,11 +59,11 @@ namespace NumericUpDownLib
         /// <param name="e"></param>
         protected override void _PART_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int number = 0;
+            byte number = 0;
 
             if (_PART_TextBox.Text != "")
             {
-                if (int.TryParse(_PART_TextBox.Text, out number) == false)
+                if (byte.TryParse(_PART_TextBox.Text, out number) == false)
                     _PART_TextBox.Text = MinValue.ToString();
                 else
                 {
@@ -93,7 +93,12 @@ namespace NumericUpDownLib
             else
             {
                 if (this.Value + this.StepSize <= this.MaxValue)
-                    this.Value = (this.Value + this.StepSize);
+                {
+                    int intValue = this.Value + this.StepSize;
+
+                    if (intValue >= byte.MinValue && intValue <= byte.MaxValue)
+                        this.Value = (byte)intValue;
+                }
                 else
                 {
                     if (this.Value <= this.MinValue)
@@ -118,7 +123,12 @@ namespace NumericUpDownLib
             else
             {
                 if (this.Value - this.StepSize > this.MinValue)
-                    this.Value = (this.Value - this.StepSize);
+                {
+                    int intValue = this.Value - this.StepSize;
+
+                    if (intValue >= byte.MinValue && intValue <= byte.MaxValue)
+                        this.Value = (byte)intValue;
+                }
                 else
                 {
                     if (this.Value >= this.MaxValue)
@@ -139,10 +149,10 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override int CoerceValue(int newValue)
+        protected override byte CoerceValue(byte newValue)
         {
-            int min = MinValue;
-            int max = MaxValue;
+            byte min = MinValue;
+            byte max = MaxValue;
 
             if (newValue < min)
                 return min;
@@ -160,7 +170,7 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override int CoerceMinValue(int newValue)
+        protected override byte CoerceMinValue(byte newValue)
         {
             newValue = Math.Min(MinValue, Math.Min(MaxValue, newValue));
 
@@ -174,7 +184,7 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override int CoerceMaxValue(int newValue)
+        protected override byte CoerceMaxValue(byte newValue)
         {
             newValue = Math.Max(this.MinValue, Math.Max(this.MaxValue, newValue));
 

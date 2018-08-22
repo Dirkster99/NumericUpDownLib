@@ -49,14 +49,25 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NumericRepeatButtonControl.cs" />
+    <Compile Include="DoubleUpDown.cs" />
+    <Compile Include="DecimalUpDown.cs" />
+    <Compile Include="ByteUpDown.cs" />
     <Compile Include="NumericUpDown.cs" />
+    <Compile Include="Converters\ByteToPlaceHolderStringConverter.cs" />
+    <Compile Include="InputBaseUpDown.cs" />
+    <Compile Include="NumericRepeatButtonControl.xaml.cs">
+      <DependentUpon>NumericRepeatButtonControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractBaseUpDown.xaml.cs">
+      <DependentUpon>AbstractBaseUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\ResourceKeys.cs" />
     <Page Include="NumericRepeatButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NumericUpDown.xaml">
+    <Page Include="AbstractBaseUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

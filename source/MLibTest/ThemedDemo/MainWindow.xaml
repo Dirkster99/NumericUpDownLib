@@ -52,15 +52,19 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Vertical">
-                <cntrl:NumericUpDown Name="SampleUpDown"
+                <cntrl:DoubleUpDown
+                    Name="SampleUpDown"
+                    DataContext="{Binding DoubleDemo}"
                     HorizontalAlignment="Left"
-                    Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                    MinValue="{Binding MyIntMinimumValue}"
-                    MaxValue="{Binding MyIntMaximumValue}"
-                    StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                    ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                    Value="{Binding IntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                    MinValue="{Binding IntMinimumValue}"
+                    MaxValue="{Binding IntMaximumValue}"
+                    StepSize="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                     IsReadOnly="False"
-                    Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                    Margin="3" />
             </StackPanel>
 
             <Grid Grid.Column="1" Margin="12,3,3,3">
@@ -68,21 +72,41 @@
                     <StackPanel>
                         <StackPanel Margin="3">
                             <Label Content="Actual Value:"/>
-                            <Slider Value="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Minimum="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Maximum="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                            <Slider DataContext="{Binding DoubleDemo}"
+                                    Value="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Minimum="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Maximum="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                     />
-                            <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                            <TextBox IsReadOnly="True" Text="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
 
-                        <StackPanel Margin="3">
+                        <StackPanel Margin="12">
                             <Label Content="Minimum Value:" />
-                            <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                            <Slider DataContext="{Binding DoubleDemo}"
+                                    Value="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Minimum="-2147483647"
+                                    Maximum="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    />
+                            <TextBox IsReadOnly="True" Text="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
 
-                        <StackPanel Margin="3">
+                        <StackPanel Margin="12">
                             <Label Content="Maximum Value:" />
-                            <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                            <Slider DataContext="{Binding DoubleDemo}"
+                                    Value="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Minimum="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Maximum="2147483647"
+                                    />
+                            <TextBox IsReadOnly="True" Text="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel Margin="12">
+                            <Label Content="Display Length:" />
+                            <Slider Value="{Binding DisplayLength,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ElementName=SampleUpDown}"
+                                    Minimum="0"
+                                    Maximum="255"
+                                    />
+                            <TextBox IsReadOnly="True" Text="{Binding DisplayLength,UpdateSourceTrigger=PropertyChanged,Mode=OneWay,ElementName=SampleUpDown}" />
                         </StackPanel>
 
                         <StackPanel Margin="3">
@@ -91,13 +115,14 @@
                                       ToolTip="Check if value changes as expected when control is invisible."
                                       />
                         </StackPanel>
-                        <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                        <Slider DataContext="{Binding DoubleDemo}"
+                                Value="{Binding IntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                                 Margin="0,12,0,0"
                                 Minimum="1"
                                 Maximum="1024"
                                 ToolTip="The StepSize changes the size of increment on button click."
                                 />
-                        <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock>StepSize: <TextBlock Text="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </TextBlock>
 
                         <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
@@ -119,15 +144,17 @@
                                     <StackPanel Margin="3">
                                         <cntrl:NumericUpDown Name="SamplePopUpDown"
                                             HorizontalAlignment="Left"
-                                            Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                            MinValue="0"
-                                            MaxValue="255"
-                                            StepSize="1"
-                                            ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                            DataContext="{Binding IntegerDemo}"
+                                            MinValue="{Binding IntMinimumValue}"
+                                            MaxValue="{Binding IntMaximumValue}"
+                                            Value="{Binding IntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                            StepSize="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                            ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayLength="13"
                                             IsReadOnly="False"
                                             Grid.Column="0"
                                             VerticalAlignment="Top"
-                                            Margin="3" MinWidth="80"
+                                            Margin="3"
                                             Visibility="Hidden"
                                             />
 

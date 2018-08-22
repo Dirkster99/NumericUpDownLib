@@ -1,31 +1,32 @@
 namespace NumericUpDownLib
 {
     using System;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
-    /// Implements an Integer based Numeric Up/Down control.
+    /// Implements a Byte based Numeric Up/Down control.
     /// 
     /// Source: http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
     [TemplatePart(Name = Part_TextBoxName, Type = typeof(TextBox))]
-    public partial class NumericUpDown : AbstractBaseUpDown<int>
+    public partial class DoubleUpDown : AbstractBaseUpDown<double>
     {
         #region constructor
         /// <summary>
         /// Static class constructor
         /// </summary>
-        static NumericUpDown()
+        static DoubleUpDown()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown),
-                       new FrameworkPropertyMetadata(typeof(NumericUpDown)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DoubleUpDown),
+                       new FrameworkPropertyMetadata(typeof(DoubleUpDown)));
         }
 
         /// <summary>
         /// Initializes a new instance of the AbstractBaseUpDown Control.
         /// </summary>
-        public NumericUpDown()
+        public DoubleUpDown()
             : base()
         {
         }
@@ -59,20 +60,24 @@ namespace NumericUpDownLib
         /// <param name="e"></param>
         protected override void _PART_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int number = 0;
+            double number = 0;
 
             if (_PART_TextBox.Text != "")
             {
-                if (int.TryParse(_PART_TextBox.Text, out number) == false)
+                if (double.TryParse(_PART_TextBox.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out number) == false)
                     _PART_TextBox.Text = MinValue.ToString();
                 else
                 {
                     if (number >= MaxValue)
+                    {
                         _PART_TextBox.Text = MaxValue.ToString();
+                    }
                     else
                     {
                         if (number <= MinValue)
+                        {
                             _PART_TextBox.Text = MinValue.ToString();
+                        }
                     }
 
                     _PART_TextBox.SelectionStart = _PART_TextBox.Text.Length;
@@ -93,7 +98,9 @@ namespace NumericUpDownLib
             else
             {
                 if (this.Value + this.StepSize <= this.MaxValue)
-                    this.Value = (this.Value + this.StepSize);
+                {
+                    this.Value = this.Value + this.StepSize;
+                }
                 else
                 {
                     if (this.Value <= this.MinValue)
@@ -118,7 +125,9 @@ namespace NumericUpDownLib
             else
             {
                 if (this.Value - this.StepSize > this.MinValue)
-                    this.Value = (this.Value - this.StepSize);
+                {
+                    this.Value = this.Value - this.StepSize;
+                }
                 else
                 {
                     if (this.Value >= this.MaxValue)
@@ -139,10 +148,10 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override int CoerceValue(int newValue)
+        protected override double CoerceValue(double newValue)
         {
-            int min = MinValue;
-            int max = MaxValue;
+            double min = MinValue;
+            double max = MaxValue;
 
             if (newValue < min)
                 return min;
@@ -160,7 +169,7 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override int CoerceMinValue(int newValue)
+        protected override double CoerceMinValue(double newValue)
         {
             newValue = Math.Min(MinValue, Math.Min(MaxValue, newValue));
 
@@ -174,7 +183,7 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override int CoerceMaxValue(int newValue)
+        protected override double CoerceMaxValue(double newValue)
         {
             newValue = Math.Max(this.MinValue, Math.Max(this.MaxValue, newValue));
 

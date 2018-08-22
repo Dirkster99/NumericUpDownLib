@@ -113,6 +113,9 @@
     <Compile Include="Behaviors\SelectionChangedBehavior.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Demos\ViewModels\DemoViewModel.cs" />
+    <Compile Include="Demos\ViewModels\BaseUpDownViewModel.cs" />
+    <Compile Include="Demos\ViewModels\DoubleUpDownViewModel.cs" />
+    <Compile Include="Demos\ViewModels\IntegerUpDownViewModel.cs" />
     <Compile Include="Models\AppCore.cs" />
     <Compile Include="Models\SettingDefaults.cs" />
     <Compile Include="ServiceInjector.cs" />
