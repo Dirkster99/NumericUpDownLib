@@ -62,6 +62,7 @@
                     StepSize="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                     ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                     IsReadOnly="False"
+                    DisplayLength="5"
                     Grid.Column="0"
                     VerticalAlignment="Top"
                     Margin="3" />
@@ -77,7 +78,9 @@
                                     Minimum="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                     Maximum="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                     />
-                            <TextBox IsReadOnly="True" Text="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                            <TextBox DataContext="{Binding DoubleDemo}"
+                                     IsReadOnly="True"
+                                     Text="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
 
                         <StackPanel Margin="12">
@@ -87,7 +90,9 @@
                                     Minimum="-2147483647"
                                     Maximum="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                     />
-                            <TextBox IsReadOnly="True" Text="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                            <TextBox DataContext="{Binding DoubleDemo}"
+                                     IsReadOnly="True"
+                                     Text="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
 
                         <StackPanel Margin="12">
@@ -97,7 +102,9 @@
                                     Minimum="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                     Maximum="2147483647"
                                     />
-                            <TextBox IsReadOnly="True" Text="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                            <TextBox DataContext="{Binding DoubleDemo}"
+                                     IsReadOnly="True"
+                                     Text="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
                         </StackPanel>
 
                         <StackPanel Margin="12">
@@ -106,7 +113,9 @@
                                     Minimum="0"
                                     Maximum="255"
                                     />
-                            <TextBox IsReadOnly="True" Text="{Binding DisplayLength,UpdateSourceTrigger=PropertyChanged,Mode=OneWay,ElementName=SampleUpDown}" />
+                            <TextBox DataContext="{Binding DoubleDemo}"
+                                     IsReadOnly="True"
+                                     Text="{Binding DisplayLength,UpdateSourceTrigger=PropertyChanged,Mode=OneWay,ElementName=SampleUpDown}" />
                         </StackPanel>
 
                         <StackPanel Margin="3">
@@ -122,7 +131,8 @@
                                 Maximum="1024"
                                 ToolTip="The StepSize changes the size of increment on button click."
                                 />
-                        <TextBlock>StepSize: <TextBlock Text="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock>StepSize: <TextBlock DataContext="{Binding DoubleDemo}"
+                                                        Text="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </TextBlock>
 
                         <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"

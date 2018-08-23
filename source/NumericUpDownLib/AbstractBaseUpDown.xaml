@@ -20,30 +20,40 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox x:Name="PART_TextBox"
-                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"
-                                 Grid.RowSpan="2" Margin="0,0,1,0"
-                                 TextAlignment="Right"
-                                 HorizontalContentAlignment="Right"
-                                 VerticalContentAlignment="Center"
-                                 HorizontalAlignment="Stretch"
-                                 VerticalAlignment="Stretch"
-                                 IsReadOnly="{TemplateBinding IsReadOnly}"
-                                 />
-                        
-                        <!-- Hidden measuring textbox -->
-                        <TextBox Grid.RowSpan="2" Margin="0,0,1,0"
-                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
-                            TextAlignment="Right"
-                            HorizontalContentAlignment="Right"
-                            VerticalContentAlignment="Center"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Visibility="Hidden"/>
+                        <ScrollViewer  Grid.Column="0"
+                                       Grid.RowSpan="2"
+                                       HorizontalScrollBarVisibility="Disabled"
+                                       VerticalScrollBarVisibility="Disabled" Name="scv">
+                            <Grid>
+                                <TextBox x:Name="PART_TextBox"
+                                         Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"
+                                         Grid.RowSpan="2" Margin="0,0,1,0"
+                                         TextAlignment="Right"
+                                         AcceptsReturn="False"
+                                         SpellCheck.IsEnabled="False"
+                                         HorizontalContentAlignment="Stretch"
+                                         VerticalContentAlignment="Center"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         IsReadOnly="{TemplateBinding IsReadOnly}"
+                                         MaxWidth="{Binding ElementName=scv, Path=ActualWidth}"
+                                         />
+
+                                <!-- Hidden measuring textbox -->
+                                <TextBox Margin="0,0,1,0"
+                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
+                                        TextAlignment="Right"
+                                        HorizontalContentAlignment="Right"
+                                        VerticalContentAlignment="Center"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Visibility="Hidden"/>
+                            </Grid>
+                        </ScrollViewer>
 
                         <!-- ArrowUp Increase value button -->
                         <local:NumericRepeatButtonControl

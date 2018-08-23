@@ -112,10 +112,6 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\SelectionChangedBehavior.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Demos\ViewModels\DemoViewModel.cs" />
-    <Compile Include="Demos\ViewModels\BaseUpDownViewModel.cs" />
-    <Compile Include="Demos\ViewModels\DoubleUpDownViewModel.cs" />
-    <Compile Include="Demos\ViewModels\IntegerUpDownViewModel.cs" />
     <Compile Include="Models\AppCore.cs" />
     <Compile Include="Models\SettingDefaults.cs" />
     <Compile Include="ServiceInjector.cs" />
@@ -178,6 +174,10 @@
     <ProjectReference Include="..\..\NumericUpDownLib\NumericUpDownLib.csproj">
       <Project>{98e332ac-86e6-4db3-a757-4d84432b4a2b}</Project>
       <Name>NumericUpDownLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UpDownDemoLib\UpDownDemoLib.csproj">
+      <Project>{ed3a742d-4055-4da2-bbce-74e817b211bf}</Project>
+      <Name>UpDownDemoLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Components\ServiceLocator\ServiceLocator.csproj">
       <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>

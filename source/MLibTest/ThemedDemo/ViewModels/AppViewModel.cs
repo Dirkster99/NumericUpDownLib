@@ -1,7 +1,7 @@
 ﻿namespace ThemedDemo.ViewModels
 {
     using Base;
-    using ThemedDemo.Demos.ViewModels;
+    using UpDownDemoLib.Demos.ViewModels;
     using MLib.Interfaces;
     using Settings.Interfaces;
     using System;

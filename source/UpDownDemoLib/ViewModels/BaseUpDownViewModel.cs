@@ -1,11 +1,11 @@
-﻿namespace ThemedDemo.Demos.ViewModels
+﻿namespace UpDownDemoLib.ViewModels
 {
     /// <summary>
     /// Class implements an abstract base class that can be used as viewmodel
     /// for binding to a control that is based on the AbstractBaseUpDown control.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseUpDownViewModel<T> : ThemedDemo.ViewModels.Base.ViewModelBase
+    public abstract class BaseUpDownViewModel<T> : UpDownDemoLib.ViewModels.Base.ViewModelBase
     {
         #region fields
         private T _IntValue = default(T);

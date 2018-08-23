@@ -1,5 +1,7 @@
-﻿namespace ThemedDemo.Demos.ViewModels
+﻿namespace UpDownDemoLib.Demos.ViewModels
 {
+    using UpDownDemoLib.ViewModels;
+
     /// <summary>
     /// Implements an integer based demo viewmodel that can be used
     /// to drive an integer base numeric up down control.

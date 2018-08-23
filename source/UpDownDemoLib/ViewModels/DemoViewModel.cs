@@ -1,10 +1,10 @@
-﻿namespace ThemedDemo.Demos.ViewModels
+﻿namespace UpDownDemoLib.Demos.ViewModels
 {
     /// <summary>
     /// This viewmodel controls all aspects of the themed control demo
     /// in this test application.
     /// </summary>
-    public class DemoViewModel : ThemedDemo.ViewModels.Base.ViewModelBase
+    public class DemoViewModel : UpDownDemoLib.ViewModels.Base.ViewModelBase
     {
         #region private fields
         private IntegerUpDownViewModel _IntegerDemo = null;
@@ -18,7 +18,7 @@
         public DemoViewModel()
         {
             _IntegerDemo = new IntegerUpDownViewModel(98, -3, 105, 1);
-            _DoubleDemo = new DoubleUpDownViewModel(98, -3, 105, 1);
+            _DoubleDemo = new DoubleUpDownViewModel(50, 0, 100, 1);
         }
         #endregion constructors
 

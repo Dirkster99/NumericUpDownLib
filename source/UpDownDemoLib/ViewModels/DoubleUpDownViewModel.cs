@@ -1,5 +1,7 @@
-﻿namespace ThemedDemo.Demos.ViewModels
+﻿namespace UpDownDemoLib.Demos.ViewModels
 {
+    using UpDownDemoLib.ViewModels;
+
     public class DoubleUpDownViewModel : BaseUpDownViewModel<double>
     {
         /// <summary>
