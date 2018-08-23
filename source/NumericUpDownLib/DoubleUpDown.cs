@@ -42,18 +42,18 @@ namespace NumericUpDownLib
         /// </summary>
         public override void OnApplyTemplate()
         {
+            // base will connect to TextBoxChanged and GotFocus
             base.OnApplyTemplate();
 
             _PART_TextBox = this.GetTemplateChild(Part_TextBoxName) as TextBox;
 
             if (_PART_TextBox != null)
             {
-                _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
-
                 _PART_TextBox.PreviewKeyDown += textBox_PreviewKeyDown;
                 _PART_TextBox.PreviewTextInput += textBox_PreviewTextInput;
                 DataObject.AddPastingHandler(_PART_TextBox, textBox_TextPasted);
                 _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
+
                 _PART_TextBox.LostKeyboardFocus += _PART_TextBox_LostKeyboardFocus;
             }
         }

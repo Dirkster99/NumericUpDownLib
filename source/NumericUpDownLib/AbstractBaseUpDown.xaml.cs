@@ -3,6 +3,7 @@ namespace NumericUpDownLib
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
     /// <summary>
     /// Implements an up/down abstract base control.
@@ -84,6 +85,12 @@ namespace NumericUpDownLib
         private static readonly DependencyProperty DisplayLengthProperty =
                                 DependencyProperty.Register("DisplayLength", typeof(byte),
                                     typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
+
+        private static readonly DependencyProperty SelectAllTextOnFocusProperty =
+            DependencyProperty.Register("SelectAllTextOnFocus",
+                typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
+
+
 
         /// <summary>
         /// Gets/sets the default applicable minimum value
@@ -193,6 +200,16 @@ namespace NumericUpDownLib
             get { return (byte)GetValue(DisplayLengthProperty); }
             set { SetValue(DisplayLengthProperty, value); }
         }
+
+        /// <summary>
+        /// Gets/sets a dependency property to determine whether all text
+        /// in the textbox should be selected on textbox focus or not.
+        /// </summary>
+        public bool SelectAllTextOnFocus
+        {
+            get { return (bool)GetValue(SelectAllTextOnFocusProperty); }
+            set { SetValue(SelectAllTextOnFocusProperty, value); }
+        }
         #endregion properties
 
         #region methods
@@ -209,6 +226,18 @@ namespace NumericUpDownLib
             if (_PART_TextBox != null)
             {
                 _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
+                _PART_TextBox.GotKeyboardFocus += _PART_TextBox_GotKeyboardFocus;
+            }
+        }
+
+        private void _PART_TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var tb = sender as TextBox;
+
+            if (SelectAllTextOnFocus == true)
+            {
+                if (tb != null)
+                    tb.SelectAll();
             }
         }
 
