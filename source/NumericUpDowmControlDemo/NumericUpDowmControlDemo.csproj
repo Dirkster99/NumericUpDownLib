@@ -54,8 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\Base\ViewModelBase.cs" />
-    <Compile Include="ViewModel\DemoViewModel.cs" />
+    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\DemoViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,6 +100,10 @@
     <ProjectReference Include="..\NumericUpDownLib\NumericUpDownLib.csproj">
       <Project>{98e332ac-86e6-4db3-a757-4d84432b4a2b}</Project>
       <Name>NumericUpDownLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UpDownDemoLib\UpDownDemoLib.csproj">
+      <Project>{ed3a742d-4055-4da2-bbce-74e817b211bf}</Project>
+      <Name>UpDownDemoLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

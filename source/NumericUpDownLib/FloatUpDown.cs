@@ -3,38 +3,37 @@ namespace NumericUpDownLib
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Controls;
 
     /// <summary>
-    /// Implements a Byte based Numeric Up/Down control.
+    /// Implements a <see cref="float"/> based Numeric Up/Down control.
     /// 
     /// Original Source:
     /// http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
-    public partial class DoubleUpDown : AbstractBaseUpDown<double>
+    public partial class FloatUpDown : AbstractBaseUpDown<float>
     {
         #region constructor
         /// <summary>
         /// Static class constructor
         /// </summary>
-        static DoubleUpDown()
+        static FloatUpDown()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DoubleUpDown),
-                       new FrameworkPropertyMetadata(typeof(DoubleUpDown)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatUpDown),
+                       new FrameworkPropertyMetadata(typeof(FloatUpDown)));
 
             // overide default values inherited dependency properties
-            MaxValueProperty.OverrideMetadata(typeof(DoubleUpDown),
-                                              new FrameworkPropertyMetadata(double.MaxValue));
-            MinValueProperty.OverrideMetadata(typeof(DoubleUpDown),
-                                              new FrameworkPropertyMetadata(double.MinValue));
-            FormatStringProperty.OverrideMetadata(typeof(DoubleUpDown),
+            MaxValueProperty.OverrideMetadata(typeof(FloatUpDown),
+                                              new FrameworkPropertyMetadata(float.MaxValue));
+            MinValueProperty.OverrideMetadata(typeof(FloatUpDown),
+                                              new FrameworkPropertyMetadata(float.MinValue));
+            FormatStringProperty.OverrideMetadata(typeof(FloatUpDown),
                                                   new FrameworkPropertyMetadata("F2"));
         }
 
         /// <summary>
         /// Initializes a new instance of the AbstractBaseUpDown Control.
         /// </summary>
-        public DoubleUpDown()
+        public FloatUpDown()
             : base()
         {
         }
@@ -104,16 +103,13 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override double CoerceValue(double newValue)
+        protected override float CoerceValue(float newValue)
         {
-            double min = MinValue;
-            double max = MaxValue;
+            if (newValue < MinValue)
+                return MinValue;
 
-            if (newValue < min)
-                return min;
-
-            if (newValue > max)
-                return max;
+            if (newValue > MaxValue)
+                return MaxValue;
 
             return newValue;
         }
@@ -125,7 +121,7 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override double CoerceMinValue(double newValue)
+        protected override float CoerceMinValue(float newValue)
         {
             newValue = Math.Min(MinValue, Math.Min(MaxValue, newValue));
 
@@ -139,7 +135,7 @@ namespace NumericUpDownLib
         /// </summary>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        protected override double CoerceMaxValue(double newValue)
+        protected override float CoerceMaxValue(float newValue)
         {
             newValue = Math.Max(this.MinValue, Math.Max(this.MaxValue, newValue));
 
@@ -156,10 +152,10 @@ namespace NumericUpDownLib
         protected override void FormatText(string text,
                                 bool formatNumber = true)
         {
-            double number = 0;
+            float number = 0;
 
             // Does this text represent a valid number ?
-            if (double.TryParse(text, base.NumberStyle,
+            if (float.TryParse(text, base.NumberStyle,
                                 CultureInfo.CurrentCulture, out number) == true)
             {
                 // yes -> but is the number within bounds?
@@ -193,7 +189,7 @@ namespace NumericUpDownLib
             }
         }
 
-        private string FormatNumber(double number)
+        private string FormatNumber(float number)
         {
             string format = "{0}";
 

@@ -33,9 +33,9 @@
                                 AcceptsReturn="False"
                                 SpellCheck.IsEnabled="False"
                                 HorizontalContentAlignment="Stretch"
-                                VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
+                                VerticalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                VerticalAlignment="Stretch"
                                 IsReadOnly="{TemplateBinding IsReadOnly}"
                             />
 
@@ -76,13 +76,26 @@
         </Setter>
     </Style>
 
-    <!-- Styles an Integer based numeric up down control based on the InputBaseUpDown control style -->
-    <Style TargetType="{x:Type local:NumericUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
-
+    <!-- Styles a byte based numeric up down control based on the InputBaseUpDown control style -->
     <Style TargetType="{x:Type local:ByteUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
 
     <Style TargetType="{x:Type local:DecimalUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
 
     <Style TargetType="{x:Type local:DoubleUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+
+    <Style TargetType="{x:Type local:LongUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+
+    <!-- Styles an Integer based numeric up down control based on the InputBaseUpDown control style -->
+    <Style TargetType="{x:Type local:NumericUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+
+    <Style TargetType="{x:Type local:SByteUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+
+    <Style TargetType="{x:Type local:ShortUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+
+    <Style TargetType="{x:Type local:FloatUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+
+    <Style TargetType="{x:Type local:UIntegerUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+    <Style TargetType="{x:Type local:UShortUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
+    <Style TargetType="{x:Type local:ULongUpDown}" BasedOn="{StaticResource InputBaseUpDownStyle}" />
 
 </ResourceDictionary>

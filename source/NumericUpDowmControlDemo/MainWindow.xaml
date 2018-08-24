@@ -3,65 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
         xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="450" Width="525">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Orientation="Vertical">
-            <cntrl:NumericUpDown Name="SampleUpDown"
-                    HorizontalAlignment="Left"
-                    MinValue="{Binding MyIntMinimumValue}"
-                    MaxValue="{Binding MyIntMaximumValue}"
-                    Value="{Binding MyIntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                    StepSize="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                    ToolTip="{Binding MyToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                    IsReadOnly="False"
-                    Grid.Column="0" VerticalAlignment="Top" Margin="3" MinWidth="80" />
-
-            <Slider Value="{Binding MyIntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,12,0,0"
-                    Minimum="1"
-                    Maximum="1024"
-                    ToolTip="The StepSize changes the size of increment on button click."
-                    />
-            <TextBlock>StepSize: <TextBlock Text="{Binding MyIntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-            </TextBlock>
-
-            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
-                      Content="IsReadOnly"
-                      Margin="0,6,0,0"
-                      ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
-                      />
-
-            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
-                      Content="IsEnabled"
-                      Margin="0,6,0,0"
-                      ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
-                      />
-        </StackPanel>
-
-        <Grid Grid.Column="1" Margin="12,3,3,3">
-            <GroupBox Header="Debugging Values">
-                <StackPanel>
-                    <StackPanel Margin="3">
-                        <Label Content="Actual Value:" />
-                        <TextBox IsReadOnly="True" Text="{Binding MyIntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                    </StackPanel>
-
-                    <StackPanel Margin="3">
-                        <Label Content="Minimum Value:" />
-                        <TextBox IsReadOnly="True" Text="{Binding MyIntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                    </StackPanel>
-
-                    <StackPanel Margin="3">
-                        <Label Content="Maximum Value:" />
-                        <TextBox IsReadOnly="True" Text="{Binding MyIntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                    </StackPanel>
-                </StackPanel>
-            </GroupBox>
-        </Grid>
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2"
+                        xmlns:demoviews="clr-namespace:UpDownDemoLib.Views;assembly=UpDownDemoLib"
+                        >
+            <TabItem Header="Byte">
+                <demoviews:ByteUpDownDemo DataContext="{Binding Demo.ByteDemo}"/>
+            </TabItem>
+            <TabItem Header="Decimal">
+                <demoviews:DecimalUpDownDemo DataContext="{Binding Demo.DecimalDemo}"/>
+            </TabItem>
+            <TabItem Header="Double">
+                <demoviews:DoubleUpDownDemo DataContext="{Binding Demo.DoubleDemo}"/>
+            </TabItem>
+            <TabItem Header="Float">
+                <demoviews:FloatUpDownDemo DataContext="{Binding Demo.FloatDemo}"/>
+            </TabItem>
+            <TabItem Header="Integer">
+                <demoviews:NumericUpDownDemo DataContext="{Binding Demo.IntegerDemo}"/>
+            </TabItem>
+            <TabItem Header="SByte">
+                <demoviews:SByteUpDownDemo DataContext="{Binding Demo.SByteDemo}"/>
+            </TabItem>
+            <TabItem Header="Long">
+                <demoviews:LongUpDownDemo DataContext="{Binding Demo.LongDemo}"/>
+            </TabItem>
+            <TabItem Header="Short">
+                <demoviews:ShortUpDownDemo DataContext="{Binding Demo.ShortDemo}"/>
+            </TabItem>
+            <TabItem Header="UShort">
+                <demoviews:UShortUpDownDemo DataContext="{Binding Demo.UShortDemo}"/>
+            </TabItem>
+            <TabItem Header="UInteger">
+                <demoviews:UIntegerUpDownDemo DataContext="{Binding Demo.UIntegerDemo}"/>
+            </TabItem>
+            <TabItem Header="ULong">
+                <demoviews:ULongUpDownDemo DataContext="{Binding Demo.ULongDemo}"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

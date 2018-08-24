@@ -1,15 +1,16 @@
 namespace NumericUpDownLib
 {
     using System;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
     /// Implements a Byte based Numeric Up/Down control.
     /// 
-    /// Source: http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
+    /// Original Source:
+    /// http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
-    [TemplatePart(Name = Part_TextBoxName, Type = typeof(TextBox))]
     public partial class ByteUpDown : AbstractBaseUpDown<byte>
     {
         #region constructor
@@ -20,6 +21,12 @@ namespace NumericUpDownLib
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ByteUpDown),
                        new FrameworkPropertyMetadata(typeof(ByteUpDown)));
+
+            // overide default values inherited dependency properties
+            MaxValueProperty.OverrideMetadata(typeof(ByteUpDown),
+                                              new FrameworkPropertyMetadata(byte.MaxValue));
+            MinValueProperty.OverrideMetadata(typeof(ByteUpDown),
+                                              new FrameworkPropertyMetadata(byte.MinValue));
         }
 
         /// <summary>
@@ -32,54 +39,6 @@ namespace NumericUpDownLib
         #endregion constructor
 
         #region methods
-        /// <summary>
-        /// is invoked whenever application code or internal processes call
-        /// System.Windows.FrameworkElement.ApplyTemplate.
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            _PART_TextBox = this.GetTemplateChild(Part_TextBoxName) as TextBox;
-
-            if (_PART_TextBox != null)
-            {
-                _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
-            }
-        }
-
-        /// <summary>
-        /// Method executes when the text portion in the textbox is changed
-        /// The Value is corrected to a valid value if text was illegal or
-        /// value was outside of the specified bounds.
-        /// 
-        /// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control#2752538
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected override void _PART_TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            byte number = 0;
-
-            if (_PART_TextBox.Text != "")
-            {
-                if (byte.TryParse(_PART_TextBox.Text, out number) == false)
-                    _PART_TextBox.Text = MinValue.ToString();
-                else
-                {
-                    if (number >= MaxValue)
-                        _PART_TextBox.Text = MaxValue.ToString();
-                    else
-                    {
-                        if (number <= MinValue)
-                            _PART_TextBox.Text = MinValue.ToString();
-                    }
-
-                    _PART_TextBox.SelectionStart = _PART_TextBox.Text.Length;
-                }
-            }
-        }
-
         /// <summary>
         /// Increase the displayed integer value
         /// </summary>
@@ -151,14 +110,11 @@ namespace NumericUpDownLib
         /// <returns></returns>
         protected override byte CoerceValue(byte newValue)
         {
-            byte min = MinValue;
-            byte max = MaxValue;
+            if (newValue < MinValue)
+                return MinValue;
 
-            if (newValue < min)
-                return min;
-
-            if (newValue > max)
-                return max;
+            if (newValue > MaxValue)
+                return MaxValue;
 
             return newValue;
         }
@@ -189,6 +145,64 @@ namespace NumericUpDownLib
             newValue = Math.Max(this.MinValue, Math.Max(this.MaxValue, newValue));
 
             return newValue;
+        }
+
+        /// <summary>
+        /// Checks if the current string entered in the textbox is valid
+        /// and conforms to a known format
+        /// (<see cref="AbstractBaseUpDown{T}"/> base method for more details).
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="formatNumber"></param>
+        protected override void FormatText(string text, bool formatNumber = true)
+        {
+            byte number = 0;
+
+            // Does this text represent a valid number ?
+            if (byte.TryParse(text, base.NumberStyle,
+                              CultureInfo.CurrentCulture, out number) == true)
+            {
+                // yes -> but is the number within bounds?
+                if (number >= MaxValue)
+                {
+                    // Larger than allowed maximum
+                    _PART_TextBox.Text = FormatNumber(MaxValue);
+                    _PART_TextBox.SelectionStart = 0;
+                }
+                else
+                {
+                    if (number <= MinValue)
+                    {
+                        // Smaller than allowed minimum
+                        _PART_TextBox.Text = FormatNumber(MinValue);
+                        _PART_TextBox.SelectionStart = 0;
+                    }
+                    else
+                    {
+                        // Number is valid and within bounds, just format if requested
+                        if (formatNumber == true)
+                            _PART_TextBox.Text = FormatNumber(number);
+                    }
+                }
+            }
+            else
+            {
+                // Reset to minimum value since string does not appear to represent a number
+                _PART_TextBox.SelectionStart = 0;
+                _PART_TextBox.Text = FormatNumber(MinValue);
+            }
+        }
+
+        private string FormatNumber(byte number)
+        {
+            string format = "{0}";
+
+            var form = (string)GetValue(FormatStringProperty);
+
+            if (string.IsNullOrEmpty(this.FormatString) == false)
+                format = "{0:" + this.FormatString + "}";
+
+            return string.Format(format, number);
         }
         #endregion methods
     }

@@ -3,10 +3,10 @@
     using UpDownDemoLib.ViewModels;
 
     /// <summary>
-    /// Implements an <see cref="int"/>  based demo viewmodel that can be used
+    /// Implements a <see cref="short"/> based demo viewmodel that can be used
     /// to drive an integer base numeric up down control.
     /// </summary>
-    public class IntegerUpDownViewModel : BaseUpDownViewModel<int>
+    public class ShortUpDownViewModel : BaseUpDownViewModel<short>
     {
         /// <summary>
         /// Class constructor
@@ -15,10 +15,10 @@
         /// <param name="minimumValue"></param>
         /// <param name="maximumValue"></param>
         /// <param name="stepSize"></param>
-        public IntegerUpDownViewModel(int value,
-                                      int minimumValue,
-                                      int maximumValue,
-                                      int stepSize
+        public ShortUpDownViewModel(short value,
+                                    short minimumValue,
+                                    short maximumValue,
+                                    short stepSize
             )
             : base()
         {
@@ -36,9 +36,9 @@
         /// <param name="intValue"></param>
         /// <param name="intValue1"></param>
         /// <returns></returns>
-        public override bool Compare(int intValue, int intValue1)
+        public override bool Compare(short intValue, short intValue1)
         {
-            return int.Equals(intValue, intValue1);
+            return short.Equals(intValue, intValue1);
         }
     }
 }

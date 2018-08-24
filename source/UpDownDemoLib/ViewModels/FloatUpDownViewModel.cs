@@ -3,10 +3,10 @@
     using UpDownDemoLib.ViewModels;
 
     /// <summary>
-    /// Implements an <see cref="int"/>  based demo viewmodel that can be used
+    /// Implements an <see cref="float"/>  based demo viewmodel that can be used
     /// to drive an integer base numeric up down control.
     /// </summary>
-    public class IntegerUpDownViewModel : BaseUpDownViewModel<int>
+    public class FloatUpDownViewModel : BaseUpDownViewModel<float>
     {
         /// <summary>
         /// Class constructor
@@ -15,10 +15,10 @@
         /// <param name="minimumValue"></param>
         /// <param name="maximumValue"></param>
         /// <param name="stepSize"></param>
-        public IntegerUpDownViewModel(int value,
-                                      int minimumValue,
-                                      int maximumValue,
-                                      int stepSize
+        public FloatUpDownViewModel(float value,
+                                    float minimumValue,
+                                    float maximumValue,
+                                    float stepSize
             )
             : base()
         {
@@ -28,17 +28,12 @@
             base.StepSize = stepSize;
         }
 
-        /// <summary>
         /// Method determine whether to objects of type {T} are equal.
         /// 
         /// Returns false if both objects are in-equal, otherwise true.
-        /// </summary>
-        /// <param name="intValue"></param>
-        /// <param name="intValue1"></param>
-        /// <returns></returns>
-        public override bool Compare(int intValue, int intValue1)
+        public override bool Compare(float intValue, float intValue1)
         {
-            return int.Equals(intValue, intValue1);
+            return float.Equals(intValue, intValue1);
         }
     }
 }

@@ -12,7 +12,7 @@
     {
       InitializeComponent();
 
-      DataContext = new DemoViewModel();
+      DataContext = new AppViewModel();
     }
   }
 }

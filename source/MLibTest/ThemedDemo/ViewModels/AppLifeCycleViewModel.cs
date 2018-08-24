@@ -128,8 +128,8 @@
                 // Add additional Dark resources to those theme resources added above
                 appearance.AddThemeResources("Dark", new List<Uri>
                 {
-                  // Todo: Add Additional references to theming resources here
-                  new Uri("/MWindowLib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
+                  new Uri("/ThemedDemo;component/AppLocalResources.xaml", UriKind.RelativeOrAbsolute)
+                 ,new Uri("/MWindowLib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
                  ,new Uri("/NumericUpDownLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                  ,new Uri("/ThemedDemo;component/BindToMLib/NumericUpDownLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
@@ -146,8 +146,8 @@
                 // Add additional Light resources to those theme resources added above
                 appearance.AddThemeResources("Light", new List<Uri>
                 {
-                  // Todo: Add Additional references to theming resources here
-                  new Uri("/MWindowLib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
+                  new Uri("/ThemedDemo;component/AppLocalResources.xaml", UriKind.RelativeOrAbsolute)
+                 ,new Uri("/MWindowLib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
                  ,new Uri("/NumericUpDownLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                  ,new Uri("/ThemedDemo;component/BindToMLib/NumericUpDownLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)

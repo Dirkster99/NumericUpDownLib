@@ -25,7 +25,7 @@
             StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
             ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
             IsReadOnly="False"
-            DisplayLength="5"
+            DisplayLength="10"
             IsDisplayLengthFixed="True"
             Grid.Column="0"
             Margin="3" />
@@ -36,35 +36,59 @@
             </Grid.Resources>
             <GroupBox Header="Debugging Values">
                 <StackPanel>
-                    <StackPanel Margin="3">
-                        <Label Content="Actual Value:"/>
-                        <Slider Value="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                Minimum="{Binding MinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                Maximum="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                />
-                        <TextBox IsReadOnly="True"
-                                 Text="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Margin="12">
-                        <Label Content="Minimum Value:" />
-                        <Slider Value="{Binding MinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                Minimum="-2147483647"
+                        <StackPanel Margin="3" Grid.Column="0">
+                            <Label Content="Actual Value:"/>
+                            <Slider Value="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Minimum="{Binding MinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                    Maximum="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                />
+                            <TextBox IsReadOnly="True"
+                                 Text="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="3" Grid.Column="1">
+                            <Label Content="Step Size:"/>
+                            <Slider Value="{Binding StepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                    Minimum="1"
+                                    Maximum="1024"
+                                    ToolTip="The StepSize changes the size of increment on button click."
+                            />
+                            <TextBox IsReadOnly="True"
+                                 Text="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="12">
+                            <Label Content="Minimum Value:" />
+                            <Slider Value="{Binding MinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                Minimum="2147483647"
                                 Maximum="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 />
-                        <TextBox IsReadOnly="True"
+                            <TextBox IsReadOnly="True"
                                  Text="{Binding MinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Margin="12">
-                        <Label Content="Maximum Value:" />
-                        <Slider Value="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                        <StackPanel Margin="12" Grid.Column="2">
+                            <Label Content="Maximum Value:" />
+                            <Slider Value="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 Minimum="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 Maximum="2147483647"
                                 />
-                        <TextBox IsReadOnly="True"
+                            <TextBox IsReadOnly="True"
                                  Text="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
 
                     <StackPanel Margin="12">
                         <Label Content="Display Length:" />
@@ -77,45 +101,35 @@
                     </StackPanel>
 
                     <StackPanel Margin="3" Orientation="Horizontal">
-                        <StackPanel>
-                            <Label Content="Is Visible:" />
-                            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=Visibility,Converter={StaticResource BoolToVisibilityConverter}}"
-                                      ToolTip="Check if value changes as expected when control is invisible."
-                                    />
-                        </StackPanel>
-                        <StackPanel Margin="12,0,0,0">
-                            <Label Content="Is Display Length Fixed:" />
-                            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsDisplayLengthFixed}"
-                                      ToolTip="Determines whether control shrinks or grows with its text portion input."
-                                    />
-                        </StackPanel>
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=Visibility,Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Content="Is Visible"
+                                    ToolTip="Check if value changes as expected when control is invisible."
+                                />
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsDisplayLengthFixed}"
+                                  Content="Is Display Length Fixed"
+                                  ToolTip="Determines whether control shrinks or grows with its text portion input."
+                                  Margin="21,0,0,0"
+                                />
 
-                        <StackPanel Margin="12,0,0,0">
-                            <Label Content="Is ReadOnly:" />
-                            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
-                                      ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
-                                    />
-                        </StackPanel>
-                        <StackPanel Margin="12,0,0,0">
-                            <Label Content="Is Enabled:" />
-                            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
-                                      ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
-                                    />
-                        </StackPanel>
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
+                                  Content="Is ReadOnly"
+                                  ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
+                                  Margin="21,0,0,0"
+                                />
+
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
+                                  Content="Is Enabled"
+                                  ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
+                                  Margin="21,0,0,0"
+                                />
                     </StackPanel>
-                    <Slider Value="{Binding StepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                            Margin="0,12,0,0"
-                            Minimum="1"
-                            Maximum="1024"
-                            ToolTip="The StepSize changes the size of increment on button click."
-                            />
-                    <TextBlock>StepSize: <TextBlock Text="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        </TextBlock>
 
                     <StackPanel Margin="0,6,0,0">
                         <CheckBox x:Name="IsPopUpOpen" Content="PopUp Test" />
-                        <Popup IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
-                            <Border>
+                        <Popup IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}" AllowsTransparency="True">
+                            <Border Background="{StaticResource PopUpBackground}"
+                                    BorderThickness="1"
+                                    BorderBrush="{StaticResource PopUpBorder}">
                                 <StackPanel Margin="3">
                                     <cntrl:DecimalUpDown
                                         Name="SamplePopUpDown"

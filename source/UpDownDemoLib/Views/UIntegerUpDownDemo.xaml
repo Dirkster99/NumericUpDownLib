@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UpDownDemoLib.Views.DoubleUpDownDemo"
+﻿<UserControl x:Class="UpDownDemoLib.Views.UIntegerUpDownDemo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <cntrl:DoubleUpDown
+        <cntrl:UIntegerUpDown
             Name="SampleUpDown"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
@@ -23,10 +23,10 @@
             MinValue="{Binding MinimumValue}"
             MaxValue="{Binding MaximumValue}"
             StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-            FormatString="F4"
             ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+            FormatString="D8"
             IsReadOnly="False"
-            DisplayLength="7"
+            DisplayLength="10"
             IsDisplayLengthFixed="True"
             Grid.Column="0"
             Margin="3" />
@@ -56,7 +56,7 @@
                             <Label Content="Step Size:"/>
                             <Slider Value="{Binding StepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                                     Minimum="1"
-                                    Maximum="1024"
+                                    Maximum="512"
                                     ToolTip="The StepSize changes the size of increment on button click."
                             />
                             <TextBox IsReadOnly="True"
@@ -73,7 +73,7 @@
                         <StackPanel Margin="12">
                             <Label Content="Minimum Value:" />
                             <Slider Value="{Binding MinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                Minimum="2147483647"
+                                Minimum="0"
                                 Maximum="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 />
                             <TextBox IsReadOnly="True"
@@ -84,7 +84,7 @@
                             <Label Content="Maximum Value:" />
                             <Slider Value="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 Minimum="{Binding Value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                Maximum="2147483647"
+                                Maximum="32767000"
                                 />
                             <TextBox IsReadOnly="True"
                                  Text="{Binding MaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
@@ -127,10 +127,12 @@
 
                     <StackPanel Margin="0,6,0,0">
                         <CheckBox x:Name="IsPopUpOpen" Content="PopUp Test" />
-                        <Popup IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
-                            <Border>
+                        <Popup IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}" AllowsTransparency="True">
+                            <Border Background="{StaticResource PopUpBackground}"
+                                    BorderThickness="1"
+                                    BorderBrush="{StaticResource PopUpBorder}">
                                 <StackPanel Margin="3">
-                                    <cntrl:DoubleUpDown
+                                    <cntrl:UIntegerUpDown
                                         Name="SamplePopUpDown"
                                         HorizontalAlignment="Left"
                                         MinValue="{Binding MinimumValue}"

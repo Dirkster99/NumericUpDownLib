@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NumericUpDownLib;component/Themes/LightBrushs.xaml" />
-                <!-- ResourceDictionary Source="/NumericUpDownLib;component/Themes/DarkBrushs.xaml" / -->
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+
+        <!-- Pop-Up color must be themed this way since Generic demo app does not use MLib definitions -->
+        <SolidColorBrush x:Key="PopUpBackground" Color="White"/>
+        <SolidColorBrush x:Key="PopUpBorder" Color="Black"/>
     </Application.Resources>
 </Application>

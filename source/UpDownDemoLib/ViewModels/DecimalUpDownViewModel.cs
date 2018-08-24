@@ -3,7 +3,7 @@
     using UpDownDemoLib.ViewModels;
 
     /// <summary>
-    /// Implements an integer based demo viewmodel that can be used
+    /// Implements an <see cref="decimal"/> based demo viewmodel that can be used
     /// to drive an integer base numeric up down control.
     /// </summary>
     public class DecimalUpDownViewModel : BaseUpDownViewModel<decimal>

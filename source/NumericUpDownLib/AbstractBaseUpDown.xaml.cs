@@ -11,7 +11,7 @@ namespace NumericUpDownLib
     /// Source: http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
     [TemplatePart(Name = Part_TextBoxName, Type = typeof(TextBox))]
-    [TemplatePart(Name = PART_MeasuringFrameWorkElementName, Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = PART_MeasuringElement, Type = typeof(FrameworkElement))]
     public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown
     {
         #region fields
@@ -23,14 +23,23 @@ namespace NumericUpDownLib
         /// <summary>
         /// Gets the required tamplate name of the textbox portion of this control.
         /// </summary>
-        public const string PART_MeasuringFrameWorkElementName = "PART_Measuring_Element";
+        public const string PART_MeasuringElement = "PART_Measuring_Element";
 
         /// <summary>
-        /// Holds the REQUIRED textbox instance part for this control.
+        /// Gets/sets the default applicable minimum value
+        /// 
+        /// Set this value in the static constructor of an inheriting class if a different
+        /// default format string is more appropriate in the context of that inheriting class.
         /// </summary>
-        protected TextBox _PART_TextBox;
+        protected static T _MinValue = default(T);
 
-        private FrameworkElement _PART_Measuring_Element;
+        /// <summary>
+        /// Gets/sets the default applicable maximum value
+        /// 
+        /// Set this value in the static constructor of an inheriting class if a different
+        /// default format string is more appropriate in the context of that inheriting class.
+        /// </summary>
+        protected static T _MaxValue = default(T);
 
         /// <summary>
         /// Dependency property backing store for the Value property.
@@ -38,7 +47,7 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value",
                                         typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(mMinValue,
+                                        new FrameworkPropertyMetadata(_MinValue,
                                         new PropertyChangedCallback(OnValueChanged),
                                         new CoerceValueCallback(CoerceValue)));
 
@@ -53,7 +62,7 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty MinValueProperty =
             DependencyProperty.Register("MinValue",
                                         typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(mMinValue,
+                                        new FrameworkPropertyMetadata(_MinValue,
                                         new PropertyChangedCallback(OnMinValueChanged),
                                         new CoerceValueCallback(CoerceMinValue)));
 
@@ -63,7 +72,7 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register("MaxValue",
                                         typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(mMaxValue,
+                                        new FrameworkPropertyMetadata(_MaxValue,
                                         new PropertyChangedCallback(OnMaxValueChanged),
                                         new CoerceValueCallback(CoerceMaxValue)));
 
@@ -104,14 +113,23 @@ namespace NumericUpDownLib
                 typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
         /// <summary>
-        /// Gets/sets the default applicable minimum value
+        /// Backing store for dependency property for .Net FormatString that is
+        /// applied to the textbox text portion of the up down control.
         /// </summary>
-        protected static T mMinValue = default(T);
+        public static readonly DependencyProperty FormatStringProperty =
+            DependencyProperty.Register("FormatString", typeof(string),
+                typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G"));
 
         /// <summary>
-        /// Gets/sets the default applicable maximum value
+        /// Holds the REQUIRED textbox instance part for this control.
         /// </summary>
-        protected static T mMaxValue = default(T);
+        protected TextBox _PART_TextBox;
+
+        /// <summary>
+        /// Measures the required space for a string of a certain length
+        /// with a standard control to ensure that enough digits are visible.
+        /// </summary>
+        private FrameworkElement _PART_Measuring_Element;
         #endregion fields
 
         #region constructor
@@ -130,6 +148,7 @@ namespace NumericUpDownLib
         public AbstractBaseUpDown()
             : base()
         {
+            UserInput = false;
         }
         #endregion constructor
 
@@ -224,6 +243,16 @@ namespace NumericUpDownLib
         }
 
         /// <summary>
+        /// Gets/sets a .Net FormatString that is applied to the textbox text
+        /// portion of the up down control.
+        /// </summary>
+        public string FormatString
+        {
+            get { return (string)GetValue(FormatStringProperty); }
+            set { SetValue(FormatStringProperty, value); }
+        }
+
+        /// <summary>
         /// Gets/sets a dependency property to determine whether all text
         /// in the textbox should be selected on textbox focus or not.
         /// </summary>
@@ -232,11 +261,16 @@ namespace NumericUpDownLib
             get { return (bool)GetValue(SelectAllTextOnFocusProperty); }
             set { SetValue(SelectAllTextOnFocusProperty, value); }
         }
+
+        /// <summary>
+        /// Determines whether last text input was from a user (key was down) or not.
+        /// </summary>
+        protected bool UserInput { get; set; }
         #endregion properties
 
         #region methods
         /// <summary>
-        /// is invoked whenever application code or internal processes call
+        /// Is invoked whenever application code or internal processes call
         /// System.Windows.FrameworkElement.ApplyTemplate.
         /// </summary>
         public override void OnApplyTemplate()
@@ -244,14 +278,55 @@ namespace NumericUpDownLib
             base.OnApplyTemplate();
 
             _PART_TextBox = this.GetTemplateChild(Part_TextBoxName) as TextBox;
-            _PART_Measuring_Element = this.GetTemplateChild(PART_MeasuringFrameWorkElementName) as FrameworkElement;
+            _PART_Measuring_Element = this.GetTemplateChild(PART_MeasuringElement) as FrameworkElement;
 
             if (_PART_TextBox != null)
             {
-                _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
-                _PART_TextBox.GotKeyboardFocus += _PART_TextBox_GotKeyboardFocus;
-
                 BindMeasuringObject(IsDisplayLengthFixed);
+
+                FormatText(_PART_TextBox.Text);  // Ensure initial text is according to format
+
+                _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
+
+                _PART_TextBox.GotKeyboardFocus += _PART_TextBox_GotKeyboardFocus;
+                _PART_TextBox.LostKeyboardFocus += _PART_TextBox_LostKeyboardFocus;
+
+                _PART_TextBox.PreviewKeyDown += textBox_PreviewKeyDown;
+                _PART_TextBox.PreviewTextInput += textBox_PreviewTextInput;
+                DataObject.AddPastingHandler(_PART_TextBox, textBox_TextPasted);
+            }
+        }
+
+        #region textinput handlers
+        /// <summary>
+        /// Method executes when the text portion in the textbox is changed
+        /// The Value is corrected to a valid value if text was illegal or
+        /// value was outside of the specified bounds.
+        /// 
+        /// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control#2752538
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void _PART_TextBox_TextChanged(object sender,
+                                                 TextChangedEventArgs e)
+        {
+            if (_PART_TextBox != null)
+            {
+                if (UserInput == true)
+                {
+                    int pos = _PART_TextBox.CaretIndex;
+
+                    FormatText(_PART_TextBox.Text, false);
+
+                    if (_PART_TextBox.IsFocused == false)
+                        UserInput = false;
+
+                    _PART_TextBox.CaretIndex = pos;
+                }
+                else
+                {
+                    FormatText(_PART_TextBox.Text);
+                }
             }
         }
 
@@ -266,38 +341,67 @@ namespace NumericUpDownLib
             }
         }
 
+        private void _PART_TextBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (_PART_TextBox != null)
+                FormatText(_PART_TextBox.Text);
+        }
+
         /// <summary>
-        /// Method executes when the text portion in the textbox is changed
-        /// The Value is corrected to a valid value if text was illegal or
-        /// value was outside of the specified bounds.
-        /// 
-        /// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control#2752538
+        /// Catches pasting
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected abstract void _PART_TextBox_TextChanged(object sender, TextChangedEventArgs e);
-        /***
-            int number = 0;
-
-            if (_PART_TextBox.Text != "")
+        private void textBox_TextPasted(object sender, DataObjectPastingEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (e.SourceDataObject.GetDataPresent(DataFormats.Text, true) == false)
             {
-                if (int.TryParse(_PART_TextBox.Text, out number) == false)
-                    _PART_TextBox.Text = MinValue.ToString();
-                else
-                {
-                    if (number >= MaxValue)
-                        _PART_TextBox.Text = MaxValue.ToString();
-                    else
-                    {
-                        if (number <= MinValue)
-                            _PART_TextBox.Text = MinValue.ToString();
-                    }
-
-                    _PART_TextBox.SelectionStart = _PART_TextBox.Text.Length;
-                }
+                return;
             }
-        ***/
 
+            UserInput = true;
+        }
+
+        /// <summary>
+        /// Catches Backspace, Delete, Enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            UserInput = true;
+        }
+
+        /// <summary>
+        /// Catches pasting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            UserInput = true;
+        }
+
+        /// <summary>
+        /// Checks if the current string entered in the textbox is:
+        /// 1) A valid number (syntax)
+        /// 2) within bounds (Min &lt;= number &lt;= Max )
+        /// 
+        /// 3) adjusts the string if it appears to be invalid and
+        /// 
+        /// 4) <paramref name="formatNumber"/> true:
+        ///    Applies the FormatString property to format the text in a certain way
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="formatNumber"></param>
+        protected abstract void FormatText(string text, bool formatNumber = true);
+        #endregion textinput handlers
+
+        #region Coerce Value MinValue MaxValue abstract methods
         /// <summary>
         /// Attempts to force the new value into the existing dependency property
         /// and attempts backup plans (uses minimum or maximum values) if value appears
@@ -306,19 +410,6 @@ namespace NumericUpDownLib
         /// <param name="NewValue"></param>
         /// <returns></returns>
         protected abstract T CoerceValue(T NewValue);
-        /***
-                    if (newValue <= control.MinValue)
-                    {
-                        newValue = control.MinValue;
-                    }
-                    else
-                    {
-                        if (newValue >= control.MaxValue)
-                            newValue = control.MaxValue;
-                    }
-
-                    return newValue;
-        ***/
 
         /// <summary>
         /// Attempts to force the new Minimum value into the existing dependency property
@@ -328,11 +419,6 @@ namespace NumericUpDownLib
         /// <param name="NewValue"></param>
         /// <returns></returns>
         protected abstract T CoerceMinValue(T NewValue);
-        /***
-            newValue = Math.Min(control.MinValue, Math.Min(control.MaxValue, newValue));
-
-            return newValue;
-        ***/
 
         /// <summary>
         /// Attempts to force the new Minimum value into the existing dependency property
@@ -342,11 +428,7 @@ namespace NumericUpDownLib
         /// <param name="NewValue"></param>
         /// <returns></returns>
         protected abstract T CoerceMaxValue(T NewValue);
-        /***
-            newValue = Math.Max(control.MinValue, Math.Max(control.MaxValue, newValue));
-
-            return newValue;
-        ***/
+        #endregion  Coerce Value MinValue MaxValue abstract methods
 
         #region Value dependency property helper methods
         /// <summary>

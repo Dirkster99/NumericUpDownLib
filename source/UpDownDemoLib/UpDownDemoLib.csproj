@@ -49,11 +49,39 @@
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\FloatUpDownViewModel.cs" />
+    <Compile Include="ViewModels\UIntegerUpDownViewModel.cs" />
+    <Compile Include="ViewModels\ULongUpDownViewModel.cs" />
+    <Compile Include="ViewModels\UShortUpDownViewModel.cs" />
+    <Compile Include="ViewModels\ShortUpDownViewModel.cs" />
+    <Compile Include="ViewModels\LongUpDownViewModel.cs" />
+    <Compile Include="ViewModels\SByteUpDownViewModel.cs" />
     <Compile Include="ViewModels\DecimalUpDownViewModel.cs" />
     <Compile Include="ViewModels\DemoViewModel.cs" />
     <Compile Include="ViewModels\DoubleUpDownViewModel.cs" />
     <Compile Include="ViewModels\ByteUpDownViewModel.cs" />
     <Compile Include="ViewModels\IntegerUpDownViewModel.cs" />
+    <Compile Include="Views\FloatUpDownDemo.xaml.cs">
+      <DependentUpon>FloatUpDownDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UIntegerUpDownDemo.xaml.cs">
+      <DependentUpon>UIntegerUpDownDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ULongUpDownDemo.xaml.cs">
+      <DependentUpon>ULongUpDownDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UShortUpDownDemo.xaml.cs">
+      <DependentUpon>UShortUpDownDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShortUpDownDemo.xaml.cs">
+      <DependentUpon>ShortUpDownDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LongUpDownDemo.xaml.cs">
+      <DependentUpon>LongUpDownDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SByteUpDownDemo.xaml.cs">
+      <DependentUpon>SByteUpDownDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ByteUpDownDemo.xaml.cs">
       <DependentUpon>ByteUpDownDemo.xaml</DependentUpon>
     </Compile>
@@ -68,6 +96,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\FloatUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UIntegerUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ULongUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UShortUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ShortUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LongUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SByteUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ByteUpDownDemo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

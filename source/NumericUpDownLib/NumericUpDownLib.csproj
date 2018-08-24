@@ -49,6 +49,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FloatUpDown.cs" />
+    <Compile Include="ULongUpDown.cs" />
+    <Compile Include="UIntegerUpDown.cs" />
+    <Compile Include="UShortUpDown.cs" />
+    <Compile Include="ShortUpDown.cs" />
+    <Compile Include="LongUpDown.cs" />
+    <Compile Include="SByteUpDown.cs" />
     <Compile Include="DoubleUpDown.cs" />
     <Compile Include="DecimalUpDown.cs" />
     <Compile Include="ByteUpDown.cs" />

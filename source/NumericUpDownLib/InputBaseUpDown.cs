@@ -1,5 +1,6 @@
 ﻿namespace NumericUpDownLib
 {
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -18,6 +19,13 @@
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register("IsReadOnly",
                 typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(true));
+
+        /// <summary>
+        /// Determines the allowed style of a number entered and displayed in the textbox.
+        /// </summary>
+        public static readonly DependencyProperty NumberStyleProperty =
+            DependencyProperty.Register("NumberStyle", typeof(NumberStyles),
+                typeof(InputBaseUpDown), new PropertyMetadata(NumberStyles.Any));
 
         private static RoutedCommand mIncreaseCommand;
         private static RoutedCommand mDecreaseCommand;
@@ -62,6 +70,15 @@
         {
             get { return (bool)GetValue(IsReadOnlyProperty); }
             set { SetValue(IsReadOnlyProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets/sets the allowed style of a number entered and displayed in the textbox.
+        /// </summary>
+        public NumberStyles NumberStyle
+        {
+            get { return (NumberStyles)GetValue(NumberStyleProperty); }
+            set { SetValue(NumberStyleProperty, value); }
         }
         #endregion properties
 

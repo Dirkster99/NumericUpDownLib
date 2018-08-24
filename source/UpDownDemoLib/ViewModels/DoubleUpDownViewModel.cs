@@ -2,6 +2,10 @@
 {
     using UpDownDemoLib.ViewModels;
 
+    /// <summary>
+    /// Implements an <see cref="double"/>  based demo viewmodel that can be used
+    /// to drive an integer base numeric up down control.
+    /// </summary>
     public class DoubleUpDownViewModel : BaseUpDownViewModel<double>
     {
         /// <summary>
@@ -29,7 +33,7 @@
         /// Returns false if both objects are in-equal, otherwise true.
         public override bool Compare(double intValue, double intValue1)
         {
-            return int.Equals(intValue, intValue1);
+            return double.Equals(intValue, intValue1);
         }
     }
 }

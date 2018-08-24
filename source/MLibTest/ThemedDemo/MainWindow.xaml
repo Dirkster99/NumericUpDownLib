@@ -47,8 +47,29 @@
             <TabItem Header="Double">
                 <demoviews:DoubleUpDownDemo DataContext="{Binding Demo.DoubleDemo}"/>
             </TabItem>
+            <TabItem Header="Float">
+                <demoviews:FloatUpDownDemo DataContext="{Binding Demo.FloatDemo}"/>
+            </TabItem>
             <TabItem Header="Integer">
                 <demoviews:NumericUpDownDemo DataContext="{Binding Demo.IntegerDemo}"/>
+            </TabItem>
+            <TabItem Header="SByte">
+                <demoviews:SByteUpDownDemo DataContext="{Binding Demo.SByteDemo}"/>
+            </TabItem>
+            <TabItem Header="Long">
+                <demoviews:LongUpDownDemo DataContext="{Binding Demo.LongDemo}"/>
+            </TabItem>
+            <TabItem Header="Short">
+                <demoviews:ShortUpDownDemo DataContext="{Binding Demo.ShortDemo}"/>
+            </TabItem>
+            <TabItem Header="UShort">
+                <demoviews:UShortUpDownDemo DataContext="{Binding Demo.UShortDemo}"/>
+            </TabItem>
+            <TabItem Header="UInteger">
+                <demoviews:UIntegerUpDownDemo DataContext="{Binding Demo.UIntegerDemo}"/>
+            </TabItem>
+            <TabItem Header="ULong">
+                <demoviews:ULongUpDownDemo DataContext="{Binding Demo.ULongDemo}"/>
             </TabItem>
         </TabControl>
     </Grid>
