@@ -17,8 +17,7 @@
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register("IsReadOnly",
-                typeof(bool),
-                typeof(InputBaseUpDown), new PropertyMetadata(true));
+                typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(true));
 
         private static RoutedCommand mIncreaseCommand;
         private static RoutedCommand mDecreaseCommand;

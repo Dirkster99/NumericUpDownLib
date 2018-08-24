@@ -8,10 +8,10 @@
     public abstract class BaseUpDownViewModel<T> : UpDownDemoLib.ViewModels.Base.ViewModelBase
     {
         #region fields
-        private T _IntValue = default(T);
-        private T _IntMinimumValue = default(T);
-        private T _IntMaximumValue = default(T);
-        private T _IntStepSize = default(T);
+        private T _Value = default(T);
+        private T _MinimumValue = default(T);
+        private T _MaximumValue = default(T);
+        private T _StepSize = default(T);
         #endregion fields
 
         #region CTors
@@ -27,19 +27,19 @@
         /// <summary>
         /// Get/set integer Value to be displayed in numeric up/down control
         /// </summary>
-        public virtual T IntValue
+        public virtual T Value
         {
             get
             {
-                return _IntValue;
+                return _Value;
             }
 
             set
             {
-                if (Compare(_IntValue, value) == false)
+                if (Compare(_Value, value) == false)
                 {
-                    _IntValue = value;
-                    NotifyPropertyChanged(() => IntValue);
+                    _Value = value;
+                    NotifyPropertyChanged(() => Value);
                 }
             }
         }
@@ -49,19 +49,19 @@
         /// (actual distance) of increment or decrement step.
         /// This value should at leat be one or greater.
         /// </summary>
-        public virtual T IntStepSize
+        public virtual T StepSize
         {
             get
             {
-                return _IntStepSize;
+                return _StepSize;
             }
 
             set
             {
-                if (Compare(_IntStepSize, value) == false)
+                if (Compare(_StepSize, value) == false)
                 {
-                    _IntStepSize = value;
-                    NotifyPropertyChanged(() => IntStepSize);
+                    _StepSize = value;
+                    NotifyPropertyChanged(() => StepSize);
                 }
             }
         }
@@ -69,19 +69,19 @@
         /// <summary>
         /// Get/set minimum integer Value to be displayed in numeric up/down control
         /// </summary>
-        public virtual T IntMinimumValue
+        public virtual T MinimumValue
         {
             get
             {
-                return _IntMinimumValue;
+                return _MinimumValue;
             }
 
             set
             {
-                if (Compare(_IntMinimumValue, value) == false)
+                if (Compare(_MinimumValue, value) == false)
                 {
-                    _IntMinimumValue = value;
-                    NotifyPropertyChanged(() => IntMinimumValue);
+                    _MinimumValue = value;
+                    NotifyPropertyChanged(() => MinimumValue);
                 }
             }
         }
@@ -89,19 +89,19 @@
         /// <summary>
         /// Get/set maximum integer Value to be displayed in numeric up/down control
         /// </summary>
-        public virtual T IntMaximumValue
+        public virtual T MaximumValue
         {
             get
             {
-                return _IntMaximumValue;
+                return _MaximumValue;
             }
 
             set
             {
-                if (Compare(_IntMaximumValue, value) == false)
+                if (Compare(_MaximumValue, value) == false)
                 {
-                    _IntMaximumValue = value;
-                    NotifyPropertyChanged(() => IntMaximumValue);
+                    _MaximumValue = value;
+                    NotifyPropertyChanged(() => MaximumValue);
                 }
             }
         }
@@ -127,7 +127,7 @@
             get
             {
                 return string.Format("Enter a value between {0} and {1}",
-                    _IntMinimumValue, IntMaximumValue);
+                    _MinimumValue, MaximumValue);
             }
         }
         #endregion methods

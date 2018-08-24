@@ -11,49 +11,49 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:InputBaseUpDown}">
-                    <Grid>
+                    <Grid VerticalAlignment="Top">
                         <Grid.Resources>
                             <conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
                         </Grid.Resources>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <ScrollViewer  Grid.Column="0"
-                                       Grid.RowSpan="2"
-                                       HorizontalScrollBarVisibility="Disabled"
-                                       VerticalScrollBarVisibility="Disabled" Name="scv">
-                            <Grid>
-                                <TextBox x:Name="PART_TextBox"
-                                         Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"
-                                         Grid.RowSpan="2" Margin="0,0,1,0"
-                                         TextAlignment="Right"
-                                         AcceptsReturn="False"
-                                         SpellCheck.IsEnabled="False"
-                                         HorizontalContentAlignment="Stretch"
-                                         VerticalContentAlignment="Center"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Stretch"
-                                         IsReadOnly="{TemplateBinding IsReadOnly}"
-                                         MaxWidth="{Binding ElementName=scv, Path=ActualWidth}"
-                                         />
+                        <Grid Grid.Column="0" Grid.RowSpan="2">
+                            <TextBox
+                                x:Name="PART_TextBox"
+                                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"
+                                Margin="0,0,1,0"
+                                TextAlignment="Right"
+                                AcceptsReturn="False"
+                                SpellCheck.IsEnabled="False"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                IsReadOnly="{TemplateBinding IsReadOnly}"
+                            />
 
-                                <!-- Hidden measuring textbox -->
-                                <TextBox Margin="0,0,1,0"
-                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
-                                        TextAlignment="Right"
-                                        HorizontalContentAlignment="Right"
-                                        VerticalContentAlignment="Center"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Visibility="Hidden"/>
-                            </Grid>
-                        </ScrollViewer>
+                            <!-- Hidden measuring textbox ensure reservation of enough UI space
+                                 according to DisplayLength dependency property
+                            -->
+                            <TextBox x:Name="PART_Measuring_Element"
+                                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
+                                Margin="0,0,1,0"    
+                                TextAlignment="Right"
+                                AcceptsReturn="False"
+                                SpellCheck.IsEnabled="False"
+                                HorizontalContentAlignment="Right"
+                                VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                Visibility="Hidden"/>
+                        </Grid>
 
                         <!-- ArrowUp Increase value button -->
                         <local:NumericRepeatButtonControl

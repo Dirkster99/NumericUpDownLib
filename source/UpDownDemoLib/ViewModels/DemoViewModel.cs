@@ -7,8 +7,10 @@
     public class DemoViewModel : UpDownDemoLib.ViewModels.Base.ViewModelBase
     {
         #region private fields
-        private IntegerUpDownViewModel _IntegerDemo = null;
-        private DoubleUpDownViewModel _DoubleDemo = null;
+        private ByteUpDownViewModel _ByteDemo;
+        private DecimalUpDownViewModel _DecimalDemo;
+        private DoubleUpDownViewModel _DoubleDemo;
+        private IntegerUpDownViewModel _IntegerDemo;
         #endregion private fields
 
         #region constructors
@@ -17,15 +19,41 @@
         /// </summary>
         public DemoViewModel()
         {
-            _IntegerDemo = new IntegerUpDownViewModel(98, -3, 105, 1);
+            _ByteDemo = new ByteUpDownViewModel(5, 0, 255, 1);
+            _DecimalDemo = new DecimalUpDownViewModel(0, 7922816251426433, 792281625142643375933950335M, 792281);
             _DoubleDemo = new DoubleUpDownViewModel(50, 0, 100, 1);
+            _IntegerDemo = new IntegerUpDownViewModel(98, -3, 105, 1);
         }
         #endregion constructors
 
         #region properties
         /// <summary>
-        /// Gets integer data type demo viewmodel to be displayed
-        /// in an integer based numeric up/down control
+        /// Gets byte data type demo viewmodel to be displayed
+        /// in a byte based numeric up/down control
+        /// </summary>
+        public ByteUpDownViewModel ByteDemo
+        {
+            get
+            {
+                return _ByteDemo;
+            }
+        }
+
+        /// <summary>
+        /// Gets Decimal data type demo viewmodel to be displayed
+        /// in a Decimal based numeric up/down control
+        /// </summary>
+        public DecimalUpDownViewModel DecimalDemo
+        {
+            get
+            {
+                return _DecimalDemo;
+            }
+        }
+
+        /// <summary>
+        /// Gets Integer data type demo viewmodel to be displayed
+        /// in a Integer based numeric up/down control
         /// </summary>
         public IntegerUpDownViewModel IntegerDemo
         {

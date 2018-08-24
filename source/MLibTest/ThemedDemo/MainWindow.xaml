@@ -4,19 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  
-        xmlns:reskeys="clr-namespace:MLib.Themes;assembly=MLib"
         xmlns:MWindow="clr-namespace:MWindowLib;assembly=MWindowLib"
         xmlns:behav="clr-namespace:ThemedDemo.Behaviors"
-        xmlns:conv="clr-namespace:ThemedDemo.Converters"
                      
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="400" Width="525"
         ShowIcon="False"
         >
     <Grid>
-        <Grid.Resources>
-            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -40,148 +35,21 @@
                       IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     />
         </Grid>
-
-        <Grid Grid.Column="0" Grid.ColumnSpan="2"
-              Grid.Row="1"
-              DataContext="{Binding Demo}"
-              xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
-              >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="200"/>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Orientation="Vertical">
-                <cntrl:DoubleUpDown
-                    Name="SampleUpDown"
-                    DataContext="{Binding DoubleDemo}"
-                    HorizontalAlignment="Left"
-                    Value="{Binding IntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                    MinValue="{Binding IntMinimumValue}"
-                    MaxValue="{Binding IntMaximumValue}"
-                    StepSize="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                    ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                    IsReadOnly="False"
-                    DisplayLength="5"
-                    Grid.Column="0"
-                    VerticalAlignment="Top"
-                    Margin="3" />
-            </StackPanel>
-
-            <Grid Grid.Column="1" Margin="12,3,3,3">
-                <GroupBox Header="Debugging Values">
-                    <StackPanel>
-                        <StackPanel Margin="3">
-                            <Label Content="Actual Value:"/>
-                            <Slider DataContext="{Binding DoubleDemo}"
-                                    Value="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Minimum="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Maximum="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    />
-                            <TextBox DataContext="{Binding DoubleDemo}"
-                                     IsReadOnly="True"
-                                     Text="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                        </StackPanel>
-
-                        <StackPanel Margin="12">
-                            <Label Content="Minimum Value:" />
-                            <Slider DataContext="{Binding DoubleDemo}"
-                                    Value="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Minimum="-2147483647"
-                                    Maximum="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    />
-                            <TextBox DataContext="{Binding DoubleDemo}"
-                                     IsReadOnly="True"
-                                     Text="{Binding IntMinimumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                        </StackPanel>
-
-                        <StackPanel Margin="12">
-                            <Label Content="Maximum Value:" />
-                            <Slider DataContext="{Binding DoubleDemo}"
-                                    Value="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Minimum="{Binding IntValue,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                                    Maximum="2147483647"
-                                    />
-                            <TextBox DataContext="{Binding DoubleDemo}"
-                                     IsReadOnly="True"
-                                     Text="{Binding IntMaximumValue,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" />
-                        </StackPanel>
-
-                        <StackPanel Margin="12">
-                            <Label Content="Display Length:" />
-                            <Slider Value="{Binding DisplayLength,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ElementName=SampleUpDown}"
-                                    Minimum="0"
-                                    Maximum="255"
-                                    />
-                            <TextBox DataContext="{Binding DoubleDemo}"
-                                     IsReadOnly="True"
-                                     Text="{Binding DisplayLength,UpdateSourceTrigger=PropertyChanged,Mode=OneWay,ElementName=SampleUpDown}" />
-                        </StackPanel>
-
-                        <StackPanel Margin="3">
-                            <Label Content="Is Visible:" />
-                            <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=Visibility,Converter={StaticResource BoolToVisibilityConverter}}"
-                                      ToolTip="Check if value changes as expected when control is invisible."
-                                      />
-                        </StackPanel>
-                        <Slider DataContext="{Binding DoubleDemo}"
-                                Value="{Binding IntStepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                Margin="0,12,0,0"
-                                Minimum="1"
-                                Maximum="1024"
-                                ToolTip="The StepSize changes the size of increment on button click."
-                                />
-                        <TextBlock>StepSize: <TextBlock DataContext="{Binding DoubleDemo}"
-                                                        Text="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        </TextBlock>
-
-                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsReadOnly}"
-                          Content="IsReadOnly"
-                          Margin="0,6,0,0"
-                          ToolTip="Setting the control readonly enables the buttons but disables textbox edits."
-                          />
-
-                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsEnabled}"
-                          Content="IsEnabled"
-                          Margin="0,6,0,0"
-                          ToolTip="Setting the control IsEnabled=False disables all edit capabilities."
-                          />
-
-                        <StackPanel Margin="0,6,0,0">
-                            <CheckBox x:Name="IsPopUpOpen" Content="PopUp Test" />
-                            <Popup IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
-                                <Border>
-                                    <StackPanel Margin="3">
-                                        <cntrl:NumericUpDown Name="SamplePopUpDown"
-                                            HorizontalAlignment="Left"
-                                            DataContext="{Binding IntegerDemo}"
-                                            MinValue="{Binding IntMinimumValue}"
-                                            MaxValue="{Binding IntMaximumValue}"
-                                            Value="{Binding IntValue,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                            StepSize="{Binding IntStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                            ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                            DisplayLength="13"
-                                            IsReadOnly="False"
-                                            Grid.Column="0"
-                                            VerticalAlignment="Top"
-                                            Margin="3"
-                                            Visibility="Hidden"
-                                            />
-
-                                        <StackPanel Margin="3">
-                                            <Label Content="Is Visible:" />
-                                            <CheckBox IsChecked="{Binding ElementName=SamplePopUpDown,Path=Visibility,Converter={StaticResource BoolToVisibilityConverter}}"
-                                                      ToolTip="Check if value changes as expected when control is invisible."
-                                                      />
-                                        </StackPanel>
-                                        <TextBlock Text="Pop Up Is Open."/>
-                                    </StackPanel>
-                                </Border>
-                            </Popup>
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-            </Grid>
-        </Grid>
+            <TabControl Grid.Row="1" Grid.ColumnSpan="2"
+                        xmlns:demoviews="clr-namespace:UpDownDemoLib.Views;assembly=UpDownDemoLib"
+                        >
+            <TabItem Header="Byte">
+                <demoviews:ByteUpDownDemo DataContext="{Binding Demo.ByteDemo}"/>
+            </TabItem>
+            <TabItem Header="Decimal">
+                <demoviews:DecimalUpDownDemo DataContext="{Binding Demo.DecimalDemo}"/>
+            </TabItem>
+            <TabItem Header="Double">
+                <demoviews:DoubleUpDownDemo DataContext="{Binding Demo.DoubleDemo}"/>
+            </TabItem>
+            <TabItem Header="Integer">
+                <demoviews:NumericUpDownDemo DataContext="{Binding Demo.IntegerDemo}"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </MWindow:MetroWindow>

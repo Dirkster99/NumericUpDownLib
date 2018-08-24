@@ -1,10 +1,9 @@
-﻿namespace ThemedDemo.Converters
+﻿namespace UpDownDemoLib.Converters
 {
     using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Markup;
 
     /// <summary>
     /// Source: http://stackoverflow.com/questions/534575/how-do-i-invert-booleantovisibilityconverter

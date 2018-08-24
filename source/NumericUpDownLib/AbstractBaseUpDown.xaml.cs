@@ -3,6 +3,7 @@ namespace NumericUpDownLib
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Input;
 
     /// <summary>
@@ -10,6 +11,7 @@ namespace NumericUpDownLib
     /// Source: http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
     [TemplatePart(Name = Part_TextBoxName, Type = typeof(TextBox))]
+    [TemplatePart(Name = PART_MeasuringFrameWorkElementName, Type = typeof(FrameworkElement))]
     public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown
     {
         #region fields
@@ -19,9 +21,16 @@ namespace NumericUpDownLib
         public const string Part_TextBoxName = "PART_TextBox";
 
         /// <summary>
+        /// Gets the required tamplate name of the textbox portion of this control.
+        /// </summary>
+        public const string PART_MeasuringFrameWorkElementName = "PART_Measuring_Element";
+
+        /// <summary>
         /// Holds the REQUIRED textbox instance part for this control.
         /// </summary>
         protected TextBox _PART_TextBox;
+
+        private FrameworkElement _PART_Measuring_Element;
 
         /// <summary>
         /// Dependency property backing store for the Value property.
@@ -86,11 +95,13 @@ namespace NumericUpDownLib
                                 DependencyProperty.Register("DisplayLength", typeof(byte),
                                     typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
 
+        private static readonly DependencyProperty IsDisplayLengthFixedProperty =
+            DependencyProperty.Register("IsDisplayLengthFixed",
+                typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true, OnIsDisplayLengthFixedChanged));
+
         private static readonly DependencyProperty SelectAllTextOnFocusProperty =
             DependencyProperty.Register("SelectAllTextOnFocus",
                 typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
-
-
 
         /// <summary>
         /// Gets/sets the default applicable minimum value
@@ -202,6 +213,17 @@ namespace NumericUpDownLib
         }
 
         /// <summary>
+        /// Gets/sets whether the textbox portion of the numeric up down control
+        /// can go grow and shrink with its input or whether it should stay with
+        /// a fixed width.
+        /// </summary>
+        public bool IsDisplayLengthFixed
+        {
+            get { return (bool)GetValue(IsDisplayLengthFixedProperty); }
+            set { SetValue(IsDisplayLengthFixedProperty, value); }
+        }
+
+        /// <summary>
         /// Gets/sets a dependency property to determine whether all text
         /// in the textbox should be selected on textbox focus or not.
         /// </summary>
@@ -222,11 +244,14 @@ namespace NumericUpDownLib
             base.OnApplyTemplate();
 
             _PART_TextBox = this.GetTemplateChild(Part_TextBoxName) as TextBox;
+            _PART_Measuring_Element = this.GetTemplateChild(PART_MeasuringFrameWorkElementName) as FrameworkElement;
 
             if (_PART_TextBox != null)
             {
                 _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
                 _PART_TextBox.GotKeyboardFocus += _PART_TextBox_GotKeyboardFocus;
+
+                BindMeasuringObject(IsDisplayLengthFixed);
             }
         }
 
@@ -452,6 +477,61 @@ namespace NumericUpDownLib
         }
         #endregion Value dependency property helper methods
 
-        #endregion methods
+        #region DisplayLength IsDisplayLengthFixed
+        /// <summary>
+        /// Sets or unsets the binding between measuring and user textbox.
+        /// </summary>
+        /// <param name="SetBinding"></param>
+        private void BindMeasuringObject(bool SetBinding = true)
+        {
+            BindMeasuringObject(_PART_TextBox, _PART_Measuring_Element, SetBinding);
+        }
+
+        /// <summary>
+        /// Sets or Unsets a binding between a
+        /// - MeasuringControl.ActualWidth and
+        /// - UserControl.MaxWidth
+        /// 
+        /// Both controls can be any <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="UserControl"></param>
+        /// <param name="MeasuringControl"></param>
+        /// <param name="SetBinding"></param>
+        private void BindMeasuringObject(FrameworkElement UserControl,
+                                         FrameworkElement MeasuringControl,
+                                         bool SetBinding = true)
+        {
+            if (UserControl != null)
+            {
+                UserControl.ClearValue(FrameworkElement.MaxWidthProperty);
+
+                if (SetBinding == true && MeasuringControl != null)
+                {
+                    Binding binding = new Binding();
+                    binding.Path = new PropertyPath("ActualWidth");
+                    binding.Source = MeasuringControl;
+
+                    BindingOperations.SetBinding(UserControl, FrameworkElement.MaxWidthProperty, binding);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method is invoked when the value of the <see cref="IsDisplayLengthFixed"/>
+        /// dependency property is changed. This results in changing the behavior of
+        /// the textbox resizing which in turn is dependent on the binding between
+        /// the PART_TextBox.NaxWidth = PART_Measuring_TextBox.ActualWidh.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnIsDisplayLengthFixedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as AbstractBaseUpDown<T>;
+
+            if (control != null && e.NewValue is bool)
+                control.BindMeasuringObject((bool)e.NewValue);
+        }
+        #endregion DisplayLength IsDisplayLengthFixed
+        #endregion methods DisplayLength IsDisplayLengthFixed
     }
 }

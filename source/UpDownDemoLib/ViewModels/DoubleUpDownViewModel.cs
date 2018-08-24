@@ -7,21 +7,21 @@
         /// <summary>
         /// Class constructor
         /// </summary>
-        /// <param name="intValue"></param>
-        /// <param name="intMinimumValue"></param>
-        /// <param name="intMaximumValue"></param>
-        /// <param name="intStepSize"></param>
-        public DoubleUpDownViewModel(double intValue,
-                                     double intMinimumValue,
-                                     double intMaximumValue,
-                                     double intStepSize
+        /// <param name="value"></param>
+        /// <param name="minimumValue"></param>
+        /// <param name="maximumValue"></param>
+        /// <param name="stepSize"></param>
+        public DoubleUpDownViewModel(double value,
+                                     double minimumValue,
+                                     double maximumValue,
+                                     double stepSize
             )
             : base()
         {
-            IntValue = intValue;
-            IntMinimumValue = intMinimumValue;
-            IntMaximumValue = intMaximumValue;
-            IntStepSize = intStepSize;
+            base.Value = value;
+            base.MinimumValue = minimumValue;
+            base.MaximumValue = maximumValue;
+            base.StepSize = stepSize;
         }
 
         /// Method determine whether to objects of type {T} are equal.

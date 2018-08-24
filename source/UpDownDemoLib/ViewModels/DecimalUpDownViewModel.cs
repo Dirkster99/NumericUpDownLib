@@ -6,7 +6,7 @@
     /// Implements an integer based demo viewmodel that can be used
     /// to drive an integer base numeric up down control.
     /// </summary>
-    public class IntegerUpDownViewModel : BaseUpDownViewModel<int>
+    public class DecimalUpDownViewModel : BaseUpDownViewModel<decimal>
     {
         /// <summary>
         /// Class constructor
@@ -15,10 +15,10 @@
         /// <param name="minimumValue"></param>
         /// <param name="maximumValue"></param>
         /// <param name="stepSize"></param>
-        public IntegerUpDownViewModel(int value,
-                                      int minimumValue,
-                                      int maximumValue,
-                                      int stepSize
+        public DecimalUpDownViewModel(decimal value,
+                                      decimal minimumValue,
+                                      decimal maximumValue,
+                                      decimal stepSize
             )
             : base()
         {
@@ -36,9 +36,9 @@
         /// <param name="intValue"></param>
         /// <param name="intValue1"></param>
         /// <returns></returns>
-        public override bool Compare(int intValue, int intValue1)
+        public override bool Compare(decimal intValue, decimal intValue1)
         {
-            return int.Equals(intValue, intValue1);
+            return decimal.Equals(intValue, intValue1);
         }
     }
 }
