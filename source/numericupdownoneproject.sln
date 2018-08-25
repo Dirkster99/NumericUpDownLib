@@ -2,7 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericUpDowmControlDemo", "NumericUpDowmControlDemo\NumericUpDowmControlDemo.csproj", "{BDBB3D84-0268-43E2-BBC6-F5CA2068262E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestThemes", "TestThemes\TestThemes.csproj", "{58BD0E02-6BFF-43F0-9B93-D3371E97794B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGenerics", "TestGenerics\TestGenerics.csproj", "{BDBB3D84-0268-43E2-BBC6-F5CA2068262E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericUpDownLib", "NumericUpDownLib\NumericUpDownLib.csproj", "{98E332AC-86E6-4DB3-A757-4D84432B4A2B}"
 EndProject
@@ -10,15 +12,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MLibTest", "MLibTest", "{83
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{C69AB586-96F2-48A7-B2AA-8294DE1E1C4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLocator", "MLibTest\Components\ServiceLocator\ServiceLocator.csproj", "{252126D1-E1D9-49C3-910B-FCF2266265EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLocator", "Demo\MLibTest\Components\ServiceLocator\ServiceLocator.csproj", "{252126D1-E1D9-49C3-910B-FCF2266265EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "MLibTest\Components\Settings\Settings\Settings.csproj", "{2807B493-CC2E-402E-901A-EB138698FEDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "Demo\MLibTest\Components\Settings\Settings\Settings.csproj", "{2807B493-CC2E-402E-901A-EB138698FEDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsModel", "MLibTest\Components\Settings\SettingsModel\SettingsModel.csproj", "{9B0BA841-5A2F-4ED3-A908-253DBCA70E77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsModel", "Demo\MLibTest\Components\Settings\SettingsModel\SettingsModel.csproj", "{9B0BA841-5A2F-4ED3-A908-253DBCA70E77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemedDemo", "MLibTest\ThemedDemo\ThemedDemo.csproj", "{58BD0E02-6BFF-43F0-9B93-D3371E97794B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpDownDemoLib", "Demo\UpDownDemoLib\UpDownDemoLib.csproj", "{ED3A742D-4055-4DA2-BBCE-74E817B211BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpDownDemoLib", "UpDownDemoLib\UpDownDemoLib.csproj", "{ED3A742D-4055-4DA2-BBCE-74E817B211BF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{5FC97D08-2690-4233-B3D2-582FBD6CB6EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x64.ActiveCfg = Debug|x64
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x64.Build.0 = Debug|x64
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x86.ActiveCfg = Debug|x86
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x86.Build.0 = Debug|x86
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x64.ActiveCfg = Release|x64
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x64.Build.0 = Release|x64
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.ActiveCfg = Release|x86
+		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.Build.0 = Release|x86
 		{BDBB3D84-0268-43E2-BBC6-F5CA2068262E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BDBB3D84-0268-43E2-BBC6-F5CA2068262E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDBB3D84-0268-43E2-BBC6-F5CA2068262E}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -90,18 +104,6 @@ Global
 		{9B0BA841-5A2F-4ED3-A908-253DBCA70E77}.Release|x64.Build.0 = Release|x64
 		{9B0BA841-5A2F-4ED3-A908-253DBCA70E77}.Release|x86.ActiveCfg = Release|x86
 		{9B0BA841-5A2F-4ED3-A908-253DBCA70E77}.Release|x86.Build.0 = Release|x86
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x64.ActiveCfg = Debug|x64
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x64.Build.0 = Debug|x64
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x86.ActiveCfg = Debug|x86
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Debug|x86.Build.0 = Debug|x86
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x64.ActiveCfg = Release|x64
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x64.Build.0 = Release|x64
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.ActiveCfg = Release|x86
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.Build.0 = Release|x86
 		{ED3A742D-4055-4DA2-BBCE-74E817B211BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED3A742D-4055-4DA2-BBCE-74E817B211BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED3A742D-4055-4DA2-BBCE-74E817B211BF}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -119,11 +121,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8305C6D6-C5E9-48B1-BE93-6BAB0C772C6B} = {5FC97D08-2690-4233-B3D2-582FBD6CB6EB}
 		{C69AB586-96F2-48A7-B2AA-8294DE1E1C4A} = {8305C6D6-C5E9-48B1-BE93-6BAB0C772C6B}
 		{252126D1-E1D9-49C3-910B-FCF2266265EF} = {C69AB586-96F2-48A7-B2AA-8294DE1E1C4A}
 		{2807B493-CC2E-402E-901A-EB138698FEDC} = {C69AB586-96F2-48A7-B2AA-8294DE1E1C4A}
 		{9B0BA841-5A2F-4ED3-A908-253DBCA70E77} = {C69AB586-96F2-48A7-B2AA-8294DE1E1C4A}
-		{58BD0E02-6BFF-43F0-9B93-D3371E97794B} = {8305C6D6-C5E9-48B1-BE93-6BAB0C772C6B}
+		{ED3A742D-4055-4DA2-BBCE-74E817B211BF} = {5FC97D08-2690-4233-B3D2-582FBD6CB6EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC14037A-1CE9-4A5C-87FB-E7B8EC3F08D6}
