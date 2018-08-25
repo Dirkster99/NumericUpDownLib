@@ -19,7 +19,7 @@
             Name="SampleUpDown"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Value="{Binding Value,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+            Value="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             MinValue="{Binding MinimumValue}"
             MaxValue="{Binding MaximumValue}"
             StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
@@ -53,7 +53,7 @@
                         </StackPanel>
                         <StackPanel Margin="3" Grid.Column="1">
                             <Label Content="Step Size:"/>
-                            <Slider Value="{Binding StepSize,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                            <Slider Value="{Binding StepSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                     Minimum="1"
                                     Maximum="512"
                                     ToolTip="The StepSize changes the size of increment on button click."
@@ -136,7 +136,7 @@
                                         HorizontalAlignment="Left"
                                         MinValue="{Binding MinimumValue}"
                                         MaxValue="{Binding MaximumValue}"
-                                        Value="{Binding Value,Mode=TwoWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                        Value="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                         StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                                         DisplayLength="13"

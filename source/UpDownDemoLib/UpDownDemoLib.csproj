@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\FactorToDoubleConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModels\BaseUpDownViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
@@ -61,6 +62,9 @@
     <Compile Include="ViewModels\DoubleUpDownViewModel.cs" />
     <Compile Include="ViewModels\ByteUpDownViewModel.cs" />
     <Compile Include="ViewModels\IntegerUpDownViewModel.cs" />
+    <Compile Include="Views\PercentageUpDownDemo.xaml.cs">
+      <DependentUpon>PercentageUpDownDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FloatUpDownDemo.xaml.cs">
       <DependentUpon>FloatUpDownDemo.xaml</DependentUpon>
     </Compile>
@@ -96,6 +100,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\PercentageUpDownDemo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\FloatUpDownDemo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

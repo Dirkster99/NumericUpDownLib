@@ -20,12 +20,6 @@ namespace NumericUpDownLib
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ShortUpDown),
                        new FrameworkPropertyMetadata(typeof(ShortUpDown)));
-
-            // overide default values inherited dependency properties
-            MaxValueProperty.OverrideMetadata(typeof(ShortUpDown),
-                                              new FrameworkPropertyMetadata(short.MaxValue));
-            MinValueProperty.OverrideMetadata(typeof(ShortUpDown),
-                                              new FrameworkPropertyMetadata(short.MinValue));
         }
 
         /// <summary>
@@ -39,64 +33,51 @@ namespace NumericUpDownLib
 
         #region methods
         /// <summary>
-        /// Increase the displayed integer value
+        /// Increase the displayed value
         /// </summary>
         protected override void OnIncrease()
         {
-            if (this.Value >= this.MaxValue)
+            // Increment if possible
+            if (this.Value + this.StepSize <= this.MaxValue)
             {
-                // Value is not incremented if it is already maxed or above
-                this.Value = this.MaxValue;
+                this.Value = (short)(this.Value + this.StepSize);
             }
             else
             {
-                if (this.Value + this.StepSize <= this.MaxValue)
-                {
-                    int intValue = this.Value + this.StepSize;
-
-                    if (intValue >= short.MinValue && intValue <= short.MaxValue)
-                        this.Value = (short)intValue;
-                }
-                else
-                {
-                    if (this.Value <= this.MinValue)
-                    {
-                        // Value is not incremented if it is already min or below
-                        this.Value = this.MinValue;
-                    }
-                }
+                // Reset to max to ensure that value = max at this point
+                if (this.Value != this.MaxValue)
+                    this.Value = this.MaxValue;
             }
+
+            // Just to be sure
+            // Value was incremented beyond bound so we reset it to max
+            if (this.Value > this.MaxValue)
+                this.Value = this.MaxValue;
         }
 
         /// <summary>
-        /// Decrease the displayed integer value
+        /// Decrease the displayed value
         /// </summary>
         protected override void OnDecrease()
         {
-            if (this.Value <= this.MinValue)
+            // Decrement if possible
+            if (this.Value - this.StepSize > this.MinValue)
             {
-                // Value is not decremented if it is already minimum or below
-                this.Value = this.MinValue;
+                this.Value = (short)(this.Value - this.StepSize);
             }
             else
             {
-                if (this.Value - this.StepSize > this.MinValue)
-                {
-                    int intValue = this.Value - this.StepSize;
-
-                    if (intValue >= short.MinValue && intValue <= short.MaxValue)
-                        this.Value = (short)intValue;
-                }
-                else
-                {
-                    if (this.Value >= this.MaxValue)
-                    {
-                        // Value is not incremented if it is already maxed or above
-                        this.Value = this.MaxValue;
-                    }
-                }
+                // Reset to min to ensure that value = min at this point
+                if (this.Value != this.MinValue)
+                    this.Value = this.MinValue;
             }
+
+            // Just to be sure
+            // Value was decremented beyond bound so we reset it to min
+            if (this.Value < this.MinValue)
+                this.Value = this.MinValue;
         }
+
 
         /// <summary>
         /// Attempts to force the new value into the existing dependency property

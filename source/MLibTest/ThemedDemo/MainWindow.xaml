@@ -71,6 +71,9 @@
             <TabItem Header="ULong">
                 <demoviews:ULongUpDownDemo DataContext="{Binding Demo.ULongDemo}"/>
             </TabItem>
+            <TabItem Header="Percentage 0-1">
+                <demoviews:PercentageUpDownDemo DataContext="{Binding Demo.PercentageZeroToOneDemo}"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </MWindow:MetroWindow>

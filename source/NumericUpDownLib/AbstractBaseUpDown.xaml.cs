@@ -51,7 +51,11 @@ namespace NumericUpDownLib
                                         new PropertyChangedCallback(OnValueChanged),
                                         new CoerceValueCallback(CoerceValue)));
 
-        private static readonly DependencyProperty StepSizeProperty =
+        /// <summary>
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
+        /// </summary>
+        protected static readonly DependencyProperty StepSizeProperty =
             DependencyProperty.Register("StepSize",
                                         typeof(T), typeof(AbstractBaseUpDown<T>),
                                         new FrameworkPropertyMetadata(default(T)));
@@ -79,7 +83,7 @@ namespace NumericUpDownLib
         /// <summary>
         /// Identifies the ValueChanged routed event.
         /// </summary>
-        private static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
+        protected static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
                                             "ValueChanged", RoutingStrategy.Bubble,
                                             typeof(RoutedPropertyChangedEventHandler<T>),
                                             typeof(AbstractBaseUpDown<T>));
@@ -87,7 +91,7 @@ namespace NumericUpDownLib
         /// <summary>
         /// Identifies the MinValueChanged routed event.
         /// </summary>
-        private static readonly RoutedEvent MinValueChangedEvent = EventManager.RegisterRoutedEvent(
+        protected static readonly RoutedEvent MinValueChangedEvent = EventManager.RegisterRoutedEvent(
                                             "MinValueChanged", RoutingStrategy.Bubble,
                                             typeof(RoutedPropertyChangedEventHandler<T>),
                                             typeof(AbstractBaseUpDown<T>));
@@ -95,20 +99,35 @@ namespace NumericUpDownLib
         /// <summary>
         /// Identifies the MaxValueChanged routed event.
         /// </summary>
-        private static readonly RoutedEvent MaxValueChangedEvent = EventManager.RegisterRoutedEvent(
+        protected static readonly RoutedEvent MaxValueChangedEvent = EventManager.RegisterRoutedEvent(
                                             "MaxValueChanged", RoutingStrategy.Bubble,
                                             typeof(RoutedPropertyChangedEventHandler<T>),
                                             typeof(AbstractBaseUpDown<T>));
 
-        private static readonly DependencyProperty DisplayLengthProperty =
+        /// <summary>
+        /// Backing store for dependency property to define the number of characters
+        /// that should be displayed in the control without having to scroll inside
+        /// the textbox portion.
+        /// </summary>
+        protected static readonly DependencyProperty DisplayLengthProperty =
                                 DependencyProperty.Register("DisplayLength", typeof(byte),
                                     typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
 
-        private static readonly DependencyProperty IsDisplayLengthFixedProperty =
+        /// <summary>
+        /// Backing store for dependency property to decide whether DisplayLength
+        /// definition leads to a fixed control size (textbox control will scroll
+        /// if user types longer string), or not (control will resize in dependence
+        /// of string length and available space).
+        /// </summary>
+        protected static readonly DependencyProperty IsDisplayLengthFixedProperty =
             DependencyProperty.Register("IsDisplayLengthFixed",
                 typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true, OnIsDisplayLengthFixedChanged));
 
-        private static readonly DependencyProperty SelectAllTextOnFocusProperty =
+        /// <summary>
+        /// Backing store for dependency property to decide whether all text in textbox
+        /// should be selected upon focus or not.
+        /// </summary>
+        protected static readonly DependencyProperty SelectAllTextOnFocusProperty =
             DependencyProperty.Register("SelectAllTextOnFocus",
                 typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
@@ -116,7 +135,7 @@ namespace NumericUpDownLib
         /// Backing store for dependency property for .Net FormatString that is
         /// applied to the textbox text portion of the up down control.
         /// </summary>
-        public static readonly DependencyProperty FormatStringProperty =
+        protected static readonly DependencyProperty FormatStringProperty =
             DependencyProperty.Register("FormatString", typeof(string),
                 typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G"));
 
@@ -288,13 +307,30 @@ namespace NumericUpDownLib
 
                 _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
 
-                _PART_TextBox.GotKeyboardFocus += _PART_TextBox_GotKeyboardFocus;
-                _PART_TextBox.LostKeyboardFocus += _PART_TextBox_LostKeyboardFocus;
+                _PART_TextBox.GotFocus += _PART_TextBox_GotFocus;
+                _PART_TextBox.LostFocus += _PART_TextBox_LostFocus;
 
                 _PART_TextBox.PreviewKeyDown += textBox_PreviewKeyDown;
                 _PART_TextBox.PreviewTextInput += textBox_PreviewTextInput;
                 DataObject.AddPastingHandler(_PART_TextBox, textBox_TextPasted);
             }
+        }
+
+        private void _PART_TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+
+            if (SelectAllTextOnFocus == true)
+            {
+                if (tb != null)
+                    tb.SelectAll();
+            }
+        }
+
+        private void _PART_TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (_PART_TextBox != null)
+                FormatText(_PART_TextBox.Text);
         }
 
         #region textinput handlers
@@ -328,23 +364,6 @@ namespace NumericUpDownLib
                     FormatText(_PART_TextBox.Text);
                 }
             }
-        }
-
-        private void _PART_TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            var tb = sender as TextBox;
-
-            if (SelectAllTextOnFocus == true)
-            {
-                if (tb != null)
-                    tb.SelectAll();
-            }
-        }
-
-        private void _PART_TextBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (_PART_TextBox != null)
-                FormatText(_PART_TextBox.Text);
         }
 
         /// <summary>

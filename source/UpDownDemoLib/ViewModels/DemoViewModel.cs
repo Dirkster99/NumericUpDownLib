@@ -24,6 +24,9 @@
             UShortDemo = new UShortUpDownViewModel(0, ushort.MinValue, ushort.MaxValue, 1);
             UIntegerDemo = new UIntegerUpDownViewModel(0, uint.MinValue, uint.MaxValue, 1);
             ULongDemo = new ULongUpDownViewModel(0, ulong.MinValue, ulong.MaxValue, 1);
+
+            PercentageZeroToOneDemo = new DoubleUpDownViewModel(0.3, 0, 1, 0.01);
+            PercentageZeroTo100Demo = new DoubleUpDownViewModel(30, 0, 100, 0.1);
         }
         #endregion constructors
 
@@ -93,6 +96,44 @@
         /// in a <see cref="ulong"/> type based numeric up/down control
         /// </summary>
         public ULongUpDownViewModel ULongDemo { get; }
+
+        #region PercentageDemo
+        /// <summary>
+        /// Gets a <see cref="double"/> data type demo viewmodel to be displayed
+        /// in a <see cref="double"/> type based percantage numeric up/down control.
+        /// 
+        /// A percentage numeric up/down control operates by definition between
+        /// in the range of:
+        /// 1) 0 to 1     or 
+        /// 2) 0 to 100
+        /// 
+        /// The range of bound properties can be between 0 to 1
+        /// while the displayed and manipulated range can be 0 to 100,
+        /// or vice versa, or the rage displayed and manipulated can of
+        /// course also be the same.
+        /// 
+        /// This property can be used to test the bound 0 to 1 case.
+        /// </summary>
+        public DoubleUpDownViewModel PercentageZeroToOneDemo { get; }
+
+        /// <summary>
+        /// Gets a <see cref="double"/> data type demo viewmodel to be displayed
+        /// in a <see cref="double"/> type based percantage numeric up/down control.
+        /// 
+        /// A percentage numeric up/down control operates by definition between
+        /// in the range of:
+        /// 1) 0 to 1     or 
+        /// 2) 0 to 100
+        /// 
+        /// The range of bound properties can be between 0 to 1
+        /// while the displayed and manipulated range can be 0 to 100,
+        /// or vice versa, or the rage displayed and manipulated can of
+        /// course also be the same.
+        /// 
+        /// This property can be used to test the bound 0 to 100 case.
+        /// </summary>
+        public DoubleUpDownViewModel PercentageZeroTo100Demo { get; }
+        #endregion PercentageDemo
         #endregion properties
     }
 }
