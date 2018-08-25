@@ -3,7 +3,7 @@ namespace NumericUpDownLib
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Controls;
+    using System.Windows.Input;
 
     /// <summary>
     /// Implements an Integer based Numeric Up/Down control.
@@ -33,6 +33,24 @@ namespace NumericUpDownLib
         #endregion constructor
 
         #region methods
+        /// <summary>
+        /// Determines whether the increase command is available or not.
+        /// </summary>
+        /// <returns>true if command is enabled, otherwise false</returns>
+        protected override bool CanIncreaseCommand()
+        {
+            return (Value < MaxValue);
+        }
+
+        /// <summary>
+        /// Determines whether the decrease command is available or not.
+        /// </summary>
+        /// <returns>true if command is enabled, otherwise false</returns>
+        protected override bool CanDecreaseCommand()
+        {
+            return (Value > MinValue);
+        }
+
         /// <summary>
         /// Increase the displayed value
         /// </summary>

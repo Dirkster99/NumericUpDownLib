@@ -1,4 +1,4 @@
-﻿namespace UpDownDemoLib.ViewModels.Base
+﻿namespace NumericUpDownLib.Commands.Base
 {
     using System;
     using System.Diagnostics;

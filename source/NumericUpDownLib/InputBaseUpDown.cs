@@ -1,5 +1,6 @@
 ﻿namespace NumericUpDownLib
 {
+    using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
@@ -87,51 +88,21 @@
         /// Increase the displayed integer value
         /// </summary>
         protected abstract void OnIncrease();
-        /***
-            if (this.Value >= this.MaxValue)
-            {
-                // Value is not incremented if it is already maxed or above
-                this.Value = this.MaxValue;
-            }
-            else
-            {
-                if (this.Value + this.StepSize <= this.MaxValue)
-                    this.Value = (this.Value + this.StepSize);
-                else
-                {
-                    if (this.Value <= this.MinValue)
-                    {
-                        // Value is not incremented if it is already min or below
-                        this.Value = this.MinValue;
-                    }
-                }
-            }
-        ***/
+
+        /// <summary>
+        /// Determines whether the increase command is available or not.
+        /// </summary>
+        protected abstract bool CanIncreaseCommand();
 
         /// <summary>
         /// Decrease the displayed integer value
         /// </summary>
         protected abstract void OnDecrease();
-        /***
-           if (this.Value <= this.MinValue)
-            {
-                // Value is not decremented if it is already minimum or below
-                this.Value = this.MinValue;
-            }
-            else
-            {
-                if (this.Value - this.StepSize > this.MinValue)
-                    this.Value = (this.Value - this.StepSize);
-                else
-                {
-                    if (this.Value >= this.MaxValue)
-                    {
-                        // Value is not incremented if it is already maxed or above
-                        this.Value = this.MaxValue;
-                    }
-                }
-            }
-         ***/
+
+        /// <summary>
+        /// Determines whether the decrease command is available or not.
+        /// </summary>
+        protected abstract bool CanDecreaseCommand();
 
         /// <summary>
         /// Initialize up down/button commands and key gestures for up/down cursor keys
@@ -140,7 +111,7 @@
         {
             InputBaseUpDown.mIncreaseCommand = new RoutedCommand("IncreaseCommand", typeof(InputBaseUpDown));
             CommandManager.RegisterClassCommandBinding(typeof(InputBaseUpDown),
-                                    new CommandBinding(mIncreaseCommand, OnIncreaseCommand));
+                                    new CommandBinding(mIncreaseCommand, OnIncreaseCommand, OnCanIncreaseCommand));
 
             CommandManager.RegisterClassInputBinding(typeof(InputBaseUpDown),
                                     new InputBinding(mIncreaseCommand, new KeyGesture(Key.Up)));
@@ -148,10 +119,30 @@
             InputBaseUpDown.mDecreaseCommand = new RoutedCommand("DecreaseCommand", typeof(InputBaseUpDown));
 
             CommandManager.RegisterClassCommandBinding(typeof(InputBaseUpDown),
-                                    new CommandBinding(mDecreaseCommand, OnDecreaseCommand));
+                                    new CommandBinding(mDecreaseCommand, OnDecreaseCommand, OnDecreaseCommand));
 
             CommandManager.RegisterClassInputBinding(typeof(InputBaseUpDown),
                                     new InputBinding(mDecreaseCommand, new KeyGesture(Key.Down)));
+        }
+
+        private static void OnCanIncreaseCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var control = sender as InputBaseUpDown;
+            if (control != null)
+            {
+                e.CanExecute = control.CanIncreaseCommand();
+                e.Handled = true;
+            }
+        }
+
+        private static void OnDecreaseCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var control = sender as InputBaseUpDown;
+            if (control != null)
+            {
+                e.CanExecute = control.CanDecreaseCommand();
+                e.Handled = true;
+            }
         }
 
         /// <summary>

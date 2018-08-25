@@ -49,6 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\FactorToDoubleConverter.cs" />
     <Compile Include="FloatUpDown.cs" />
     <Compile Include="ULongUpDown.cs" />
