@@ -13,6 +13,26 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class NumericUpDown : AbstractBaseUpDown<int>
     {
+        /// <summary>
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
+        /// </summary>
+        protected static readonly DependencyProperty StepSizeProperty =
+            DependencyProperty.Register("StepSize",
+                                        typeof(int), typeof(NumericUpDown),
+                                        new FrameworkPropertyMetadata(1));
+
+        /// <summary>
+        /// Gets or sets the step size
+        /// (actual distance) of increment or decrement step.
+        /// This value should at leat be one or greater.
+        /// </summary>
+        public int StepSize
+        {
+            get { return (int)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+
         #region constructor
         /// <summary>
         /// Static class constructor

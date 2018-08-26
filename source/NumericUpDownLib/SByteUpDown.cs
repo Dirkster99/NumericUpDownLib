@@ -12,6 +12,26 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class SByteUpDown : AbstractBaseUpDown<sbyte>
     {
+        /// <summary>
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
+        /// </summary>
+        protected static readonly DependencyProperty StepSizeProperty =
+            DependencyProperty.Register("StepSize",
+                                        typeof(sbyte), typeof(SByteUpDown),
+                                        new FrameworkPropertyMetadata((sbyte)1));
+
+        /// <summary>
+        /// Gets or sets the step size
+        /// (actual distance) of increment or decrement step.
+        /// This value should at leat be one or greater.
+        /// </summary>
+        public sbyte StepSize
+        {
+            get { return (sbyte)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+
         #region constructor
         /// <summary>
         /// Static class constructor

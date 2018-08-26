@@ -3,7 +3,6 @@ namespace NumericUpDownLib
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Input;
 
     /// <summary>
     /// Implements a <see cref="ushort"/> based Numeric Up/Down control.
@@ -13,6 +12,26 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class UShortUpDown : AbstractBaseUpDown<ushort>
     {
+        /// <summary>
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
+        /// </summary>
+        protected static readonly DependencyProperty StepSizeProperty =
+            DependencyProperty.Register("StepSize",
+                                        typeof(ushort), typeof(UShortUpDown),
+                                        new FrameworkPropertyMetadata((ushort)1));
+
+        /// <summary>
+        /// Gets or sets the step size
+        /// (actual distance) of increment or decrement step.
+        /// This value should at leat be one or greater.
+        /// </summary>
+        public ushort StepSize
+        {
+            get { return (ushort)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+
         #region constructor
         /// <summary>
         /// Static class constructor

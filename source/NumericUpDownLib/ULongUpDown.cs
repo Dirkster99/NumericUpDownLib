@@ -13,6 +13,26 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class ULongUpDown : AbstractBaseUpDown<ulong>
     {
+        /// <summary>
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
+        /// </summary>
+        protected static readonly DependencyProperty StepSizeProperty =
+            DependencyProperty.Register("StepSize",
+                                        typeof(ulong), typeof(ULongUpDown),
+                                        new FrameworkPropertyMetadata(1UL));
+
+        /// <summary>
+        /// Gets or sets the step size
+        /// (actual distance) of increment or decrement step.
+        /// This value should at leat be one or greater.
+        /// </summary>
+        public ulong StepSize
+        {
+            get { return (ulong)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+
         #region constructor
         /// <summary>
         /// Static class constructor

@@ -52,15 +52,6 @@ namespace NumericUpDownLib
                                         new CoerceValueCallback(CoerceValue)));
 
         /// <summary>
-        /// Backing store to define the size of the increment or decrement
-        /// when using the up/down of the up/down numeric control.
-        /// </summary>
-        protected static readonly DependencyProperty StepSizeProperty =
-            DependencyProperty.Register("StepSize",
-                                        typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(default(T)));
-
-        /// <summary>
         /// Dependency property backing store for Minimum Value property.
         /// </summary>
         protected static readonly DependencyProperty MinValueProperty =
@@ -209,18 +200,6 @@ namespace NumericUpDownLib
             get { return (T)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
-
-        /// <summary>
-        /// Gets or sets the step size
-        /// (actual distance) of increment or decrement step.
-        /// This value should at leat be one or greater.
-        /// </summary>
-        public T StepSize
-        {
-            get { return (T)GetValue(StepSizeProperty); }
-            set { SetValue(StepSizeProperty, value); }
-        }
-
 
         /// <summary>
         /// Get/set dependency property to define the minimum legal value.
