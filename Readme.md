@@ -42,10 +42,9 @@ There is a demo application that shows the usage of the control (LIght/Black the
 such as, the ability to configure a minimum and maximum value that can be used to keep the resulting
 value within a given bound.
 
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo_1.png)
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo.png)
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo_light.png)
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/numericupdown_demo.png)
+![screenshot](https://raw.githubusercontent.com/Dirkster99/Docu/master/numericupdown/02_00/DarkByteDemo.png)
+![screenshot](https://raw.githubusercontent.com/Dirkster99/Docu/master/numericupdown/02_00/LightIntegerDemo.png)
+![screenshot](https://raw.githubusercontent.com/Dirkster99/Docu/master/numericupdown/02_00/PercentageDemo.png)
 
 ## Theming
 
