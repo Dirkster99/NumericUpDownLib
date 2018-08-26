@@ -9,7 +9,7 @@ This library implements more than 10 different numeric up down WPF controls that
 - up/down cursor keys
 - spinning mousewheel up down on mouseover
 
-Implements specific numeric up down control for data type:
+Implements specific numeric up down control for each .Net data type:
 - byte    (ByteUpDown    control)
 - decimal (DecimalUpDown control)
 - double  (DoubleUpDown  control)
