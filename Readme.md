@@ -38,7 +38,7 @@ More Features:
 - Spin value up/down on mouseover + mousewheel spin
 - IsReadOnly property disables the textbox portion but leaves all other funtions for Increment/Decrement available
 
-There is a demo application that shows the usage of the control (LIght/Black themes enabled) and documents the features,
+There is a demo application that shows the usage of the control (Light/Black themes enabled) and documents the features,
 such as, the ability to configure a minimum and maximum value that can be used to keep the resulting
 value within a given bound.
 
