@@ -9,7 +9,7 @@ This library implements more than 10 different numeric up down WPF controls that
 - up/down cursor keys
 - spinning mousewheel up down on mouseover
 
-Implements specific numeric up down control for data type:
+Implements specific numeric up down control for each .Net data type:
 - byte    (ByteUpDown    control)
 - decimal (DecimalUpDown control)
 - double  (DoubleUpDown  control)
@@ -38,14 +38,13 @@ More Features:
 - Spin value up/down on mouseover + mousewheel spin
 - IsReadOnly property disables the textbox portion but leaves all other funtions for Increment/Decrement available
 
-There is a demo application that shows the usage of the control (LIght/Black themes enabled) and documents the features,
+There is a demo application that shows the usage of the control (Light/Black themes enabled) and documents the features,
 such as, the ability to configure a minimum and maximum value that can be used to keep the resulting
 value within a given bound.
 
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo_1.png)
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo.png)
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/themeddemo_light.png)
-![screenshot](https://github.com/Dirkster99/Docu/blob/master/numericupdown/numericupdown_demo.png)
+![screenshot](https://raw.githubusercontent.com/Dirkster99/Docu/master/numericupdown/02_00/DarkByteDemo.png)
+![screenshot](https://raw.githubusercontent.com/Dirkster99/Docu/master/numericupdown/02_00/LightIntegerDemo.png)
+![screenshot](https://raw.githubusercontent.com/Dirkster99/Docu/master/numericupdown/02_00/PercentageDemo.png)
 
 ## Theming
 
