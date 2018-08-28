@@ -41,11 +41,12 @@ namespace NumericUpDownLib
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SByteUpDown),
                        new FrameworkPropertyMetadata(typeof(SByteUpDown)));
 
-            // overide default values inherited dependency properties
-            MaxValueProperty.OverrideMetadata(typeof(SByteUpDown),
-                                              new FrameworkPropertyMetadata(sbyte.MaxValue));
-            MinValueProperty.OverrideMetadata(typeof(SByteUpDown),
-                                              new FrameworkPropertyMetadata(sbyte.MinValue));
+            // Override Min/Max default values
+////            AbstractBaseUpDown<sbyte>.MinValueProperty.OverrideMetadata(
+////                typeof(SByteUpDown), new PropertyMetadata(sbyte.MinValue));
+////
+////            AbstractBaseUpDown<sbyte>.MaxValueProperty.OverrideMetadata(
+////                typeof(SByteUpDown), new PropertyMetadata(sbyte.MaxValue));
         }
 
         /// <summary>
@@ -219,6 +220,14 @@ namespace NumericUpDownLib
             }
         }
 
+        /// <summary>
+        /// Gets a formatted string for the value of the number passed in
+        /// and ensures that a default string is returned even if there is
+        /// no format specified.
+        /// </summary>
+        /// <param name="number">.Net type specific value to be formated as string</param>
+        /// <returns>The string that was formatted with the FormatString
+        /// dependency property</returns>
         private string FormatNumber(sbyte number)
         {
             string format = "{0}";

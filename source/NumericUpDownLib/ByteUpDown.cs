@@ -41,6 +41,16 @@ namespace NumericUpDownLib
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ByteUpDown),
                        new FrameworkPropertyMetadata(typeof(ByteUpDown)));
+
+////            MaxValueProperty.OverrideMetadata(typeof(ByteUpDown),
+////                                                  new PropertyMetadata(byte.MaxValue));
+
+            // Override Min/Max default values
+////            AbstractBaseUpDown<byte>.MinValueProperty.OverrideMetadata(
+////                typeof(ByteUpDown), new PropertyMetadata(byte.MinValue));
+////
+////            AbstractBaseUpDown<byte>.MaxValueProperty.OverrideMetadata(
+////                typeof(ByteUpDown), new PropertyMetadata(byte.MaxValue));
         }
 
         /// <summary>
@@ -211,6 +221,14 @@ namespace NumericUpDownLib
             }
         }
 
+        /// <summary>
+        /// Gets a formatted string for the value of the number passed in
+        /// and ensures that a default string is returned even if there is
+        /// no format specified.
+        /// </summary>
+        /// <param name="number">.Net type specific value to be formated as string</param>
+        /// <returns>The string that was formatted with the FormatString
+        /// dependency property</returns>
         private string FormatNumber(byte number)
         {
             string format = "{0}";

@@ -41,6 +41,13 @@ namespace NumericUpDownLib
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(UIntegerUpDown),
                        new FrameworkPropertyMetadata(typeof(UIntegerUpDown)));
+
+            // Override Min/Max default values
+////            AbstractBaseUpDown<uint>.MinValueProperty.OverrideMetadata(
+////                typeof(UIntegerUpDown), new PropertyMetadata(uint.MinValue));
+////
+////            AbstractBaseUpDown<uint>.MaxValueProperty.OverrideMetadata(
+////                typeof(UIntegerUpDown), new PropertyMetadata(uint.MaxValue));
         }
 
         /// <summary>
@@ -215,6 +222,14 @@ namespace NumericUpDownLib
             }
         }
 
+        /// <summary>
+        /// Gets a formatted string for the value of the number passed in
+        /// and ensures that a default string is returned even if there is
+        /// no format specified.
+        /// </summary>
+        /// <param name="number">.Net type specific value to be formated as string</param>
+        /// <returns>The string that was formatted with the FormatString
+        /// dependency property</returns>
         private string FormatNumber(uint number)
         {
             string format = "{0}";

@@ -44,7 +44,14 @@ namespace NumericUpDownLib
 
             // overide default values inherited dependency properties
             FormatStringProperty.OverrideMetadata(typeof(DoubleUpDown),
-                                                  new FrameworkPropertyMetadata("F2"));
+                                                  new PropertyMetadata("F2"));
+
+            // Override Min/Max default values
+////            AbstractBaseUpDown<double>.MinValueProperty.OverrideMetadata(
+////                typeof(DoubleUpDown), new PropertyMetadata(double.MinValue));
+////
+////            AbstractBaseUpDown<double>.MaxValueProperty.OverrideMetadata(
+////                typeof(DoubleUpDown), new PropertyMetadata(double.MaxValue));
         }
 
         /// <summary>
@@ -219,6 +226,14 @@ namespace NumericUpDownLib
             }
         }
 
+        /// <summary>
+        /// Gets a formatted string for the value of the number passed in
+        /// and ensures that a default string is returned even if there is
+        /// no format specified.
+        /// </summary>
+        /// <param name="number">.Net type specific value to be formated as string</param>
+        /// <returns>The string that was formatted with the FormatString
+        /// dependency property</returns>
         private string FormatNumber(double number)
         {
             string format = "{0}";

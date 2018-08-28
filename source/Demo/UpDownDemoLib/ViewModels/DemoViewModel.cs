@@ -12,14 +12,14 @@
         /// </summary>
         public DemoViewModel()
         {
-            ByteDemo = new ByteUpDownViewModel(5, 0, 255, 1);
+            ByteDemo = new ByteUpDownViewModel(5, 0, 128, 1);
             DecimalDemo = new DecimalUpDownViewModel(0, 7922816251426433, 792281625142643375933950335M, 792281);
             DoubleDemo = new DoubleUpDownViewModel(50, 0, 100, 1);
             FloatDemo = new FloatUpDownViewModel(5000, 0, 10000000, 1);
             IntegerDemo = new IntegerUpDownViewModel(98, -3, 105, 1);
             LongDemo = new LongUpDownViewModel(980, -3000000, 10500000, 55);
             SByteDemo = new SByteUpDownViewModel(-5, -127, 127, 1);
-            ShortDemo = new ShortUpDownViewModel(-5555, short.MinValue, short.MaxValue, 1);
+            ShortDemo = new ShortUpDownViewModel(-5, -10, 10, 1);
 
             UShortDemo = new UShortUpDownViewModel(0, ushort.MinValue, ushort.MaxValue, 1);
             UIntegerDemo = new UIntegerUpDownViewModel(0, uint.MinValue, uint.MaxValue, 1);

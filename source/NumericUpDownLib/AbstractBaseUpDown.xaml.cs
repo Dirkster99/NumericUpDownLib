@@ -46,54 +46,54 @@ namespace NumericUpDownLib
         /// </summary>
         protected static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value",
-                                        typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(_MinValue,
-                                        new PropertyChangedCallback(OnValueChanged),
-                                        new CoerceValueCallback(CoerceValue)));
+                typeof(T), typeof(AbstractBaseUpDown<T>),
+                new PropertyMetadata(_MinValue, new PropertyChangedCallback(OnValueChanged),
+                new CoerceValueCallback(CoerceValue)));
 
         /// <summary>
         /// Dependency property backing store for Minimum Value property.
         /// </summary>
         protected static readonly DependencyProperty MinValueProperty =
             DependencyProperty.Register("MinValue",
-                                        typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(_MinValue,
-                                        new PropertyChangedCallback(OnMinValueChanged),
-                                        new CoerceValueCallback(CoerceMinValue)));
+                typeof(T), typeof(AbstractBaseUpDown<T>),
+                new PropertyMetadata(_MinValue, new PropertyChangedCallback(OnMinValueChanged),
+                new CoerceValueCallback(CoerceMinValue)));
 
         /// <summary>
         /// Dependency property backing store for Maximum Value property.
         /// </summary>
         protected static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register("MaxValue",
-                                        typeof(T), typeof(AbstractBaseUpDown<T>),
-                                        new FrameworkPropertyMetadata(_MaxValue,
-                                        new PropertyChangedCallback(OnMaxValueChanged),
-                                        new CoerceValueCallback(CoerceMaxValue)));
+                typeof(T), typeof(AbstractBaseUpDown<T>),
+                new PropertyMetadata(_MaxValue, new PropertyChangedCallback(OnMaxValueChanged),
+                new CoerceValueCallback(CoerceMaxValue)));
 
         /// <summary>
         /// Identifies the ValueChanged routed event.
         /// </summary>
-        protected static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
-                                            "ValueChanged", RoutingStrategy.Bubble,
-                                            typeof(RoutedPropertyChangedEventHandler<T>),
-                                            typeof(AbstractBaseUpDown<T>));
+        protected static readonly RoutedEvent ValueChangedEvent =
+            EventManager.RegisterRoutedEvent(
+                "ValueChanged", RoutingStrategy.Bubble,
+                typeof(RoutedPropertyChangedEventHandler<T>),
+                typeof(AbstractBaseUpDown<T>));
 
         /// <summary>
         /// Identifies the MinValueChanged routed event.
         /// </summary>
-        protected static readonly RoutedEvent MinValueChangedEvent = EventManager.RegisterRoutedEvent(
-                                            "MinValueChanged", RoutingStrategy.Bubble,
-                                            typeof(RoutedPropertyChangedEventHandler<T>),
-                                            typeof(AbstractBaseUpDown<T>));
+        protected static readonly RoutedEvent MinValueChangedEvent =
+            EventManager.RegisterRoutedEvent(
+                "MinValueChanged", RoutingStrategy.Bubble,
+                typeof(RoutedPropertyChangedEventHandler<T>),
+                typeof(AbstractBaseUpDown<T>));
 
         /// <summary>
         /// Identifies the MaxValueChanged routed event.
         /// </summary>
-        protected static readonly RoutedEvent MaxValueChangedEvent = EventManager.RegisterRoutedEvent(
-                                            "MaxValueChanged", RoutingStrategy.Bubble,
-                                            typeof(RoutedPropertyChangedEventHandler<T>),
-                                            typeof(AbstractBaseUpDown<T>));
+        protected static readonly RoutedEvent MaxValueChangedEvent =
+            EventManager.RegisterRoutedEvent(
+                "MaxValueChanged", RoutingStrategy.Bubble,
+                typeof(RoutedPropertyChangedEventHandler<T>),
+                typeof(AbstractBaseUpDown<T>));
 
         /// <summary>
         /// Backing store for dependency property to define the number of characters
@@ -101,8 +101,8 @@ namespace NumericUpDownLib
         /// the textbox portion.
         /// </summary>
         protected static readonly DependencyProperty DisplayLengthProperty =
-                                DependencyProperty.Register("DisplayLength", typeof(byte),
-                                    typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
+            DependencyProperty.Register("DisplayLength", typeof(byte),
+                typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
 
         /// <summary>
         /// Backing store for dependency property to decide whether DisplayLength
