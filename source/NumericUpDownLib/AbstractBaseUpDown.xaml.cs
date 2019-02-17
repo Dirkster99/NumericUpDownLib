@@ -1,5 +1,6 @@
 namespace NumericUpDownLib
 {
+    using NumericUpDownLib.Models;
     using System;
     using System.Windows;
     using System.Windows.Controls;
@@ -140,6 +141,8 @@ namespace NumericUpDownLib
         /// with a standard control to ensure that enough digits are visible.
         /// </summary>
         private FrameworkElement _PART_Measuring_Element;
+
+        private MouseIncrementor _objMouseIncrementor;
         #endregion fields
 
         #region constructor
@@ -286,6 +289,15 @@ namespace NumericUpDownLib
 
                 _PART_TextBox.TextChanged += _PART_TextBox_TextChanged;
 
+                _PART_TextBox.MouseEnter += _PART_TextBox_MouseEnter;
+                _PART_TextBox.GotKeyboardFocus += _PART_TextBox_GotKeyboardFocus;
+                _PART_TextBox.LostKeyboardFocus += _PART_TextBox_LostKeyboardFocus;
+
+                _PART_TextBox.MouseMove += _PART_TextBox_MouseMove;
+                _PART_TextBox.MouseUp += _PART_TextBox_MouseUp;
+
+                _PART_TextBox.PreviewMouseDown += _PART_TextBox_PreviewMouseDown;
+
                 _PART_TextBox.GotFocus += _PART_TextBox_GotFocus;
                 _PART_TextBox.LostFocus += _PART_TextBox_LostFocus;
 
@@ -295,10 +307,124 @@ namespace NumericUpDownLib
             }
         }
 
+        private void _PART_TextBox_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Mouse.Capture(this, CaptureMode.None);
+        }
+
+        private void _PART_TextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsKeyboardFocusWithin == false)
+            {
+                _objMouseIncrementor = new MouseIncrementor(e.GetPosition(this), MouseDirections.None);
+                e.Handled = true;
+            }
+        }
+
+        private void _PART_TextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_objMouseIncrementor == null)
+                // nothing to do here
+                return;
+
+            if (e.LeftButton != MouseButtonState.Pressed)
+                return;
+
+            if (CanIncreaseCommand() == false && CanDecreaseCommand() == false)
+            {
+                // since we can't parse the value, we are out of here, i.e. user put text in our number box
+                _objMouseIncrementor = null;
+                return;
+            }
+
+            double intDeltaX = _objMouseIncrementor.Point.X - e.GetPosition(this).X;
+            double intDeltaY = _objMouseIncrementor.Point.Y - e.GetPosition(this).Y;
+
+            if (_objMouseIncrementor.MouseDirection == MouseDirections.None)
+            {
+
+                // this is our first time here, so we need to record if we are tracking x or y movements
+                if (Math.Abs(intDeltaX) > Math.Abs(intDeltaY))
+                    _objMouseIncrementor.MouseDirection = MouseDirections.LeftRight;
+                else
+                    _objMouseIncrementor.MouseDirection = MouseDirections.UpDown;
+            }
+
+            if (_objMouseIncrementor.MouseDirection == MouseDirections.LeftRight)
+            {
+                if (intDeltaX > 0)
+                {
+                    if (CanDecreaseCommand() == true)
+                        OnDecrease();
+                }
+                else
+                {
+                    if (intDeltaX < 0)
+                    {
+                        if (CanIncreaseCommand() == true)
+                            OnIncrease();
+                    }
+                }
+            }
+            else
+            {
+                if (intDeltaY > 0)
+                {
+                    if (CanIncreaseCommand() == true)
+                        OnIncrease();
+                }
+                else
+                {
+                    if (CanDecreaseCommand() == true)
+                        OnDecrease();
+                }
+            }
+
+            _objMouseIncrementor.Point = e.GetPosition(this);
+        }
+
+        /// <summary>
+        /// Go back to showing <see cref="Cursors.ScrollAll"/> mouse cursor on mouse over
+        /// without keyboard focus.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _PART_TextBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            _objMouseIncrementor = null;
+            (sender as TextBox).Cursor = Cursors.ScrollAll;
+        }
+
+        /// <summary>
+        /// Adjust mouse cursor to <see cref="Cursors.ScrollAll"/> when mouse
+        /// hovers over the <see cref="TextBox"/> without keyboard focus.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _PART_TextBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (IsKeyboardFocusWithin)
+                (sender as TextBox).Cursor = Cursors.IBeam;
+            else
+                (sender as TextBox).Cursor = Cursors.ScrollAll;
+        }
+
+        /// <summary>
+        /// Force <see cref="Cursors.IBeam"/> cursor when keyboard focus is within control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _PART_TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            _objMouseIncrementor = null;
+            (sender as TextBox).Cursor = Cursors.IBeam;
+        }
+
         private void _PART_TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             var tb = sender as TextBox;
 
+            _objMouseIncrementor = null;
             if (SelectAllTextOnFocus == true)
             {
                 if (tb != null)
@@ -308,6 +434,8 @@ namespace NumericUpDownLib
 
         private void _PART_TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            _objMouseIncrementor = null;
+
             if (_PART_TextBox != null)
                 FormatText(_PART_TextBox.Text);
         }
@@ -382,6 +510,13 @@ namespace NumericUpDownLib
             TextBox textBox = sender as TextBox;
 
             UserInput = true;
+
+            // Remove focus when escape if hit to go back to Cursors.ScrollAll mode
+            // to edit value increment/decrement via mouse cursor drag gesture
+            if (e.Key == Key.Escape)
+            {
+                Keyboard.ClearFocus();
+            }
         }
 
         /// <summary>

@@ -72,9 +72,32 @@
                             HorizontalAlignment="Left"
                         />
                     </Grid>
+                    <!--ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsFocused" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="PART_TextBox" Property="Cursor" Value="IBeam"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsFocused" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="PART_TextBox" Property="Cursor" Value="ScrollAll"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            
+        </Style.Triggers>
     </Style>
 
     <!-- Styles a byte based numeric up down control based on the InputBaseUpDown control style -->

@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="Converters\FactorToDoubleConverter.cs" />
     <Compile Include="FloatUpDown.cs" />
+    <Compile Include="Models\MouseDirections.cs" />
+    <Compile Include="Models\MouseIncrementor.cs" />
     <Compile Include="ULongUpDown.cs" />
     <Compile Include="UIntegerUpDown.cs" />
     <Compile Include="UShortUpDown.cs" />
@@ -104,5 +106,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
