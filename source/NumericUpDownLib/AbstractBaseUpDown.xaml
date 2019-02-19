@@ -14,6 +14,7 @@
                     <Grid VerticalAlignment="Top">
                         <Grid.Resources>
                             <conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
+                            <conv:BoolToVisibilityPropConverter x:Key="BoolToVisibilityConverter" />
                         </Grid.Resources>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -58,17 +59,21 @@
 
                         <!-- ArrowUp Increase value button -->
                         <local:NumericRepeatButtonControl
+                            x:Name="PART_IncrementButton"
                             Grid.Column="1" Grid.Row="0"
                             RepeatButtonContent="M 337.57757568359375,322 C337.57757568359375,322 334,326 334,326 334,326 341,326 341,326 341,326 337.57757568359375,322 337.57757568359375,322 z"
                             ClickCommand="{x:Static local:InputBaseUpDown.IncreaseCommand}"
+                            Visibility="{Binding Path=IsIncDecButtonsVisible,RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                         />
 
                         <!-- ArrowDown Decrease value button -->
                         <local:NumericRepeatButtonControl
+                            x:Name="PART_DecrementButton"
                             Grid.Column="1" Grid.Row="1"
                             RepeatButtonContent="M 0 0 L 4 4 L 8 0 Z"
                             ClickCommand="{x:Static local:InputBaseUpDown.DecreaseCommand}"
+                            Visibility="{Binding Path=IsIncDecButtonsVisible,RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
                             HorizontalAlignment="Left"
                         />
                     </Grid>

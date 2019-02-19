@@ -47,6 +47,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BoolToVisibilityPropConverter.cs" />
     <Compile Include="Converters\FactorToDoubleConverter.cs" />
     <Compile Include="FloatUpDown.cs" />
     <Compile Include="Models\MouseDirections.cs" />

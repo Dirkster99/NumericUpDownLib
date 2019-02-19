@@ -115,6 +115,11 @@
                                     Content="Is Visible"
                                     ToolTip="Check if value changes as expected when control is invisible."
                                 />
+                        <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsIncDecButtonsVisible}"
+                                  Content="Is IncDec Button Visible"
+                                  ToolTip="Check to test visibility of radio buttons."
+                                  Margin="21,0,0,0"
+                                />
                         <CheckBox IsChecked="{Binding ElementName=SampleUpDown,Path=IsDisplayLengthFixed}"
                                   Content="Is Display Length Fixed"
                                   ToolTip="Determines whether control shrinks or grows with its text portion input."

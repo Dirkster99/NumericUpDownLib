@@ -4,6 +4,7 @@ namespace NumericUpDownLib
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
 
@@ -17,14 +18,24 @@ namespace NumericUpDownLib
     {
         #region fields
         /// <summary>
-        /// Gets the required tamplate name of the textbox portion of this control.
+        /// Gets the required template name of the textbox portion of this control.
         /// </summary>
         public const string Part_TextBoxName = "PART_TextBox";
 
         /// <summary>
-        /// Gets the required tamplate name of the textbox portion of this control.
+        /// Gets the required template name of the textbox portion of this control.
         /// </summary>
         public const string PART_MeasuringElement = "PART_Measuring_Element";
+
+        /// <summary>
+        /// Gets the required template name of the increment button for this control.
+        /// </summary>
+        public const string PART_IncrementButton = "PART_IncrementButton";
+
+        /// <summary>
+        /// Gets the required template name of the decrement button for this control.
+        /// </summary>
+        public const string PART_DecrementButton = "PART_DecrementButton";
 
         /// <summary>
         /// Gets/sets the default applicable minimum value
@@ -41,6 +52,13 @@ namespace NumericUpDownLib
         /// default format string is more appropriate in the context of that inheriting class.
         /// </summary>
         protected static T _MaxValue = default(T);
+
+        /// <summary>
+        /// Dependency property backing store for the <see cref="IsIncDecButtonsVisible"/> property.
+        /// </summary>
+        public static readonly DependencyProperty IsIncDecButtonsVisibleProperty =
+            DependencyProperty.Register("IsIncDecButtonsVisible", typeof(bool),
+                typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
         /// <summary>
         /// Dependency property backing store for the Value property.
@@ -141,7 +159,9 @@ namespace NumericUpDownLib
         /// with a standard control to ensure that enough digits are visible.
         /// </summary>
         private FrameworkElement _PART_Measuring_Element;
-        private DateTime _MouseDownTime;
+        private RepeatButton _PART_DecrementButton;
+        private RepeatButton _PART_IncrementButton;
+
         private MouseIncrementor _objMouseIncrementor;
         #endregion fields
 
@@ -195,6 +215,15 @@ namespace NumericUpDownLib
         #endregion events
 
         #region properties
+        /// <summary>
+        /// Gets/sets whether the Increment or Decrement button is currently visible or not.
+        /// </summary>
+        public bool IsIncDecButtonsVisible
+        {
+            get { return (bool)GetValue(IsIncDecButtonsVisibleProperty); }
+            set { SetValue(IsIncDecButtonsVisibleProperty, value); }
+        }
+
         /// <summary>
         /// Gets or sets the value assigned to the control.
         /// </summary>
@@ -281,6 +310,9 @@ namespace NumericUpDownLib
             _PART_TextBox = this.GetTemplateChild(Part_TextBoxName) as TextBox;
             _PART_Measuring_Element = this.GetTemplateChild(PART_MeasuringElement) as FrameworkElement;
 
+            _PART_DecrementButton = this.GetTemplateChild(PART_DecrementButton) as RepeatButton;
+            _PART_IncrementButton = this.GetTemplateChild(PART_IncrementButton) as RepeatButton;
+
             if (_PART_TextBox != null)
             {
                 BindMeasuringObject(IsDisplayLengthFixed);
@@ -295,8 +327,8 @@ namespace NumericUpDownLib
 
                 _PART_TextBox.MouseMove += _PART_TextBox_MouseMove;
                 _PART_TextBox.MouseUp += _PART_TextBox_MouseUp;
-
                 _PART_TextBox.PreviewMouseDown += _PART_TextBox_PreviewMouseDown;
+                _PART_TextBox.LostMouseCapture += _PART_TextBox_LostMouseCapture;
 
                 _PART_TextBox.GotFocus += _PART_TextBox_GotFocus;
                 _PART_TextBox.LostFocus += _PART_TextBox_LostFocus;
@@ -305,6 +337,27 @@ namespace NumericUpDownLib
                 _PART_TextBox.PreviewTextInput += textBox_PreviewTextInput;
                 DataObject.AddPastingHandler(_PART_TextBox, textBox_TextPasted);
             }
+
+            if (_PART_DecrementButton != null)
+                _PART_DecrementButton.PreviewKeyDown += IncDecButton_PreviewKeyDown;
+
+            if (_PART_IncrementButton != null)
+                _PART_IncrementButton.PreviewKeyDown += IncDecButton_PreviewKeyDown;
+        }
+
+        private void IncDecButton_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Remove focus when escape was hit to go back to Cursors.ScrollAll mode
+            // and edit value increment/decrement via mouse drag gesture
+            if (e.Key == Key.Escape)
+            {
+                Keyboard.ClearFocus();
+            }
+        }
+
+        private void _PART_TextBox_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            _objMouseIncrementor = null;
         }
 
         private void _PART_TextBox_MouseUp(object sender, MouseButtonEventArgs e)
@@ -317,6 +370,7 @@ namespace NumericUpDownLib
                     _PART_TextBox.Focus();
                 }
 
+                _PART_TextBox.ReleaseMouseCapture();
                 _objMouseIncrementor = null;
             }
         }
@@ -325,7 +379,6 @@ namespace NumericUpDownLib
         {
             if (IsKeyboardFocusWithin == false)
             {
-                _MouseDownTime = DateTime.Now;
                 _objMouseIncrementor = new MouseIncrementor(this.GetPositionFromThis(e),
                                                             MouseDirections.None);
                 e.Handled = true;
@@ -349,29 +402,37 @@ namespace NumericUpDownLib
             }
 
             var pos = GetPositionFromThis(e);
-            double intDeltaX = _objMouseIncrementor.Point.X - pos.X;
-            double intDeltaY = _objMouseIncrementor.Point.Y - pos.Y;
+            double deltaX = _objMouseIncrementor.Point.X - pos.X;
+            double deltaY = _objMouseIncrementor.Point.Y - pos.Y;
 
             if (_objMouseIncrementor.MouseDirection == MouseDirections.None)
             {
-
                 // this is our first time here, so we need to record if we are tracking x or y movements
-                if (Math.Abs(intDeltaX) > Math.Abs(intDeltaY))
+                if (Math.Abs(deltaX) > Math.Abs(deltaY))
+                {
+                    _PART_TextBox.CaptureMouse();
                     _objMouseIncrementor.MouseDirection = MouseDirections.LeftRight;
+                }
                 else
-                    _objMouseIncrementor.MouseDirection = MouseDirections.UpDown;
+                {
+                    if (Math.Abs(deltaX) < Math.Abs(deltaY))
+                    {
+                        _PART_TextBox.CaptureMouse();
+                        _objMouseIncrementor.MouseDirection = MouseDirections.UpDown;
+                    }
+                }
             }
 
             if (_objMouseIncrementor.MouseDirection == MouseDirections.LeftRight)
             {
-                if (intDeltaX > 0)
+                if (deltaX > 0)
                 {
                     if (CanDecreaseCommand() == true)
                         OnDecrease();
                 }
                 else
                 {
-                    if (intDeltaX < 0)
+                    if (deltaX < 0)
                     {
                         if (CanIncreaseCommand() == true)
                             OnIncrease();
@@ -380,7 +441,7 @@ namespace NumericUpDownLib
             }
             else
             {
-                if (intDeltaY > 0)
+                if (deltaY > 0)
                 {
                     if (CanIncreaseCommand() == true)
                         OnIncrease();
@@ -392,7 +453,8 @@ namespace NumericUpDownLib
                 }
             }
 
-            _objMouseIncrementor.Point = GetPositionFromThis(e);
+            if (_objMouseIncrementor.MouseDirection != MouseDirections.None)
+                _objMouseIncrementor.Point = GetPositionFromThis(e);
         }
 
         private Point GetPositionFromThis(MouseEventArgs e)
@@ -524,12 +586,10 @@ namespace NumericUpDownLib
         /// <param name="e"></param>
         private void textBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
-
             UserInput = true;
 
-            // Remove focus when escape if hit to go back to Cursors.ScrollAll mode
-            // to edit value increment/decrement via mouse cursor drag gesture
+            // Remove focus when escape was hit to go back to Cursors.ScrollAll mode
+            // and edit value increment/decrement via mouse drag gesture
             if (e.Key == Key.Escape)
             {
                 Keyboard.ClearFocus();
