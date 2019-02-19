@@ -7,6 +7,7 @@ namespace NumericUpDownLib
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
+    using System.Windows.Threading;
 
     /// <summary>
     /// Implements an up/down abstract base control.
@@ -343,6 +344,23 @@ namespace NumericUpDownLib
 
             if (_PART_IncrementButton != null)
                 _PART_IncrementButton.PreviewKeyDown += IncDecButton_PreviewKeyDown;
+
+            this.IsVisibleChanged += new DependencyPropertyChangedEventHandler(LoginControl_IsVisibleChanged);
+        }
+
+        #region textbox mouse and focus handlers
+        /// <summary>
+        /// https://www.codeproject.com/tips/478376/setting-focus-to-a-control-inside-a-usercontrol-in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoginControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(delegate ()
+            {
+                Keyboard.ClearFocus();
+                _objMouseIncrementor = null;
+            }));
         }
 
         private void IncDecButton_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -352,14 +370,28 @@ namespace NumericUpDownLib
             if (e.Key == Key.Escape)
             {
                 Keyboard.ClearFocus();
+                e.Handled = true;
             }
         }
 
+        /// <summary>
+        /// This is called if we are losing the mouse capture without going through
+        /// the MouseUp event - normally this should not be necessary but we'll have
+        /// it as a safety net here.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _PART_TextBox_LostMouseCapture(object sender, MouseEventArgs e)
         {
             _objMouseIncrementor = null;
         }
 
+        /// <summary>
+        /// Is invoked if/when the user has stopped clicking the mous button
+        /// over the textbox portion of the control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _PART_TextBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (_objMouseIncrementor != null)
@@ -518,6 +550,7 @@ namespace NumericUpDownLib
             if (_PART_TextBox != null)
                 FormatText(_PART_TextBox.Text);
         }
+        #endregion textbox mouse and focus handlers
 
         #region textinput handlers
         /// <summary>
@@ -575,7 +608,6 @@ namespace NumericUpDownLib
         /// <param name="e"></param>
         private void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
             UserInput = true;
         }
 
@@ -593,6 +625,7 @@ namespace NumericUpDownLib
             if (e.Key == Key.Escape)
             {
                 Keyboard.ClearFocus();
+                e.Handled = true;
             }
         }
 
