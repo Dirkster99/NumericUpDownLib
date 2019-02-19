@@ -7,6 +7,8 @@ namespace NumericUpDownLib.Models
         #region fields
         private MouseDirections _enumMouseDirection = MouseDirections.None;
         private Point _objPoint;
+
+        private readonly Point _initialPoint;
         #endregion fields
 
         #region Ctors
@@ -18,6 +20,7 @@ namespace NumericUpDownLib.Models
         public MouseIncrementor(Point objPoint, MouseDirections enumMouseDirection)
         {
             _objPoint = objPoint;
+            _initialPoint = _objPoint;
             _enumMouseDirection = enumMouseDirection;
         }
         #endregion Ctors
@@ -29,9 +32,18 @@ namespace NumericUpDownLib.Models
             {
                 return _enumMouseDirection;
             }
+
             set
             {
                 _enumMouseDirection = value;
+            }
+        }
+
+        public Point InitialPoint
+        {
+            get
+            {
+                return _initialPoint;
             }
         }
 

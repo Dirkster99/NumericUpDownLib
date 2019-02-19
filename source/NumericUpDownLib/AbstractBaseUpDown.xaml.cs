@@ -141,7 +141,7 @@ namespace NumericUpDownLib
         /// with a standard control to ensure that enough digits are visible.
         /// </summary>
         private FrameworkElement _PART_Measuring_Element;
-
+        private DateTime _MouseDownTime;
         private MouseIncrementor _objMouseIncrementor;
         #endregion fields
 
@@ -309,22 +309,33 @@ namespace NumericUpDownLib
 
         private void _PART_TextBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Mouse.Capture(this, CaptureMode.None);
+            if (_objMouseIncrementor != null)
+            {
+                var mouseUpPosition = GetPositionFromThis(e);
+                if (_objMouseIncrementor.InitialPoint.Equals(mouseUpPosition))
+                {
+                    _PART_TextBox.Focus();
+                }
+
+                _objMouseIncrementor = null;
+            }
         }
 
         private void _PART_TextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (IsKeyboardFocusWithin == false)
             {
-                _objMouseIncrementor = new MouseIncrementor(e.GetPosition(this), MouseDirections.None);
+                _MouseDownTime = DateTime.Now;
+                _objMouseIncrementor = new MouseIncrementor(this.GetPositionFromThis(e),
+                                                            MouseDirections.None);
                 e.Handled = true;
             }
         }
 
         private void _PART_TextBox_MouseMove(object sender, MouseEventArgs e)
         {
+            // nothing to do here
             if (_objMouseIncrementor == null)
-                // nothing to do here
                 return;
 
             if (e.LeftButton != MouseButtonState.Pressed)
@@ -337,8 +348,9 @@ namespace NumericUpDownLib
                 return;
             }
 
-            double intDeltaX = _objMouseIncrementor.Point.X - e.GetPosition(this).X;
-            double intDeltaY = _objMouseIncrementor.Point.Y - e.GetPosition(this).Y;
+            var pos = GetPositionFromThis(e);
+            double intDeltaX = _objMouseIncrementor.Point.X - pos.X;
+            double intDeltaY = _objMouseIncrementor.Point.Y - pos.Y;
 
             if (_objMouseIncrementor.MouseDirection == MouseDirections.None)
             {
@@ -380,7 +392,12 @@ namespace NumericUpDownLib
                 }
             }
 
-            _objMouseIncrementor.Point = e.GetPosition(this);
+            _objMouseIncrementor.Point = GetPositionFromThis(e);
+        }
+
+        private Point GetPositionFromThis(MouseEventArgs e)
+        {
+            return this.PointToScreen(e.GetPosition(this));
         }
 
         /// <summary>
