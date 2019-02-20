@@ -23,6 +23,7 @@
             MinValue="{Binding MinimumValue}"
             MaxValue="{Binding MaximumValue}"
             StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+            LargeStepSize="{Binding LargeStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
             ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
             IsReadOnly="False"
             DisplayLength="5"
@@ -39,6 +40,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
@@ -60,6 +62,16 @@
                             />
                             <TextBox IsReadOnly="True"
                                  Text="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Margin="3" Grid.Column="2">
+                            <Label Content="Large Step Size:"/>
+                            <Slider Value="{Binding LargeStepSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    Minimum="1"
+                                    Maximum="512"
+                                    ToolTip="The LargeStepSize changes a LARGE size of increment on cursor/mouse drag right/left."
+                            />
+                            <TextBox IsReadOnly="True"
+                                 Text="{Binding LargeStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Grid>
 

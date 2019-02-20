@@ -12,6 +12,7 @@
         private T _MinimumValue = default(T);
         private T _MaximumValue = default(T);
         private T _StepSize = default(T);
+        private T _LargeStepSize = default(T);
         #endregion fields
 
         #region CTors
@@ -62,6 +63,28 @@
                 {
                     _StepSize = value;
                     NotifyPropertyChanged(() => StepSize);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the step size
+        /// (actual distance) of increment or decrement step.
+        /// This value should at leat be one or greater.
+        /// </summary>
+        public virtual T LargeStepSize
+        {
+            get
+            {
+                return _LargeStepSize;
+            }
+
+            set
+            {
+                if (Compare(_LargeStepSize, value) == false)
+                {
+                    _LargeStepSize = value;
+                    NotifyPropertyChanged(() => LargeStepSize);
                 }
             }
         }

@@ -22,6 +22,15 @@ namespace NumericUpDownLib
             DependencyProperty.Register("StepSize",
                                         typeof(byte), typeof(ByteUpDown),
                                         new FrameworkPropertyMetadata((byte)1));
+
+        /// <summary>
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
+        /// </summary>
+        protected static readonly DependencyProperty LargeStepSizeProperty =
+            DependencyProperty.Register("LargeStepSize",
+                                        typeof(byte), typeof(ByteUpDown),
+                                        new FrameworkPropertyMetadata((byte)10));
         #endregion fields
 
         #region constructor
@@ -62,6 +71,16 @@ namespace NumericUpDownLib
         {
             get { return (byte)GetValue(StepSizeProperty); }
             set { SetValue(StepSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
+        /// </summary>
+        public override byte LargeStepSize
+        {
+            get { return (byte)GetValue(LargeStepSizeProperty); }
+            set { SetValue(LargeStepSizeProperty, value); }
         }
         #endregion properties
 
@@ -128,6 +147,89 @@ namespace NumericUpDownLib
             // Value was decremented beyond bound so we reset it to min
             if (this.Value < this.MinValue)
                 this.Value = this.MinValue;
+        }
+
+
+        /// <summary>
+        /// Increments the current value by the <paramref name="stepValue"/> and returns
+        /// true if maximum allowed value was not reached, yet. Or returns false and
+        /// changes nothing if maximum value is equal current value.
+        /// </summary>
+        /// <param name="stepValue"></param>
+        /// <returns></returns>
+        protected override bool OnIncrement(byte stepValue)
+        {
+            try
+            {
+                checked
+                {
+                    if (Value == MaxValue)
+                        return false;
+
+                    var result = (byte)(Value + stepValue);
+
+                    if (result >= MaxValue)
+                    {
+                        Value = MaxValue;
+                        return true;
+                    }
+
+                    if (result >= MinValue)
+                        Value = result;
+
+                    return true;
+                }
+            }
+            catch (OverflowException)
+            {
+                Value = MaxValue;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Decrements the current value by the <paramref name="stepValue"/> and returns
+        /// true if minimum allowed value was not reached, yet. Or returns false and
+        /// changes nothing if minimum value is equal current value.
+        /// </summary>
+        /// <param name="stepValue"></param>
+        /// <returns></returns>
+        protected override bool OnDecrement(byte stepValue)
+        {
+            try
+            {
+                checked
+                {
+                    if (Value == MinValue)
+                        return false;
+
+                    var result = (byte)(Value - stepValue);
+
+                    if (result <= MinValue)
+                    {
+                        Value = MinValue;
+                        return true;
+                    }
+
+                    if (result <= MaxValue)
+                        Value = result;
+
+                    return true;
+                }
+            }
+            catch (OverflowException)
+            {
+                Value = MinValue;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

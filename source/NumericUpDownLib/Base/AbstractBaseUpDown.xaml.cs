@@ -263,6 +263,16 @@ namespace NumericUpDownLib.Base
         public abstract T StepSize { get; set; }
 
         /// <summary>
+        /// Implements an abstract place holder for a dependency property that should
+        /// be implemented in a deriving class. The place holder is necessary here because
+        /// the default value (usually greater than 1) cannot be formulated with {T}.
+        /// 
+        /// Gets or sets a large step size (actual distance) of increment or decrement step.
+        /// This value should be greater than 1 but at least 1.
+        /// </summary>
+        public abstract T LargeStepSize { get; set; }
+
+        /// <summary>
         /// Gets/sets the number of characters to display in the textbox portion of the
         /// AbstractBaseUpDown control.
         /// </summary>
@@ -310,6 +320,24 @@ namespace NumericUpDownLib.Base
         #endregion properties
 
         #region methods
+        /// <summary>
+        /// Increments the current value by the <paramref name="stepValue"/> and returns
+        /// true if maximum allowed value was not reached, yet. Or returns false and
+        /// changes nothing if maximum value is equal current value.
+        /// </summary>
+        /// <param name="stepValue"></param>
+        /// <returns></returns>
+        abstract protected bool OnIncrement(T stepValue);
+
+        /// <summary>
+        /// Decrements the current value by the <paramref name="stepValue"/> and returns
+        /// true if minimum allowed value was not reached, yet. Or returns false and
+        /// changes nothing if minimum value is equal current value.
+        /// </summary>
+        /// <param name="stepValue"></param>
+        /// <returns></returns>
+        abstract protected bool OnDecrement(T stepValue);
+
         /// <summary>
         /// Is invoked whenever application code or internal processes call
         /// System.Windows.FrameworkElement.ApplyTemplate.
@@ -472,17 +500,11 @@ namespace NumericUpDownLib.Base
             if (_objMouseIncrementor.MouseDirection == MouseDirections.LeftRight)
             {
                 if (deltaX > 0)
-                {
-                    if (CanDecreaseCommand() == true)
-                        OnDecrease();
-                }
+                    OnDecrement(LargeStepSize);
                 else
                 {
                     if (deltaX < 0)
-                    {
-                        if (CanIncreaseCommand() == true)
-                            OnIncrease();
-                    }
+                        OnIncrement(LargeStepSize);
                 }
             }
             else
@@ -560,6 +582,7 @@ namespace NumericUpDownLib.Base
         private void _PART_TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             _objMouseIncrementor = null;
+            (sender as TextBox).Cursor = Cursors.ScrollAll;
 
             if (_PART_TextBox != null)
                 FormatText(_PART_TextBox.Text);
@@ -657,6 +680,20 @@ namespace NumericUpDownLib.Base
                 if (CanDecreaseCommand() == true)
                     DecreaseCommand.Execute(null, this);
 
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Right)
+            {
+                OnIncrement(LargeStepSize);
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Left)
+            {
+                OnDecrement(LargeStepSize);
                 e.Handled = true;
                 return;
             }
