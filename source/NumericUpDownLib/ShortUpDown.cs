@@ -21,7 +21,8 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty StepSizeProperty =
             DependencyProperty.Register("StepSize",
                                         typeof(short), typeof(ShortUpDown),
-                                        new FrameworkPropertyMetadata((short)1));
+                                        new FrameworkPropertyMetadata((short)1),
+                                        new ValidateValueCallback(IsValidStepSizeReading));
 
         /// <summary>
         /// Backing store to define the size of the increment or decrement
@@ -30,7 +31,8 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty LargeStepSizeProperty =
             DependencyProperty.Register("LargeStepSize",
                                         typeof(short), typeof(ShortUpDown),
-                                        new FrameworkPropertyMetadata((short)10));
+                                        new FrameworkPropertyMetadata((short)10),
+                                        new ValidateValueCallback(IsValidStepSizeReading));
         #endregion fields
 
         #region constructor
@@ -320,6 +322,18 @@ namespace NumericUpDownLib
                 _PART_TextBox.SelectionStart = 0;
                 _PART_TextBox.Text = FormatNumber(MinValue);
             }
+        }
+
+        /// <summary>
+        /// Determines whether the step size in the <paramref name="value"/> parameter
+        /// is larger 0 (valid) or not.
+        /// </summary>
+        /// <param name="value">returns true for valid values, otherwise false.</param>
+        /// <returns></returns>
+        private static bool IsValidStepSizeReading(object value)
+        {
+            var v = (short)value;
+            return (v > 0);
         }
 
         /// <summary>

@@ -20,7 +20,8 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty StepSizeProperty =
             DependencyProperty.Register("StepSize",
                                         typeof(sbyte), typeof(SByteUpDown),
-                                        new FrameworkPropertyMetadata((sbyte)1));
+                                        new FrameworkPropertyMetadata((sbyte)1),
+                                        new ValidateValueCallback(IsValidStepSizeReading));
 
         /// <summary>
         /// Backing store to define the size of the increment or decrement
@@ -29,7 +30,8 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty LargeStepSizeProperty =
             DependencyProperty.Register("LargeStepSize",
                                         typeof(sbyte), typeof(SByteUpDown),
-                                        new FrameworkPropertyMetadata((sbyte)10));
+                                        new FrameworkPropertyMetadata((sbyte)10),
+                                        new ValidateValueCallback(IsValidStepSizeReading));
         #endregion fields
 
         #region properties
@@ -324,6 +326,18 @@ namespace NumericUpDownLib
             }
         }
 
+        /// <summary>
+        /// Determines whether the step size in the <paramref name="value"/> parameter
+        /// is larger 0 (valid) or not.
+        /// </summary>
+        /// <param name="value">returns true for valid values, otherwise false.</param>
+        /// <returns></returns>
+        private static bool IsValidStepSizeReading(object value)
+        {
+            var v = (sbyte)value;
+            return (v > 0);
+        }
+        
         /// <summary>
         /// Gets a formatted string for the value of the number passed in
         /// and ensures that a default string is returned even if there is
