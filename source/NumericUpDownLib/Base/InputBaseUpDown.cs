@@ -1,4 +1,4 @@
-﻿namespace NumericUpDownLib
+﻿namespace NumericUpDownLib.Base
 {
     using System;
     using System.Globalization;
@@ -7,7 +7,7 @@
     using System.Windows.Input;
 
     /// <summary>
-    /// This class serve as target for styling the <see cref="AbstractBaseUpDown{T}"/> class
+    /// This class serves as a target for styling the <see cref="AbstractBaseUpDown{T}"/> class
     /// since styling directly on <see cref="AbstractBaseUpDown{T}"/> is not supported in XAML.
     /// </summary>
     public abstract class InputBaseUpDown : Control

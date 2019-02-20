@@ -1,4 +1,4 @@
-namespace NumericUpDownLib
+namespace NumericUpDownLib.Base
 {
     using NumericUpDownLib.Models;
     using System;
@@ -253,6 +253,16 @@ namespace NumericUpDownLib
         }
 
         /// <summary>
+        /// Implements an abstract place holder for a dependency property that should
+        /// be implemented in a deriving class. The place holder is necessary here because
+        /// the default value (usually 1 or greater 0) cannot be formulated with {T}.
+        /// 
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
+        /// </summary>
+        public abstract T StepSize { get; set; }
+
+        /// <summary>
         /// Gets/sets the number of characters to display in the textbox portion of the
         /// AbstractBaseUpDown control.
         /// </summary>
@@ -345,16 +355,19 @@ namespace NumericUpDownLib
             if (_PART_IncrementButton != null)
                 _PART_IncrementButton.PreviewKeyDown += IncDecButton_PreviewKeyDown;
 
-            this.IsVisibleChanged += new DependencyPropertyChangedEventHandler(LoginControl_IsVisibleChanged);
+            this.IsVisibleChanged += new DependencyPropertyChangedEventHandler(this_IsVisibleChanged);
         }
 
         #region textbox mouse and focus handlers
         /// <summary>
+        /// Clears the focus and resets the mouse incrementor object to cancel
+        /// editing and return to mouse drag mode.
+        /// 
         /// https://www.codeproject.com/tips/478376/setting-focus-to-a-control-inside-a-usercontrol-in
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoginControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void this_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(delegate ()
             {

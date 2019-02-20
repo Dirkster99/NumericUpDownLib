@@ -1,9 +1,9 @@
 namespace NumericUpDownLib
 {
+    using NumericUpDownLib.Base;
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Input;
 
     /// <summary>
     /// Implements an <see cref="uint"/> based Numeric Up/Down control.
@@ -12,7 +12,8 @@ namespace NumericUpDownLib
     /// http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
     /// </summary>
     public partial class UIntegerUpDown : AbstractBaseUpDown<uint>
-    { 
+    {
+        #region fields
         /// <summary>
         /// Backing store to define the size of the increment or decrement
         /// when using the up/down of the up/down numeric control.
@@ -21,17 +22,7 @@ namespace NumericUpDownLib
             DependencyProperty.Register("StepSize",
                                         typeof(uint), typeof(UIntegerUpDown),
                                         new FrameworkPropertyMetadata((uint)1));
-
-        /// <summary>
-        /// Gets or sets the step size
-        /// (actual distance) of increment or decrement step.
-        /// This value should at leat be one or greater.
-        /// </summary>
-        public uint StepSize
-        {
-            get { return (uint)GetValue(StepSizeProperty); }
-            set { SetValue(StepSizeProperty, value); }
-        }
+        #endregion fields
 
         #region constructor
         /// <summary>
@@ -58,6 +49,18 @@ namespace NumericUpDownLib
         {
         }
         #endregion constructor
+
+        #region properties
+        /// <summary>
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
+        /// </summary>
+        public override uint StepSize
+        {
+            get { return (uint)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+        #endregion properties
 
         #region methods
         /// <summary>

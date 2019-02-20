@@ -1,9 +1,9 @@
 namespace NumericUpDownLib
 {
+    using NumericUpDownLib.Base;
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Input;
 
     /// <summary>
     /// Implements a <see cref="sbyte"/> based Numeric Up/Down control.
@@ -12,6 +12,7 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class SByteUpDown : AbstractBaseUpDown<sbyte>
     {
+        #region fields
         /// <summary>
         /// Backing store to define the size of the increment or decrement
         /// when using the up/down of the up/down numeric control.
@@ -20,17 +21,19 @@ namespace NumericUpDownLib
             DependencyProperty.Register("StepSize",
                                         typeof(sbyte), typeof(SByteUpDown),
                                         new FrameworkPropertyMetadata((sbyte)1));
+        #endregion fields
 
+        #region properties
         /// <summary>
-        /// Gets or sets the step size
-        /// (actual distance) of increment or decrement step.
-        /// This value should at leat be one or greater.
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
         /// </summary>
-        public sbyte StepSize
+        public override sbyte StepSize
         {
             get { return (sbyte)GetValue(StepSizeProperty); }
             set { SetValue(StepSizeProperty, value); }
         }
+        #endregion properties
 
         #region constructor
         /// <summary>

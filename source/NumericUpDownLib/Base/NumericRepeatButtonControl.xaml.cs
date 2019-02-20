@@ -1,4 +1,4 @@
-﻿namespace NumericUpDownLib
+﻿namespace NumericUpDownLib.Base
 {
     using System.Windows;
     using System.Windows.Controls.Primitives;

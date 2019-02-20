@@ -1,9 +1,9 @@
 namespace NumericUpDownLib
 {
+    using NumericUpDownLib.Base;
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Input;
 
     /// <summary>
     /// Implements a <see cref="float"/> based Numeric Up/Down control.
@@ -13,6 +13,7 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class FloatUpDown : AbstractBaseUpDown<float>
     {
+        #region fields
         /// <summary>
         /// Backing store to define the size of the increment or decrement
         /// when using the up/down of the up/down numeric control.
@@ -21,17 +22,7 @@ namespace NumericUpDownLib
             DependencyProperty.Register("StepSize",
                                         typeof(float), typeof(FloatUpDown),
                                         new FrameworkPropertyMetadata(1F));
-
-        /// <summary>
-        /// Gets or sets the step size
-        /// (actual distance) of increment or decrement step.
-        /// This value should at leat be one or greater.
-        /// </summary>
-        public float StepSize
-        {
-            get { return (float)GetValue(StepSizeProperty); }
-            set { SetValue(StepSizeProperty, value); }
-        }
+        #endregion fields
 
         #region constructor
         /// <summary>
@@ -61,6 +52,18 @@ namespace NumericUpDownLib
         {
         }
         #endregion constructor
+
+        #region properties
+        /// <summary>
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
+        /// </summary>
+        public override float StepSize
+        {
+            get { return (float)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+        #endregion properties
 
         #region methods
         /// <summary>
