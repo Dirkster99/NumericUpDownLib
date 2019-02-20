@@ -371,6 +371,7 @@ namespace NumericUpDownLib
             {
                 Keyboard.ClearFocus();
                 e.Handled = true;
+                return;
             }
         }
 
@@ -626,6 +627,25 @@ namespace NumericUpDownLib
             {
                 Keyboard.ClearFocus();
                 e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Up)
+            {
+                if (CanIncreaseCommand() == true)
+                    IncreaseCommand.Execute(null, this);
+
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Down)
+            {
+                if (CanDecreaseCommand() == true)
+                    DecreaseCommand.Execute(null, this);
+
+                e.Handled = true;
+                return;
             }
         }
 

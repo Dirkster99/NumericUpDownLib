@@ -152,28 +152,22 @@
             InputBaseUpDown.mDecreaseCommand = new RoutedCommand("DecreaseCommand", typeof(InputBaseUpDown));
 
             CommandManager.RegisterClassCommandBinding(typeof(InputBaseUpDown),
-                                    new CommandBinding(mDecreaseCommand, OnDecreaseCommand, OnDecreaseCommand));
-
-            CommandManager.RegisterClassInputBinding(typeof(InputBaseUpDown),
-                                    new InputBinding(mDecreaseCommand, new KeyGesture(Key.Down)));
+                                    new CommandBinding(mDecreaseCommand, OnDecreaseCommand, OnCanDecreaseCommand));
         }
 
+        /// <summary>
+        /// Determine whether the IncreaseCommand can be executed or not and return the result
+        /// in the <see cref="CanExecuteRoutedEventArgs.CanExecute"/> property of the given
+        /// <paramref name="e"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void OnCanIncreaseCommand(object sender, CanExecuteRoutedEventArgs e)
         {
             var control = sender as InputBaseUpDown;
             if (control != null)
             {
                 e.CanExecute = control.CanIncreaseCommand();
-                e.Handled = true;
-            }
-        }
-
-        private static void OnDecreaseCommand(object sender, CanExecuteRoutedEventArgs e)
-        {
-            var control = sender as InputBaseUpDown;
-            if (control != null)
-            {
-                e.CanExecute = control.CanDecreaseCommand();
                 e.Handled = true;
             }
         }
@@ -204,6 +198,23 @@
             if (control != null)
             {
                 control.OnDecrease();
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Determine whether the DecreaseCommand can be executed or not and return the result
+        /// in the <see cref="CanExecuteRoutedEventArgs.CanExecute"/> property of the given
+        /// <paramref name="e"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void OnCanDecreaseCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var control = sender as InputBaseUpDown;
+            if (control != null)
+            {
+                e.CanExecute = control.CanDecreaseCommand();
                 e.Handled = true;
             }
         }
