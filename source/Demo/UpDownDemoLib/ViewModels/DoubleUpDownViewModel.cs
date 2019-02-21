@@ -15,10 +15,12 @@
         /// <param name="minimumValue"></param>
         /// <param name="maximumValue"></param>
         /// <param name="stepSize"></param>
+        /// <param name="largestepSize"></param>
         public DoubleUpDownViewModel(double value,
                                      double minimumValue,
                                      double maximumValue,
-                                     double stepSize
+                                     double stepSize,
+                                     double largestepSize
             )
             : base()
         {
@@ -26,6 +28,7 @@
             base.MinimumValue = minimumValue;
             base.MaximumValue = maximumValue;
             base.StepSize = stepSize;
+            base.LargeStepSize = largestepSize;
         }
 
         /// Method determine whether to objects of type {T} are equal.

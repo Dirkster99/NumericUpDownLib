@@ -1,9 +1,9 @@
 namespace NumericUpDownLib
 {
+    using NumericUpDownLib.Base;
     using System;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Input;
 
     /// <summary>
     /// Implements an <see cref="ulong"/> based Numeric Up/Down control.
@@ -13,6 +13,7 @@ namespace NumericUpDownLib
     /// </summary>
     public partial class ULongUpDown : AbstractBaseUpDown<ulong>
     {
+        #region fields
         /// <summary>
         /// Backing store to define the size of the increment or decrement
         /// when using the up/down of the up/down numeric control.
@@ -20,18 +21,19 @@ namespace NumericUpDownLib
         protected static readonly DependencyProperty StepSizeProperty =
             DependencyProperty.Register("StepSize",
                                         typeof(ulong), typeof(ULongUpDown),
-                                        new FrameworkPropertyMetadata(1UL));
+                                        new FrameworkPropertyMetadata(1UL),
+                                        new ValidateValueCallback(IsValidStepSizeReading));
 
         /// <summary>
-        /// Gets or sets the step size
-        /// (actual distance) of increment or decrement step.
-        /// This value should at leat be one or greater.
+        /// Backing store to define the size of the increment or decrement
+        /// when using the up/down of the up/down numeric control.
         /// </summary>
-        public ulong StepSize
-        {
-            get { return (ulong)GetValue(StepSizeProperty); }
-            set { SetValue(StepSizeProperty, value); }
-        }
+        protected static readonly DependencyProperty LargeStepSizeProperty =
+            DependencyProperty.Register("LargeStepSize",
+                                        typeof(ulong), typeof(ULongUpDown),
+                                        new FrameworkPropertyMetadata(10UL),
+                                        new ValidateValueCallback(IsValidStepSizeReading));
+        #endregion fields
 
         #region constructor
         /// <summary>
@@ -58,6 +60,28 @@ namespace NumericUpDownLib
         {
         }
         #endregion constructor
+
+        #region properties
+        /// <summary>
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
+        /// </summary>
+        public override ulong StepSize
+        {
+            get { return (ulong)GetValue(StepSizeProperty); }
+            set { SetValue(StepSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the step size (actual distance) of increment or decrement step.
+        /// This value should at least be 1 or greater.
+        /// </summary>
+        public override ulong LargeStepSize
+        {
+            get { return (ulong)GetValue(LargeStepSizeProperty); }
+            set { SetValue(LargeStepSizeProperty, value); }
+        }
+        #endregion properties
 
         #region methods
         /// <summary>
@@ -124,6 +148,87 @@ namespace NumericUpDownLib
                 this.Value = this.MinValue;
         }
 
+        /// <summary>
+        /// Increments the current value by the <paramref name="stepValue"/> and returns
+        /// true if maximum allowed value was not reached, yet. Or returns false and
+        /// changes nothing if maximum value is equal current value.
+        /// </summary>
+        /// <param name="stepValue"></param>
+        /// <returns></returns>
+        protected override bool OnIncrement(ulong stepValue)
+        {
+            try
+            {
+                checked
+                {
+                    if (Value == MaxValue)
+                        return false;
+
+                    var result = (ulong)(Value + stepValue);
+
+                    if (result >= MaxValue)
+                    {
+                        Value = MaxValue;
+                        return true;
+                    }
+
+                    if (result >= MinValue)
+                        Value = result;
+
+                    return true;
+                }
+            }
+            catch (OverflowException)
+            {
+                Value = MaxValue;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Decrements the current value by the <paramref name="stepValue"/> and returns
+        /// true if minimum allowed value was not reached, yet. Or returns false and
+        /// changes nothing if minimum value is equal current value.
+        /// </summary>
+        /// <param name="stepValue"></param>
+        /// <returns></returns>
+        protected override bool OnDecrement(ulong stepValue)
+        {
+            try
+            {
+                checked
+                {
+                    if (Value == MinValue)
+                        return false;
+
+                    var result = (ulong)(Value - stepValue);
+
+                    if (result <= MinValue)
+                    {
+                        Value = MinValue;
+                        return true;
+                    }
+
+                    if (result <= MaxValue)
+                        Value = result;
+
+                    return true;
+                }
+            }
+            catch (OverflowException)
+            {
+                Value = MinValue;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Attempts to force the new value into the existing dependency property
@@ -220,6 +325,18 @@ namespace NumericUpDownLib
                 _PART_TextBox.SelectionStart = 0;
                 _PART_TextBox.Text = FormatNumber(MinValue);
             }
+        }
+
+        /// <summary>
+        /// Determines whether the step size in the <paramref name="value"/> parameter
+        /// is larger 0 (valid) or not.
+        /// </summary>
+        /// <param name="value">returns true for valid values, otherwise false.</param>
+        /// <returns></returns>
+        private static bool IsValidStepSizeReading(object value)
+        {
+            var v = (ulong)value;
+            return (v > 0);
         }
 
         /// <summary>

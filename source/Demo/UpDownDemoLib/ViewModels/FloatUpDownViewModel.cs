@@ -15,10 +15,12 @@
         /// <param name="minimumValue"></param>
         /// <param name="maximumValue"></param>
         /// <param name="stepSize"></param>
+        /// <param name="largeStepSize"></param>
         public FloatUpDownViewModel(float value,
                                     float minimumValue,
                                     float maximumValue,
-                                    float stepSize
+                                    float stepSize,
+                                    float largeStepSize
             )
             : base()
         {
@@ -26,6 +28,7 @@
             base.MinimumValue = minimumValue;
             base.MaximumValue = maximumValue;
             base.StepSize = stepSize;
+            base.LargeStepSize = largeStepSize;
         }
 
         /// Method determine whether to objects of type {T} are equal.

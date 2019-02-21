@@ -1,5 +1,9 @@
 ﻿namespace UpDownDemoLib.Demos.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Input;
+
     /// <summary>
     /// This viewmodel controls all aspects of the themed control demo
     /// in this test application.
@@ -12,21 +16,21 @@
         /// </summary>
         public DemoViewModel()
         {
-            ByteDemo = new ByteUpDownViewModel(5, 0, 128, 1);
-            DecimalDemo = new DecimalUpDownViewModel(0, 7922816251426433, 792281625142643375933950335M, 792281);
-            DoubleDemo = new DoubleUpDownViewModel(50, 0, 100, 1);
-            FloatDemo = new FloatUpDownViewModel(5000, 0, 10000000, 1);
-            IntegerDemo = new IntegerUpDownViewModel(98, -3, 105, 1);
-            LongDemo = new LongUpDownViewModel(980, -3000000, 10500000, 55);
-            SByteDemo = new SByteUpDownViewModel(-5, -127, 127, 1);
-            ShortDemo = new ShortUpDownViewModel(-5, -10, 10, 1);
+            ByteDemo = new ByteUpDownViewModel(5, 0, 128, 1, 20);
+            DecimalDemo = new DecimalUpDownViewModel(0, 7922816251426433, 792281625142643375933950335M, 10, 792281);
+            DoubleDemo = new DoubleUpDownViewModel(50, 0, 100, 1, 10);
+            FloatDemo = new FloatUpDownViewModel(5000, 0, 10000000, 1, 1000);
+            IntegerDemo = new IntegerUpDownViewModel(98, -3, 105, 1, 10);
+            LongDemo = new LongUpDownViewModel(980, -3000000, 10500000, 55, 111);
+            SByteDemo = new SByteUpDownViewModel(-5, -127, 127, 1, 3);
+            ShortDemo = new ShortUpDownViewModel(-5, -10, 10, 1, 3);
 
-            UShortDemo = new UShortUpDownViewModel(0, ushort.MinValue, ushort.MaxValue, 1);
-            UIntegerDemo = new UIntegerUpDownViewModel(0, uint.MinValue, uint.MaxValue, 1);
-            ULongDemo = new ULongUpDownViewModel(0, ulong.MinValue, ulong.MaxValue, 1);
+            UShortDemo = new UShortUpDownViewModel(0, ushort.MinValue, ushort.MaxValue, 1, 10000);
+            UIntegerDemo = new UIntegerUpDownViewModel(0, uint.MinValue, uint.MaxValue, 1, 10000);
+            ULongDemo = new ULongUpDownViewModel(0, ulong.MinValue, ulong.MaxValue, 1,1000);
 
-            PercentageZeroToOneDemo = new DoubleUpDownViewModel(0.3, 0, 1, 0.01);
-            PercentageZeroTo100Demo = new DoubleUpDownViewModel(30, 0, 100, 0.1);
+            PercentageZeroToOneDemo = new DoubleUpDownViewModel(0.3, 0, 1, 0.01, 0.1);
+            PercentageZeroTo100Demo = new DoubleUpDownViewModel(30, 0, 100, 0.1, 1);
         }
         #endregion constructors
 

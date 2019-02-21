@@ -15,10 +15,12 @@
         /// <param name="minimumValue"></param>
         /// <param name="maximumValue"></param>
         /// <param name="stepSize"></param>
+        /// <param name="largeStepSize"></param>
         public UIntegerUpDownViewModel(uint value,
                                        uint minimumValue,
                                        uint maximumValue,
-                                       uint stepSize
+                                       uint stepSize,
+                                       uint largeStepSize
             )
             : base()
         {
@@ -26,6 +28,7 @@
             base.MinimumValue = minimumValue;
             base.MaximumValue = maximumValue;
             base.StepSize = stepSize;
+            base.LargeStepSize = largeStepSize;
         }
 
         /// <summary>

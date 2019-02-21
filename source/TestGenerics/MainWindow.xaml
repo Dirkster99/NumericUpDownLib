@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
         xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
-        Title="MainWindow" Height="450" Width="525">
+        Title="MainWindow" Height="450" Width="777">
     <Grid>
         <TabControl Grid.Row="1" Grid.ColumnSpan="2"
-                        xmlns:demoviews="clr-namespace:UpDownDemoLib.Views;assembly=UpDownDemoLib"
+                    Name="DemoViews"
+                    xmlns:demoviews="clr-namespace:UpDownDemoLib.Views;assembly=UpDownDemoLib"
                         >
             <TabItem Header="Byte">
                 <demoviews:ByteUpDownDemo DataContext="{Binding Demo.ByteDemo}"/>

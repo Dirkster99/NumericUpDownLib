@@ -1,4 +1,4 @@
-﻿namespace NumericUpDownLib
+﻿namespace NumericUpDownLib.Base
 {
     using System;
     using System.Globalization;
@@ -7,7 +7,7 @@
     using System.Windows.Input;
 
     /// <summary>
-    /// This class serve as target for styling the <see cref="AbstractBaseUpDown{T}"/> class
+    /// This class serves as a target for styling the <see cref="AbstractBaseUpDown{T}"/> class
     /// since styling directly on <see cref="AbstractBaseUpDown{T}"/> is not supported in XAML.
     /// </summary>
     public abstract class InputBaseUpDown : Control
@@ -84,38 +84,6 @@
         #endregion properties
 
         #region methods
-        /// <summary>
-        /// User can mouse over the control and spin the mousewheel up or down
-        /// to increment or decrement the value in the up/down control.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnMouseWheel(MouseWheelEventArgs e)
-        {
-            base.OnMouseWheel(e);
-
-            if (e.Handled == false )
-            {
-                if (e.Delta != 0)
-                {
-                    if (e.Delta < 0 && CanDecreaseCommand() == true)
-                    {
-                        OnDecrease();
-
-                        e.Handled = true;
-                    }
-                    else
-                    {
-                        if (e.Delta > 0 && CanIncreaseCommand() == true)
-                        {
-                            OnIncrease();
-
-                            e.Handled = true;
-                        }
-                    }
-                }
-            }
-        }
-
         #region Commands
         /// <summary>
         /// Increase the displayed integer value
@@ -152,28 +120,22 @@
             InputBaseUpDown.mDecreaseCommand = new RoutedCommand("DecreaseCommand", typeof(InputBaseUpDown));
 
             CommandManager.RegisterClassCommandBinding(typeof(InputBaseUpDown),
-                                    new CommandBinding(mDecreaseCommand, OnDecreaseCommand, OnDecreaseCommand));
-
-            CommandManager.RegisterClassInputBinding(typeof(InputBaseUpDown),
-                                    new InputBinding(mDecreaseCommand, new KeyGesture(Key.Down)));
+                                    new CommandBinding(mDecreaseCommand, OnDecreaseCommand, OnCanDecreaseCommand));
         }
 
+        /// <summary>
+        /// Determine whether the IncreaseCommand can be executed or not and return the result
+        /// in the <see cref="CanExecuteRoutedEventArgs.CanExecute"/> property of the given
+        /// <paramref name="e"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void OnCanIncreaseCommand(object sender, CanExecuteRoutedEventArgs e)
         {
             var control = sender as InputBaseUpDown;
             if (control != null)
             {
                 e.CanExecute = control.CanIncreaseCommand();
-                e.Handled = true;
-            }
-        }
-
-        private static void OnDecreaseCommand(object sender, CanExecuteRoutedEventArgs e)
-        {
-            var control = sender as InputBaseUpDown;
-            if (control != null)
-            {
-                e.CanExecute = control.CanDecreaseCommand();
                 e.Handled = true;
             }
         }
@@ -204,6 +166,23 @@
             if (control != null)
             {
                 control.OnDecrease();
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Determine whether the DecreaseCommand can be executed or not and return the result
+        /// in the <see cref="CanExecuteRoutedEventArgs.CanExecute"/> property of the given
+        /// <paramref name="e"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void OnCanDecreaseCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var control = sender as InputBaseUpDown;
+            if (control != null)
+            {
+                e.CanExecute = control.CanDecreaseCommand();
                 e.Handled = true;
             }
         }

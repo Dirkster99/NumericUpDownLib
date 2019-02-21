@@ -47,8 +47,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BoolToVisibilityPropConverter.cs" />
     <Compile Include="Converters\FactorToDoubleConverter.cs" />
     <Compile Include="FloatUpDown.cs" />
+    <Compile Include="Models\MouseDirections.cs" />
+    <Compile Include="Models\MouseIncrementor.cs" />
     <Compile Include="ULongUpDown.cs" />
     <Compile Include="UIntegerUpDown.cs" />
     <Compile Include="UShortUpDown.cs" />
@@ -60,20 +63,20 @@
     <Compile Include="ByteUpDown.cs" />
     <Compile Include="NumericUpDown.cs" />
     <Compile Include="Converters\ByteToPlaceHolderStringConverter.cs" />
-    <Compile Include="InputBaseUpDown.cs" />
-    <Compile Include="NumericRepeatButtonControl.xaml.cs">
+    <Compile Include="Base\InputBaseUpDown.cs" />
+    <Compile Include="Base\NumericRepeatButtonControl.xaml.cs">
       <DependentUpon>NumericRepeatButtonControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractBaseUpDown.xaml.cs">
+    <Compile Include="Base\AbstractBaseUpDown.xaml.cs">
       <DependentUpon>AbstractBaseUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\ResourceKeys.cs" />
-    <Page Include="NumericRepeatButtonControl.xaml">
+    <Page Include="Base\NumericRepeatButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AbstractBaseUpDown.xaml">
+    <Page Include="Base\AbstractBaseUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -99,10 +102,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Base\ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
