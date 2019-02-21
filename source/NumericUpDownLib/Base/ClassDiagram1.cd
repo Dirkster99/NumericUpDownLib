@@ -6,35 +6,38 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>FACACCAEAYBJRUiBQADUAAUAAHoIZMEoQFQkQ4AFBsg=</HashCode>
+      <HashCode>FACECKEEAYDBRUmBQADUEAUACHoIZMEoQFQkQ4AFBsg=</HashCode>
       <FileName>Base\AbstractBaseUpDown.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.ByteUpDown" Collapsed="true">
-    <Position X="8" Y="1.5" Width="1.5" />
+    <Position X="8" Y="1.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>ByteUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.DecimalUpDown" Collapsed="true">
-    <Position X="8" Y="4.5" Width="1.5" />
+    <Position X="2.25" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>DecimalUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NumericUpDownLib.DoubleUpDown" Collapsed="true">
-    <Position X="8" Y="6.5" Width="1.5" />
+  <Class Name="NumericUpDownLib.DoubleUpDown">
+    <Position X="1.25" Y="7" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>DoubleUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.FloatUpDown" Collapsed="true">
-    <Position X="10.5" Y="1" Width="1.5" />
+    <Position X="2.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>FloatUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -44,62 +47,62 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAgAACABAQAAACQIAQAIAACAAAAoIACCAAgABAEAAA=</HashCode>
+      <HashCode>AAAgAACABAQAAAAQIAQAIAACAAAAoIACCAAgABAEAAA=</HashCode>
       <FileName>Base\InputBaseUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.LongUpDown" Collapsed="true">
-    <Position X="8" Y="2.5" Width="1.5" />
+    <Position X="8" Y="3.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>LongUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.NumericUpDown" Collapsed="true">
-    <Position X="8" Y="7.5" Width="1.5" />
+    <Position X="8" Y="5.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>NumericUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NumericUpDownLib.SByteUpDown">
-    <Position X="10.5" Y="2.25" Width="2.5" />
+  <Class Name="NumericUpDownLib.SByteUpDown" Collapsed="true">
+    <Position X="8" Y="2.25" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>SByteUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.ShortUpDown" Collapsed="true">
-    <Position X="8" Y="0.5" Width="1.5" />
+    <Position X="8" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>ShortUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.UIntegerUpDown" Collapsed="true">
-    <Position X="8" Y="3.5" Width="1.5" />
+    <Position X="8" Y="4" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>UIntegerUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.ULongUpDown" Collapsed="true">
-    <Position X="8" Y="5.5" Width="1.5" />
+    <Position X="8" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>ULongUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NumericUpDownLib.UShortUpDown">
-    <Position X="8" Y="8.75" Width="2.5" />
+    <Position X="7.5" Y="7" Width="2.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAAEAAAAkAAAIMAAABAAARAAAAA=</HashCode>
+      <HashCode>AAAAAADAAICCAAAAAAAEEAAAmAAAIMAAABAAARAAAAA=</HashCode>
       <FileName>UShortUpDown.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -130,7 +133,7 @@
   <Class Name="NumericUpDownLib.Models.MouseIncrementor" Collapsed="true">
     <Position X="25.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAgACAAAAAAAgCAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAACAAggCAAAAAAAgCAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Models\MouseIncrementor.cs</FileName>
     </TypeIdentifier>
   </Class>

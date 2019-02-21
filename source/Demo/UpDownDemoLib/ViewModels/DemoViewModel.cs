@@ -1,5 +1,9 @@
 ﻿namespace UpDownDemoLib.Demos.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Input;
+
     /// <summary>
     /// This viewmodel controls all aspects of the themed control demo
     /// in this test application.

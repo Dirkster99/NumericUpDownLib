@@ -24,6 +24,8 @@
             MaxValue="{Binding MaximumValue}"
             StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
             LargeStepSize="{Binding LargeStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+            MouseWheelAccelaratorKey="{Binding AccelModifierKey,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+            IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox,Path=IsChecked}"
             ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
             FormatString="D8"
             IsReadOnly="False"
@@ -142,6 +144,15 @@
                                   Margin="21,0,0,0"
                                 />
                     </StackPanel>
+                    
+                    <StackPanel Margin="3" Orientation="Horizontal">
+                        <CheckBox Name="IsMouseDragEnabledCheckBox"
+                                  IsChecked="True"
+                                  Content="Is Mouse Drag Enabled"
+                                  ToolTip="Increment/Decrementing value with mouse drag should be possible if this is enabled."
+                                  Margin="0,0,0,0"
+                                />
+                    </StackPanel>
 
                     <StackPanel Margin="0,6,0,0">
                         <CheckBox x:Name="IsPopUpOpen" Content="PopUp Test" />
@@ -157,6 +168,9 @@
                                         MaxValue="{Binding MaximumValue}"
                                         Value="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                         StepSize="{Binding StepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                        LargeStepSize="{Binding LargeStepSize,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                        MouseWheelAccelaratorKey="{Binding AccelModifierKey,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                        IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox,Path=IsChecked}"
                                         ToolTip="{Binding ToolTip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                                         DisplayLength="13"
                                         IsReadOnly="False"
@@ -177,6 +191,33 @@
                             </Border>
                         </Popup>
                     </StackPanel>
+
+                    <Border BorderThickness="1" BorderBrush="Gray" Margin="0,3">
+                        <StackPanel xmlns:input="System.Windows.Input" Margin="3">
+                            <StackPanel.Resources>
+                                <conv:EnumMatchToBooleanConverter x:Key="enumConverter" />
+                            </StackPanel.Resources>
+
+
+                            <TextBlock Text="Press this key to accelerate increments/decrements when scrolling with mouse wheel."
+                                   Margin="3"/>
+
+                            <RadioButton IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay,
+                                                Converter={StaticResource enumConverter},
+                                                ConverterParameter=Alt}"
+                                                Content="Alt" Margin="3" />
+
+                            <RadioButton IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay,
+                                                Converter={StaticResource enumConverter},
+                                                ConverterParameter=Control}"
+                                                Content="Control" Margin="3" />
+
+                            <RadioButton IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay,
+                                                Converter={StaticResource enumConverter},
+                                                ConverterParameter=Shift}"
+                                                Content="Shift" Margin="3" />
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </GroupBox>
         </Grid>

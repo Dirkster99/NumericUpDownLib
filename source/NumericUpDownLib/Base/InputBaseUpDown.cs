@@ -84,38 +84,6 @@
         #endregion properties
 
         #region methods
-        /// <summary>
-        /// User can mouse over the control and spin the mousewheel up or down
-        /// to increment or decrement the value in the up/down control.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnMouseWheel(MouseWheelEventArgs e)
-        {
-            base.OnMouseWheel(e);
-
-            if (e.Handled == false )
-            {
-                if (e.Delta != 0)
-                {
-                    if (e.Delta < 0 && CanDecreaseCommand() == true)
-                    {
-                        OnDecrease();
-
-                        e.Handled = true;
-                    }
-                    else
-                    {
-                        if (e.Delta > 0 && CanIncreaseCommand() == true)
-                        {
-                            OnIncrease();
-
-                            e.Handled = true;
-                        }
-                    }
-                }
-            }
-        }
-
         #region Commands
         /// <summary>
         /// Increase the displayed integer value

@@ -151,6 +151,21 @@ namespace NumericUpDownLib.Base
                 typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G"));
 
         /// <summary>
+        /// Backing store of <see cref="MouseWheelAccelaratorKey"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty MouseWheelAccelaratorKeyProperty =
+            DependencyProperty.Register("MouseWheelAccelaratorKey",
+                typeof(ModifierKeys), typeof(AbstractBaseUpDown<T>),
+                new PropertyMetadata(ModifierKeys.Control));
+
+        /// <summary>
+        /// Backing store of <see cref="IsMouseDragEnabled"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty IsMouseDragEnabledProperty =
+            DependencyProperty.Register("IsMouseDragEnabled", typeof(bool),
+                typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true, OnIsMouseDragEnabledChanged));
+
+        /// <summary>
         /// Holds the REQUIRED textbox instance part for this control.
         /// </summary>
         protected TextBox _PART_TextBox;
@@ -163,7 +178,7 @@ namespace NumericUpDownLib.Base
         private RepeatButton _PART_DecrementButton;
         private RepeatButton _PART_IncrementButton;
 
-        private MouseIncrementor _objMouseIncrementor;
+        private MouseIncrementor _objMouseIncr;
         #endregion fields
 
         #region constructor
@@ -314,6 +329,31 @@ namespace NumericUpDownLib.Base
         }
 
         /// <summary>
+        /// Gets/sets the accelerator key of type <see cref="ModifierKeys"/> that can be pressed
+        /// on the keyboard during mouse wheel scrolling over the control. Pressing the mousewheel
+        /// accelerator key results in using <see cref="LargeStepSize"/> as base of increment/decrement
+        /// steps, while otherwise the <see cref="StepSize"/> property is applied as base of
+        /// increments/decrement steps.
+        /// </summary>
+        public ModifierKeys MouseWheelAccelaratorKey
+        {
+            get { return (ModifierKeys)GetValue(MouseWheelAccelaratorKeyProperty); }
+            set { SetValue(MouseWheelAccelaratorKeyProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets/sets whether the mouse can be used to increment/decrement the displayed value
+        /// be dragging the mouse over the control.
+        /// 
+        /// https://github.com/Dirkster99/NumericUpDownLib/issues/2
+        /// </summary>
+        public bool IsMouseDragEnabled
+        {
+            get { return (bool)GetValue(IsMouseDragEnabledProperty); }
+            set { SetValue(IsMouseDragEnabledProperty, value); }
+        }
+
+        /// <summary>
         /// Determines whether last text input was from a user (key was down) or not.
         /// </summary>
         protected bool UserInput { get; set; }
@@ -386,6 +426,76 @@ namespace NumericUpDownLib.Base
             this.IsVisibleChanged += new DependencyPropertyChangedEventHandler(this_IsVisibleChanged);
         }
 
+        /// <summary>
+        /// User can mouse over the control and spin the mousewheel up or down
+        /// to increment or decrement the value in the up/down control.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            base.OnMouseWheel(e);
+
+            if (e.Handled == false)
+            {
+                if (e.Delta != 0)
+                {
+                    if (e.Delta < 0 && CanDecreaseCommand() == true)
+                    {
+                        if (System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
+                            OnDecrement(LargeStepSize);
+                        else
+                            OnDecrease();
+
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        if (e.Delta > 0 && CanIncreaseCommand() == true)
+                        {
+                            if (System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
+                                OnIncrement(LargeStepSize);
+                            else
+                                OnIncrease();
+
+                            e.Handled = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        #region IsMouseDragEnabled
+        /// <summary>
+        /// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
+        /// has been changed to update all states accordingly.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnIsMouseDragEnabledChanged(DependencyObject d,
+                                                        DependencyPropertyChangedEventArgs e)
+        {
+            (d as AbstractBaseUpDown<T>).OnIsMouseDragEnabledChanged(e);
+        }
+
+        /// <summary>
+        /// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
+        /// has been changed to update all states accordingly.
+        /// </summary>
+        /// <param name="e"></param>
+        private void OnIsMouseDragEnabledChanged(DependencyPropertyChangedEventArgs e)
+        {
+            _objMouseIncr = null;
+
+            if (_PART_TextBox != null)
+            {
+                if ((bool)(e.NewValue) == false)
+                    _PART_TextBox.Cursor = Cursors.IBeam;
+                else
+                    _PART_TextBox.Cursor = Cursors.ScrollAll;
+            }
+        }
+        #endregion IsMouseDragEnabled
+
         #region textbox mouse and focus handlers
         /// <summary>
         /// Clears the focus and resets the mouse incrementor object to cancel
@@ -400,7 +510,7 @@ namespace NumericUpDownLib.Base
             Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(delegate ()
             {
                 Keyboard.ClearFocus();
-                _objMouseIncrementor = null;
+                _objMouseIncr = null;
             }));
         }
 
@@ -425,7 +535,7 @@ namespace NumericUpDownLib.Base
         /// <param name="e"></param>
         private void _PART_TextBox_LostMouseCapture(object sender, MouseEventArgs e)
         {
-            _objMouseIncrementor = null;
+            _objMouseIncr = null;
         }
 
         /// <summary>
@@ -436,33 +546,41 @@ namespace NumericUpDownLib.Base
         /// <param name="e"></param>
         private void _PART_TextBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (_objMouseIncrementor != null)
+            if (IsMouseDragEnabled == false)
+                return;
+
+            if (_objMouseIncr != null && IsReadOnly == false)
             {
                 var mouseUpPosition = GetPositionFromThis(e);
-                if (_objMouseIncrementor.InitialPoint.Equals(mouseUpPosition))
+                if (_objMouseIncr.InitialPoint.Equals(mouseUpPosition))
                 {
                     _PART_TextBox.Focus();
                 }
-
-                _PART_TextBox.ReleaseMouseCapture();
-                _objMouseIncrementor = null;
             }
+
+            _PART_TextBox.ReleaseMouseCapture();
+            _objMouseIncr = null;
         }
 
         private void _PART_TextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (IsMouseDragEnabled == false)
+                return;
+
             if (IsKeyboardFocusWithin == false)
             {
-                _objMouseIncrementor = new MouseIncrementor(this.GetPositionFromThis(e),
-                                                            MouseDirections.None);
+                _objMouseIncr = new MouseIncrementor(this.GetPositionFromThis(e), MouseDirections.None);
                 e.Handled = true;
             }
         }
 
         private void _PART_TextBox_MouseMove(object sender, MouseEventArgs e)
         {
+            if (IsMouseDragEnabled == false)
+                return;
+
             // nothing to do here
-            if (_objMouseIncrementor == null)
+            if (_objMouseIncr == null)
                 return;
 
             if (e.LeftButton != MouseButtonState.Pressed)
@@ -471,33 +589,22 @@ namespace NumericUpDownLib.Base
             if (CanIncreaseCommand() == false && CanDecreaseCommand() == false)
             {
                 // since we can't parse the value, we are out of here, i.e. user put text in our number box
-                _objMouseIncrementor = null;
+                _objMouseIncr = null;
                 return;
             }
 
             var pos = GetPositionFromThis(e);
-            double deltaX = _objMouseIncrementor.Point.X - pos.X;
-            double deltaY = _objMouseIncrementor.Point.Y - pos.Y;
+            double deltaX = _objMouseIncr.Point.X - pos.X;
+            double deltaY = _objMouseIncr.Point.Y - pos.Y;
 
-            if (_objMouseIncrementor.MouseDirection == MouseDirections.None)
+            if (_objMouseIncr.MouseDirection == MouseDirections.None)
             {
                 // this is our first time here, so we need to record if we are tracking x or y movements
-                if (Math.Abs(deltaX) > Math.Abs(deltaY))
-                {
+                if (_objMouseIncr.SetMouseDirection(pos) != MouseDirections.None)
                     _PART_TextBox.CaptureMouse();
-                    _objMouseIncrementor.MouseDirection = MouseDirections.LeftRight;
-                }
-                else
-                {
-                    if (Math.Abs(deltaX) < Math.Abs(deltaY))
-                    {
-                        _PART_TextBox.CaptureMouse();
-                        _objMouseIncrementor.MouseDirection = MouseDirections.UpDown;
-                    }
-                }
             }
 
-            if (_objMouseIncrementor.MouseDirection == MouseDirections.LeftRight)
+            if (_objMouseIncr.MouseDirection == MouseDirections.LeftRight)
             {
                 if (deltaX > 0)
                     OnDecrement(LargeStepSize);
@@ -509,20 +616,25 @@ namespace NumericUpDownLib.Base
             }
             else
             {
-                if (deltaY > 0)
+                if (_objMouseIncr.MouseDirection == MouseDirections.UpDown)
                 {
-                    if (CanIncreaseCommand() == true)
-                        OnIncrease();
-                }
-                else
-                {
-                    if (CanDecreaseCommand() == true)
-                        OnDecrease();
+                    if (deltaY > 0)
+                    {
+                        if (CanIncreaseCommand() == true)
+                            OnIncrease();
+                    }
+                    else
+                    {
+                        if (deltaY < 0)
+                        {
+                            if (CanDecreaseCommand() == true)
+                                OnDecrease();
+                        }
+                    }
                 }
             }
 
-            if (_objMouseIncrementor.MouseDirection != MouseDirections.None)
-                _objMouseIncrementor.Point = GetPositionFromThis(e);
+            _objMouseIncr.Point = GetPositionFromThis(e);
         }
 
         private Point GetPositionFromThis(MouseEventArgs e)
@@ -538,7 +650,10 @@ namespace NumericUpDownLib.Base
         /// <param name="e"></param>
         private void _PART_TextBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            _objMouseIncrementor = null;
+            if (IsMouseDragEnabled == false)
+                return;
+
+            _objMouseIncr = null;
             (sender as TextBox).Cursor = Cursors.ScrollAll;
         }
 
@@ -550,6 +665,9 @@ namespace NumericUpDownLib.Base
         /// <param name="e"></param>
         private void _PART_TextBox_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (IsMouseDragEnabled == false)
+                return;
+
             if (IsKeyboardFocusWithin)
                 (sender as TextBox).Cursor = Cursors.IBeam;
             else
@@ -563,7 +681,7 @@ namespace NumericUpDownLib.Base
         /// <param name="e"></param>
         private void _PART_TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            _objMouseIncrementor = null;
+            _objMouseIncr = null;
             (sender as TextBox).Cursor = Cursors.IBeam;
         }
 
@@ -571,7 +689,7 @@ namespace NumericUpDownLib.Base
         {
             var tb = sender as TextBox;
 
-            _objMouseIncrementor = null;
+            _objMouseIncr = null;
             if (SelectAllTextOnFocus == true)
             {
                 if (tb != null)
@@ -581,8 +699,11 @@ namespace NumericUpDownLib.Base
 
         private void _PART_TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            _objMouseIncrementor = null;
-            (sender as TextBox).Cursor = Cursors.ScrollAll;
+            if (IsMouseDragEnabled == true)
+            {
+                _objMouseIncr = null;
+                (sender as TextBox).Cursor = Cursors.ScrollAll;
+            }
 
             if (_PART_TextBox != null)
                 FormatText(_PART_TextBox.Text);

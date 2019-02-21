@@ -1,4 +1,6 @@
-﻿namespace UpDownDemoLib.ViewModels
+﻿using System.Windows.Input;
+
+namespace UpDownDemoLib.ViewModels
 {
     /// <summary>
     /// Class implements an abstract base class that can be used as viewmodel
@@ -13,6 +15,7 @@
         private T _MaximumValue = default(T);
         private T _StepSize = default(T);
         private T _LargeStepSize = default(T);
+        private ModifierKeys _AccelModifierKeys = ModifierKeys.Control;
         #endregion fields
 
         #region CTors
@@ -151,6 +154,23 @@
             {
                 return string.Format("Enter a value between {0} and {1}",
                     _MinimumValue, MaximumValue);
+            }
+        }
+
+        public ModifierKeys AccelModifierKey
+        {
+            get
+            {
+                return _AccelModifierKeys;
+            }
+
+            set
+            {
+                if (_AccelModifierKeys != value)
+                {
+                    _AccelModifierKeys = value;
+                    NotifyPropertyChanged(() => AccelModifierKey);
+                }
             }
         }
         #endregion methods
