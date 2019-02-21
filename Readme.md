@@ -4,7 +4,7 @@
 # Overview
 
 This library implements more than 10 different numeric up down WPF controls that can be used to edit values:
-- by dragging the mouse vertically (see recording below) or
+- by dragging the mouse vertically/horizontally (see recording below) or
 - by clicking up/down arrow (repeat) buttons or
 - up/down or left right cursor keys or
 - spinning mousewheel up down on mouseover or
