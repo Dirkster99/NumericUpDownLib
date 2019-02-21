@@ -42,7 +42,7 @@ More Features:
 - IsReadOnly property disables the textbox portion but leaves all other funtions for Increment/Decrement available
 
 # LargeStepSize and StepSize
-There mouse and keyboard input methods that support 2 different increment/decrement values.
+There are mouse and keyboard input methods that support 2 different configurable increment/decrement values.
 
 ## Mouse Drag Mode
 
