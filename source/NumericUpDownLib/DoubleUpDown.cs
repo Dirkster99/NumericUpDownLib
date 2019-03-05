@@ -266,9 +266,12 @@ namespace NumericUpDownLib
         /// <returns></returns>
         protected override double CoerceMinValue(double newValue)
         {
-            newValue = Math.Min(MinValue, Math.Min(MaxValue, newValue));
+            if (newValue < MaxValue && newValue < Value)
+                return newValue;
 
-            return newValue;
+            double result = Math.Min(Value, MaxValue);
+
+            return result;
         }
 
         /// <summary>
@@ -280,9 +283,12 @@ namespace NumericUpDownLib
         /// <returns></returns>
         protected override double CoerceMaxValue(double newValue)
         {
-            newValue = Math.Max(this.MinValue, Math.Max(this.MaxValue, newValue));
+            if (newValue > MinValue && newValue > Value)
+                return newValue;
 
-            return newValue;
+            double result = Math.Max(this.MinValue, newValue);
+
+            return result;
         }
 
         /// <summary>

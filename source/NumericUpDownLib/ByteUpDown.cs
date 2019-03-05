@@ -262,9 +262,12 @@ namespace NumericUpDownLib
         /// <returns></returns>
         protected override byte CoerceMinValue(byte newValue)
         {
-            newValue = Math.Min(MinValue, Math.Min(MaxValue, newValue));
+            if (newValue < MaxValue && newValue < Value)
+                return newValue;
 
-            return newValue;
+            byte result = Math.Min(Value, MaxValue);
+
+            return result;
         }
 
         /// <summary>
@@ -276,9 +279,12 @@ namespace NumericUpDownLib
         /// <returns></returns>
         protected override byte CoerceMaxValue(byte newValue)
         {
-            newValue = Math.Max(this.MinValue, Math.Max(this.MaxValue, newValue));
+            if (newValue > MinValue && newValue > Value)
+                return newValue;
 
-            return newValue;
+            byte result = Math.Max(this.MinValue, newValue);
+
+            return result;
         }
 
         /// <summary>
