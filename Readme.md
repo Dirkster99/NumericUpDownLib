@@ -22,19 +22,19 @@ and so forth... see also Issue [#4](https://github.com/Dirkster99/NumericUpDownL
 
 Each control implementation is specific for a certain .Net data type:
 
-| Data Type | Control                |
-| :---      | :---                   |
-| byte      | (ByteUpDown    control)|
-| decimal   | (DecimalUpDown control)|
-| double    | (DoubleUpDown  control)|
-| float     | (FloatUpDown   control)|
-| integer   | (IntegerUpDown control)|
-| long      | (LongUpDown    control)|
-| sbyte     | (SbyteUpDown   control)|
-| short     | (ShortUpDown   control)|
-| ushort    | (UshortUpDown  control)|
-| uint      | (UintUpDown    control)|
-| ulong     | (UlongUpDown   control)|
+| Data Type | Control              |
+| :---      | :---                 |
+| byte      | ByteUpDown    control|
+| decimal   | DecimalUpDown control|
+| double    | DoubleUpDown  control|
+| float     | FloatUpDown   control|
+| integer   | IntegerUpDown control|
+| long      | LongUpDown    control|
+| sbyte     | SbyteUpDown   control|
+| short     | ShortUpDown   control|
+| ushort    | UshortUpDown  control|
+| uint      | UintUpDown    control|
+| ulong     | UlongUpDown   control|
 
 Percentages can be edit at [0-100] while backend viewmodels handles [0-1] values,
 see FactorToDoubleConverter and PercentageUpDownDemo in demo clients at project site.
