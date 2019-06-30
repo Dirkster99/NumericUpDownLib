@@ -20,7 +20,7 @@ Each control maintains the condition: `MinValue <= Value <= MaxValue` at all tim
 
 and so forth... see also Issue [#4](https://github.com/Dirkster99/NumericUpDownLib/issues/4) for more details.
 
-Each control implementation is specific a certain .Net data type:
+Each control implementation is specific for a certain .Net data type:
 
 | Data Type | Control                |
 | :---      | :---                   |
