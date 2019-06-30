@@ -11,7 +11,7 @@ This library implements numeric up down WPF controls to edit a value:
 - editing a textbox
 
 The initial values are: `MinValue = 0, Value = 0, MaxValue = 0`  
-Each control maintains the condition: `MinValue <= Value <= MaxValue` at all times. This means, if you want to setup the Min/Max values you have to be careful to do this in the right order:
+Each control maintains the condition: `MinValue <= Value <= MaxValue` at all times. This means, if you want to setup a Min/Max value range you have to be careful to do this in the right order:
 - Positive Range: `MaxValue = 12, Value = 1, MinValue = 1`
 - Negative Range: `MinValue = -12, Value = -1, MinValue = -1`
 etc... See also Issue [#4](https://github.com/Dirkster99/NumericUpDownLib/issues/4).
