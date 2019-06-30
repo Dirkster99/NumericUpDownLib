@@ -3,25 +3,34 @@
 [![NuGet](https://img.shields.io/nuget/dt/Dirkster.NumericUpDownLib.svg)](http://nuget.org/packages/Dirkster.NumericUpDownLib)
 # Overview
 
-This library implements more than 10 different numeric up down WPF controls that can be used to edit values:
+This library implements numeric up down WPF controls to edit a value:
 - by dragging the mouse vertically/horizontally (see recording below) or
 - by clicking up/down arrow (repeat) buttons or
 - up/down or left right cursor keys or
 - spinning mousewheel up down on mouseover or
 - editing a textbox
 
-Implements specific numeric up down control for each .Net data type:
-- byte    (ByteUpDown    control)
-- decimal (DecimalUpDown control)
-- double  (DoubleUpDown  control)
-- float   (FloatUpDown   control)
-- integer (IntegerUpDown control)
-- long    (LongUpDown    control)
-- sbyte   (SbyteUpDown   control)
-- short   (ShortUpDown   control)
-- ushort  (UshortUpDown  control)
-- uint    (UintUpDown    control)
-- ulong   (UlongUpDown   control)
+The initial values are: `MinValue = 0, Value = 0, MaxValue = 0`  
+Each control maintains the condition: `MinValue <= Value <= MaxValue` at all times. This means, if you want to setup the Min/Max values you have to be careful to do this in the right order:
+- Positive Range: `MaxValue = 12, Value = 1, MinValue = 1`
+- Negative Range: `MinValue = -12, Value = -1, MinValue = -1`
+etc... See also Issue [#4](https://github.com/Dirkster99/NumericUpDownLib/issues/4).
+
+Each control implementation is specific a certain .Net data type:
+
+| Data Type | Control                |
+| :---      | :---                   |
+| byte      | (ByteUpDown    control)|
+| decimal   | (DecimalUpDown control)|
+| double    | (DoubleUpDown  control)|
+| float     | (FloatUpDown   control)|
+| integer   | (IntegerUpDown control)|
+| long      | (LongUpDown    control)|
+| sbyte     | (SbyteUpDown   control)|
+| short     | (ShortUpDown   control)|
+| ushort    | (UshortUpDown  control)|
+| uint      | (UintUpDown    control)|
+| ulong     | (UlongUpDown   control)|
 
 Percentages can be edit at [0-100] while backend viewmodels handles [0-1] values,
 see FactorToDoubleConverter and PercentageUpDownDemo in demo clients at project site.
