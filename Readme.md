@@ -12,9 +12,13 @@ This library implements numeric up down WPF controls to edit a value:
 
 The initial values are: `MinValue = 0, Value = 0, MaxValue = 0`  
 Each control maintains the condition: `MinValue <= Value <= MaxValue` at all times. This means, if you want to setup a Min/Max value range you have to be careful to do this in the right order:
-- Positive Range: `MaxValue = 12, Value = 1, MinValue = 1`
-- Negative Range: `MinValue = -12, Value = -1, MinValue = -1`
-etc... See also Issue [#4](https://github.com/Dirkster99/NumericUpDownLib/issues/4).
+- Positive Range: `MaxValue = 12, Value = 1, MinValue = 1`  
+  -> Value is editable in the range of 1 and 12: [1, 12].
+
+- Negative Range: `MinValue = -12, Value = -1, MinValue = -1`  
+  -> Value is editable in the range of -1 and -12: [-1, -12].
+
+and so forth... see also Issue [#4](https://github.com/Dirkster99/NumericUpDownLib/issues/4) for more details.
 
 Each control implementation is specific a certain .Net data type:
 
