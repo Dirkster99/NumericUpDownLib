@@ -18,8 +18,11 @@ build:
 
 artifacts:
 
-- path: source\NumericUpDowmControlDemo\bin\Release
-  name: NumericUpDowmControlDemo
+- path: source\TestGenerics\bin\Release
+  name: TestGenerics
+
+- path: source\TestThemes\bin\Release
+  name: TestThemes
 
 - path: source\NumericUpDownLib\bin\Release
   name: NumericUpDownLib
