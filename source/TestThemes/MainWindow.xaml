@@ -29,7 +29,7 @@
 
             <TextBlock Text="Themes" />
             <ComboBox Grid.Row="1" ItemsSource="{Binding AppTheme.ListOfThemes}"
-                      DisplayMemberPath="Model.Name"
+                      DisplayMemberPath="Model.DisplayName"
                       SelectedItem="{Binding AppTheme.SelectedTheme, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                       behav:SelectionChangedCommand.ChangedCommand="{Binding ThemeSelectionChangedCommand}"
                       IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

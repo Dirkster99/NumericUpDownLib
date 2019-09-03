@@ -78,21 +78,21 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.MWindowLib.1.0.4.2\lib\net452\Microsoft.Expression.Interactions.dll</HintPath>
+      <HintPath>..\packages\Dirkster.MWindowLib.1.2.1\lib\net452\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
-    <Reference Include="MLib, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.MLib.1.0.9.1\lib\net4\MLib.dll</HintPath>
+    <Reference Include="MLib, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.MLib.1.2.0\lib\net4\MLib.dll</HintPath>
     </Reference>
     <Reference Include="MWindowInterfacesLib, Version=1.0.4.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.MWindowLib.1.0.4.2\lib\net452\MWindowInterfacesLib.dll</HintPath>
+      <HintPath>..\packages\Dirkster.MWindowLib.1.2.1\lib\net452\MWindowInterfacesLib.dll</HintPath>
     </Reference>
-    <Reference Include="MWindowLib, Version=1.0.4.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.MWindowLib.1.0.4.2\lib\net452\MWindowLib.dll</HintPath>
+    <Reference Include="MWindowLib, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.MWindowLib.1.2.1\lib\net452\MWindowLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.MWindowLib.1.0.4.2\lib\net452\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Dirkster.MWindowLib.1.2.1\lib\net452\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -174,10 +174,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NumericUpDownLib\NumericUpDownLib.csproj">
-      <Project>{98e332ac-86e6-4db3-a757-4d84432b4a2b}</Project>
-      <Name>NumericUpDownLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Demo\UpDownDemoLib\UpDownDemoLib.csproj">
       <Project>{ed3a742d-4055-4da2-bbce-74e817b211bf}</Project>
       <Name>UpDownDemoLib</Name>
@@ -193,6 +189,10 @@
     <ProjectReference Include="..\Demo\MLibTest\Components\Settings\Settings\Settings.csproj">
       <Project>{2807b493-cc2e-402e-901a-eb138698fedc}</Project>
       <Name>Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NumericUpDownLib\NumericUpDownLib.csproj">
+      <Project>{e542beed-60f4-48b0-8ac6-24dbfc03b0c4}</Project>
+      <Name>NumericUpDownLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

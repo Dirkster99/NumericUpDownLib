@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\NumericUpDownLib\NumericUpDownLib.csproj">
-      <Project>{98e332ac-86e6-4db3-a757-4d84432b4a2b}</Project>
+      <Project>{e542beed-60f4-48b0-8ac6-24dbfc03b0c4}</Project>
       <Name>NumericUpDownLib</Name>
     </ProjectReference>
   </ItemGroup>
