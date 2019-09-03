@@ -1,113 +1,56 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98E332AC-86E6-4DB3-A757-4D84432B4A2B}</ProjectGuid>
-    <OutputType>library</OutputType>
-    <RootNamespace>NumericUpDownLib</RootNamespace>
-    <AssemblyName>NumericUpDownLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworks>net4;netcoreapp3.0</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.4.0.0</Version>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
+    <FileVersion>2.4.0.0</FileVersion>
+    <Company>Open Source</Company>
+    <Product>NumericUpDownLib</Product>
+    <Copyright>2013-2019</Copyright>
+    <Description>Provides a numeric up down WPF control that can be used to edit (integer, byte, decimal, double, float, short and many more) values with a textbox and/or up/down arrow (repeat) buttons. Editing can be based on input via mouse wheel, mouse drag, cursor keys, or text editing.</Description>
+    <PackageProjectUrl>https://github.com/Dirkster99/NumericUpDownLib</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Dirkster99/NumericUpDownLib</RepositoryUrl>
+    <PackageId>Dirkster.NumericUpDownLib</PackageId>
+    <Authors>https://github.com/Dirkster99/NumericUpDownLib</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>numericupdown numeric up down integer float double percentage increment decrement custom wpf control mvvm c# .net metro black light themed control library</PackageTags>
+    <PackageReleaseNotes>This control is now supported in NetCore 3 (with Preview 8) and .Net 4.</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/SyncArrow_64x.png</PackageIconUrl>
+
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\NumericUpDownLib.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\NumericUpDownLib.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Converters\BoolToVisibilityPropConverter.cs" />
-    <Compile Include="Converters\FactorToDoubleConverter.cs" />
-    <Compile Include="FloatUpDown.cs" />
-    <Compile Include="Models\MouseDirections.cs" />
-    <Compile Include="Models\MouseIncrementor.cs" />
-    <Compile Include="ULongUpDown.cs" />
-    <Compile Include="UIntegerUpDown.cs" />
-    <Compile Include="UShortUpDown.cs" />
-    <Compile Include="ShortUpDown.cs" />
-    <Compile Include="LongUpDown.cs" />
-    <Compile Include="SByteUpDown.cs" />
-    <Compile Include="DoubleUpDown.cs" />
-    <Compile Include="DecimalUpDown.cs" />
-    <Compile Include="ByteUpDown.cs" />
-    <Compile Include="NumericUpDown.cs" />
-    <Compile Include="Converters\ByteToPlaceHolderStringConverter.cs" />
-    <Compile Include="Base\InputBaseUpDown.cs" />
-    <Compile Include="Base\NumericRepeatButtonControl.xaml.cs">
-      <DependentUpon>NumericRepeatButtonControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Base\AbstractBaseUpDown.xaml.cs">
+    <Compile Update="Base\AbstractBaseUpDown.xaml.cs">
       <DependentUpon>AbstractBaseUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\ResourceKeys.cs" />
-    <Page Include="Base\NumericRepeatButtonControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Base\AbstractBaseUpDown.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\DarkBrushs.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\LightBrushs.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
+    <Compile Update="Base\NumericRepeatButtonControl.xaml.cs">
       <SubType>Code</SubType>
+      <DependentUpon>NumericRepeatButtonControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <None Include="Base\ClassDiagram1.cd" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup>
+    <Page Update="Base\AbstractBaseUpDown.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Base\NumericRepeatButtonControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\DarkBrushs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\LightBrushs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

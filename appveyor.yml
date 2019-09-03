@@ -1,0 +1,28 @@
+version: 2.4.{build}
+
+configuration: Release
+
+platform: Any CPU
+
+image: Visual Studio 2019 Preview
+
+install:
+  - cmd: choco install dotnetcore-sdk --pre
+  
+before_build:
+  - cmd: nuget restore source/NumericUpDown.sln
+
+build:
+
+  verbosity: minimal
+
+artifacts:
+
+- path: source\TestGenerics\bin\Release
+  name: TestGenerics
+
+- path: source\TestThemes\bin\Release
+  name: TestThemes
+
+- path: source\NumericUpDownLib\bin\Release
+  name: NumericUpDownLib
