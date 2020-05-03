@@ -1,5 +1,6 @@
 namespace NumericUpDownLib.Base
 {
+    using NumericUpDownLib.Enums;
     using NumericUpDownLib.Models;
     using System;
     using System.Windows;
@@ -164,6 +165,13 @@ namespace NumericUpDownLib.Base
         public static readonly DependencyProperty IsMouseDragEnabledProperty =
             DependencyProperty.Register("IsMouseDragEnabled", typeof(bool),
                 typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true, OnIsMouseDragEnabledChanged));
+
+        /// <summary>
+        /// Backing store of <see cref="CanIncDecMouseDrag"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CanMouseDragProperty =
+            DependencyProperty.Register("CanMouseDrag", typeof(CanIncDecMouseDrag),
+                typeof(AbstractBaseUpDown<T>), new PropertyMetadata(CanIncDecMouseDrag.VerticalHorizontal));
 
         /// <summary>
         /// Holds the REQUIRED textbox instance part for this control.
@@ -351,6 +359,18 @@ namespace NumericUpDownLib.Base
         {
             get { return (bool)GetValue(IsMouseDragEnabledProperty); }
             set { SetValue(IsMouseDragEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets/sets wether small/large step sizes can be incremented/decremented
+        /// both with vertical/horizontal mouse drag moves or,
+        /// whether only horizontal or only vertical mouse drag moves can
+        /// incremented/decremented only in small or only in large values.
+        /// </summary>
+        public CanIncDecMouseDrag CanMouseDrag
+        {
+            get { return (CanIncDecMouseDrag)GetValue(CanMouseDragProperty); }
+            set { SetValue(CanMouseDragProperty, value); }
         }
 
         /// <summary>
@@ -594,8 +614,8 @@ namespace NumericUpDownLib.Base
             }
 
             var pos = GetPositionFromThis(e);
-            double deltaX = _objMouseIncr.Point.X - pos.X;
-            double deltaY = _objMouseIncr.Point.Y - pos.Y;
+            double deltaX = (CanMouseDrag == CanIncDecMouseDrag.VerticalOnly ? 0 : _objMouseIncr.Point.X - pos.X);
+            double deltaY = (CanMouseDrag == CanIncDecMouseDrag.HorizontalOnly ? 0 : _objMouseIncr.Point.Y - pos.Y);
 
             if (_objMouseIncr.MouseDirection == MouseDirections.None)
             {

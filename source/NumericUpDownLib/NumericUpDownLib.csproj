@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="images/SyncArrow_64x.png" Pack="true" PackagePath=""/>
+    <None Include="images/SyncArrow_64x.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
