@@ -234,57 +234,66 @@ namespace NumericUpDownLib
         }
 
         /// <summary>
-        /// Attempts to force the new value into the existing dependency property
-        /// and attempts backup plans (uses minimum or maximum values) if value appears
-        /// to be out of either range.
-        /// 
-        /// http://drwpf.com/blog/category/value-coercion/
+        /// Attempts to force the new <see cref="Value"/> into the existing dependency property
+        /// and attempts backup plans:
+        /// Adjusts  <see cref="MinValue"/> or  <see cref="MaxValue"/>, if <see cref="Value"/> appears to be out of either range.
         /// </summary>
-        /// <param name="newValue"></param>
+        /// <param name="newValue">The new Value to be forced into this dp.</param>
         /// <returns></returns>
         protected override byte CoerceValue(byte newValue)
         {
-            if (newValue < MinValue)
-                return MinValue;
+            if (newValue != Value)
+            {
+                if (MinValue > newValue)
+                    MinValue = newValue;
 
-            if (newValue > MaxValue)
-                return MaxValue;
+                if (MaxValue < newValue)
+                    MaxValue = newValue;
+            }
 
             return newValue;
         }
 
         /// <summary>
-        /// Attempts to force the new Minimum value into the existing dependency property
-        /// and attempts backup plans (uses minimum or maximum values) if value appears
-        /// to be out of either range.
+        /// Attempts to force the new <see cref="MinValue"/> into the existing dependency property
+        /// and attempts backup plans:
+        /// Adjusts <see cref="MaxValue"/> or <see cref="Value"/>, if <see cref="MinValue"/> appears to be out of either range.
         /// </summary>
-        /// <param name="newValue"></param>
+        /// <param name="newValue">The new Minimum value to be forced into this dp.</param>
         /// <returns></returns>
         protected override byte CoerceMinValue(byte newValue)
         {
-            if (newValue < MaxValue && newValue < Value)
-                return newValue;
+            if (MinValue != newValue)
+            {
+                if (Value < newValue)
+                    Value = newValue;
 
-            byte result = Math.Min(Value, MaxValue);
+                if (MaxValue < newValue)
+                    MaxValue = newValue;
+            }
 
-            return result;
+            return newValue;
         }
 
         /// <summary>
-        /// Attempts to force the new Minimum value into the existing dependency property
-        /// and attempts backup plans (uses maximum or maximum values) if value appears
-        /// to be out of either range.
+        /// Attempts to force the new <see cref="MaxValue"/> into the existing dependency property
+        /// and attempts backup plans:
+        /// Adjusts <see cref="MinValue"/> or <see cref="Value"/>, if <see cref="MaxValue"/> appears to be out of either range.
         /// </summary>
-        /// <param name="newValue"></param>
+        /// <param name="newValue">The new Maximum value to be forced into this dp.</param>
         /// <returns></returns>
         protected override byte CoerceMaxValue(byte newValue)
         {
-            if (newValue > MinValue && newValue > Value)
-                return newValue;
+            if (MaxValue != newValue)
+            {
+                if (MinValue > newValue)
+                    MinValue = newValue;
 
-            byte result = Math.Max(this.MinValue, newValue);
+                if (Value > newValue)
+                    Value = newValue;
+            }
 
-            return result;
+            return newValue;
         }
 
         /// <summary>

@@ -5,12 +5,12 @@
     <UseWPF>true</UseWPF>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.4.0.0</Version>
-    <AssemblyVersion>2.4.0.0</AssemblyVersion>
-    <FileVersion>2.4.0.0</FileVersion>
+    <Version>2.4.1.0</Version>
+    <AssemblyVersion>2.4.1.0</AssemblyVersion>
+    <FileVersion>2.4.1.0</FileVersion>
     <Company>Open Source</Company>
     <Product>NumericUpDownLib</Product>
-    <Copyright>2013-2019</Copyright>
+    <Copyright>2013-2020</Copyright>
     <Description>Provides a numeric up down WPF control that can be used to edit (integer, byte, decimal, double, float, short and many more) values with a textbox and/or up/down arrow (repeat) buttons. Editing can be based on input via mouse wheel, mouse drag, cursor keys, or text editing.</Description>
     <PackageProjectUrl>https://github.com/Dirkster99/NumericUpDownLib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Dirkster99/NumericUpDownLib</RepositoryUrl>
@@ -20,9 +20,12 @@
     <PackageTags>numericupdown numeric up down integer float double percentage increment decrement custom wpf control mvvm c# .net metro black light themed control library</PackageTags>
     <PackageReleaseNotes>This control is now supported in NetCore 3 (with Preview 8) and .Net 4.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/NumericUpDownLib/master/SyncArrow_64x.png</PackageIconUrl>
-
+    <PackageIcon>SyncArrow_64x.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="images/SyncArrow_64x.png" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Base\AbstractBaseUpDown.xaml.cs">
