@@ -1,8 +1,7 @@
-﻿    <ResourceDictionary 
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/NumericUpDownLib;component/Base/NumericRepeatButtonControl.xaml" />
-        <ResourceDictionary Source="/NumericUpDownLib;component/Base/AbstractBaseUpDown.xaml" />
-        <ResourceDictionary Source="/NumericUpDownLib;component/Themes/LightBrushs.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/NumericUpDownLib;component/Base/NumericRepeatButtonControl.xaml" />
+		<ResourceDictionary Source="/NumericUpDownLib;component/Base/AbstractBaseUpDown.xaml" />
+		<ResourceDictionary Source="/NumericUpDownLib;component/Themes/LightBrushs.xaml" />
+	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

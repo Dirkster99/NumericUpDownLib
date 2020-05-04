@@ -1,11 +1,12 @@
-﻿<Application x:Class="TestGenerics.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
+﻿<Application
+	x:Class="TestGenerics.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	StartupUri="MainWindow.xaml">
+	<Application.Resources>
 
-        <!-- Pop-Up color must be themed this way since Generic demo app does not use MLib definitions -->
-        <SolidColorBrush x:Key="PopUpBackground" Color="White"/>
-        <SolidColorBrush x:Key="PopUpBorder" Color="Black"/>
-    </Application.Resources>
+		<!--  Pop-Up color must be themed this way since Generic demo app does not use MLib definitions  -->
+		<SolidColorBrush x:Key="PopUpBackground" Color="White" />
+		<SolidColorBrush x:Key="PopUpBorder" Color="Black" />
+	</Application.Resources>
 </Application>
