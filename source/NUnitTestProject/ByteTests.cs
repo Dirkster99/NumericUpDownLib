@@ -1,4 +1,5 @@
 using NumericUpDownLib;
+using NumericUpDownLib.Base;
 using NUnit.Framework;
 using System;
 using System.Threading;
@@ -87,11 +88,28 @@ namespace NUnitTestProject
 				Assert.IsTrue(range.MinValue == min);
 				Assert.IsTrue(range.Value == val);
 				Assert.IsTrue(range.MaxValue == max);
+
+				// Test if increment command works as expected
+				while(range.MaxValue > range.Value)
+				{
+					Assert.IsTrue(InputBaseUpDown.IncreaseCommand.CanExecute(null, range));
+					InputBaseUpDown.IncreaseCommand.Execute(null, range);
+				}
+				Assert.IsTrue(range.MaxValue == range.Value);
+
+				// Test if decrement command works as expected
+				while (range.MinValue < range.Value)
+				{
+					Assert.IsTrue(InputBaseUpDown.DecreaseCommand.CanExecute(null, range));
+					InputBaseUpDown.DecreaseCommand.Execute(null, range);
+				}
+				Assert.IsTrue(range.MinValue == range.Value);
 			}
 		}
 
 		/// <summary>
 		/// Determines whether the given set of values defines a valid range or not.
+		/// A valid range adheres to this constrain: MinValue <= Value <= MaxValue.
 		/// </summary>
 		/// <param name="range"></param>
 		/// <returns></returns>

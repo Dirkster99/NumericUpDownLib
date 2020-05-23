@@ -16,6 +16,8 @@ namespace NumericUpDownLib.Base
 	/// </summary>
 	[TemplatePart(Name = Part_TextBoxName, Type = typeof(TextBox))]
 	[TemplatePart(Name = PART_MeasuringElement, Type = typeof(FrameworkElement))]
+	[TemplatePart(Name = PART_IncrementButton, Type = typeof(RepeatButton))]
+	[TemplatePart(Name = PART_DecrementButton, Type = typeof(RepeatButton))]
 	public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown
 	{
 		#region fields

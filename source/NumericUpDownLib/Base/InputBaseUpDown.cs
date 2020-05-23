@@ -1,6 +1,5 @@
 ﻿namespace NumericUpDownLib.Base
 {
-	using System;
 	using System.Globalization;
 	using System.Windows;
 	using System.Windows.Controls;
@@ -28,8 +27,8 @@
 			DependencyProperty.Register("NumberStyle", typeof(NumberStyles),
 				typeof(InputBaseUpDown), new PropertyMetadata(NumberStyles.Any));
 
-		private static RoutedCommand mIncreaseCommand;
-		private static RoutedCommand mDecreaseCommand;
+		private static RoutedCommand _IncreaseCommand;
+		private static RoutedCommand _DecreaseCommand;
 		#endregion fields
 
 		/// <summary>
@@ -48,7 +47,7 @@
 		{
 			get
 			{
-				return mIncreaseCommand;
+				return _IncreaseCommand;
 			}
 		}
 
@@ -59,7 +58,7 @@
 		{
 			get
 			{
-				return mDecreaseCommand;
+				return _DecreaseCommand;
 			}
 		}
 
@@ -110,17 +109,17 @@
 		/// </summary>
 		private void InitializeCommands()
 		{
-			InputBaseUpDown.mIncreaseCommand = new RoutedCommand("IncreaseCommand", typeof(InputBaseUpDown));
+			InputBaseUpDown._IncreaseCommand = new RoutedCommand("IncreaseCommand", typeof(InputBaseUpDown));
 			CommandManager.RegisterClassCommandBinding(typeof(InputBaseUpDown),
-									new CommandBinding(mIncreaseCommand, OnIncreaseCommand, OnCanIncreaseCommand));
+									new CommandBinding(_IncreaseCommand, OnIncreaseCommand, OnCanIncreaseCommand));
 
 			CommandManager.RegisterClassInputBinding(typeof(InputBaseUpDown),
-									new InputBinding(mIncreaseCommand, new KeyGesture(Key.Up)));
+									new InputBinding(_IncreaseCommand, new KeyGesture(Key.Up)));
 
-			InputBaseUpDown.mDecreaseCommand = new RoutedCommand("DecreaseCommand", typeof(InputBaseUpDown));
+			InputBaseUpDown._DecreaseCommand = new RoutedCommand("DecreaseCommand", typeof(InputBaseUpDown));
 
 			CommandManager.RegisterClassCommandBinding(typeof(InputBaseUpDown),
-									new CommandBinding(mDecreaseCommand, OnDecreaseCommand, OnCanDecreaseCommand));
+									new CommandBinding(_DecreaseCommand, OnDecreaseCommand, OnCanDecreaseCommand));
 		}
 
 		/// <summary>
