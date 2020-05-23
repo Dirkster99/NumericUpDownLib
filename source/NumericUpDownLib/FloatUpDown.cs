@@ -47,6 +47,12 @@ namespace NumericUpDownLib
 			FormatStringProperty.OverrideMetadata(typeof(FloatUpDown),
 												  new PropertyMetadata("F2"));
 
+			MaxValueProperty.OverrideMetadata(typeof(FloatUpDown),
+												  new PropertyMetadata(float.MaxValue));
+
+			MinValueProperty.OverrideMetadata(typeof(FloatUpDown),
+												  new PropertyMetadata(float.MinValue));
+
 			// Override Min/Max default values
 			////            AbstractBaseUpDown<float>.MinValueProperty.OverrideMetadata(
 			////                typeof(FloatUpDown), new PropertyMetadata(float.MinValue));

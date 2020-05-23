@@ -65,6 +65,12 @@ namespace NumericUpDownLib
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(SByteUpDown),
 					   new FrameworkPropertyMetadata(typeof(SByteUpDown)));
 
+			MaxValueProperty.OverrideMetadata(typeof(SByteUpDown),
+												  new PropertyMetadata(sbyte.MaxValue));
+
+			MinValueProperty.OverrideMetadata(typeof(SByteUpDown),
+												  new PropertyMetadata(sbyte.MinValue));
+
 			// Override Min/Max default values
 			////            AbstractBaseUpDown<sbyte>.MinValueProperty.OverrideMetadata(
 			////                typeof(SByteUpDown), new PropertyMetadata(sbyte.MinValue));
