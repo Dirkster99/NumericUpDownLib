@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Page Update="Base\AbstractBaseUpDown.xaml">
+    <Page Update="Base\InputBaseUpDown.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Base\NumericRepeatButtonControl.xaml">

@@ -28,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Base\AbstractBaseUpDown.xaml.cs">
+    <!--Compile Update="Base\AbstractBaseUpDown.xaml.cs">
       <DependentUpon>AbstractBaseUpDown.xaml</DependentUpon>
-    </Compile>
+    </Compile-->
     <Compile Update="Base\NumericRepeatButtonControl.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>NumericRepeatButtonControl.xaml</DependentUpon>
@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Base\AbstractBaseUpDown.xaml">
+    <Page Update="Base\InputBaseUpDown.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Base\NumericRepeatButtonControl.xaml">
