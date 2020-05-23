@@ -909,7 +909,7 @@ namespace NumericUpDownLib.Base
 			{
 			}
 
-			return control.MaxValue;
+			return control.Value;
 		}
 
 		private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -920,6 +920,8 @@ namespace NumericUpDownLib.Base
 			{
 				RoutedPropertyChangedEventArgs<T> e = new RoutedPropertyChangedEventArgs<T>((T)args.OldValue, (T)args.NewValue, ValueChangedEvent);
 				control.OnValueChanged(e);
+
+				AbstractBaseUpDown<T>.CoerceValue(obj, args.NewValue);
 			}
 		}
 		#endregion Value dependency property helper methods
@@ -943,8 +945,7 @@ namespace NumericUpDownLib.Base
 				RoutedPropertyChangedEventArgs<T> e = new RoutedPropertyChangedEventArgs<T>((T)args.OldValue, (T)args.NewValue, MinValueChangedEvent);
 				control.OnMinValueChanged(e);
 
-				control.CoerceValue(MaxValueProperty);
-				control.CoerceValue(ValueProperty);
+				AbstractBaseUpDown<T>.CoerceMinValue(obj, args.NewValue);
 			}
 		}
 
@@ -988,7 +989,7 @@ namespace NumericUpDownLib.Base
 				RoutedPropertyChangedEventArgs<T> e = new RoutedPropertyChangedEventArgs<T>((T)args.OldValue, (T)args.NewValue, MaxValueChangedEvent);
 				control.OnMaxValueChanged(e);
 
-				control.CoerceValue(ValueProperty);
+				AbstractBaseUpDown<T>.CoerceMaxValue(obj, args.NewValue);
 			}
 		}
 

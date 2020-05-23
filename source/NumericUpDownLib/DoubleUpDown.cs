@@ -48,6 +48,12 @@ namespace NumericUpDownLib
 			FormatStringProperty.OverrideMetadata(typeof(DoubleUpDown),
 												  new PropertyMetadata("F2"));
 
+			MaxValueProperty.OverrideMetadata(typeof(DoubleUpDown),
+												  new PropertyMetadata(double.MaxValue));
+
+			MinValueProperty.OverrideMetadata(typeof(DoubleUpDown),
+												  new PropertyMetadata(double.MinValue));
+
 			// Override Min/Max default values
 			////            AbstractBaseUpDown<double>.MinValueProperty.OverrideMetadata(
 			////                typeof(DoubleUpDown), new PropertyMetadata(double.MinValue));

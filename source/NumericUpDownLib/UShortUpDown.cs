@@ -44,6 +44,12 @@ namespace NumericUpDownLib
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(UShortUpDown),
 					   new FrameworkPropertyMetadata(typeof(UShortUpDown)));
 
+			MaxValueProperty.OverrideMetadata(typeof(UShortUpDown),
+												  new PropertyMetadata(ushort.MaxValue));
+
+			MinValueProperty.OverrideMetadata(typeof(UShortUpDown),
+												  new PropertyMetadata(ushort.MinValue));
+
 			// Override Min/Max default values
 			////            AbstractBaseUpDown<ushort>.MinValueProperty.OverrideMetadata(
 			////                typeof(UShortUpDown), new PropertyMetadata(ushort.MinValue));

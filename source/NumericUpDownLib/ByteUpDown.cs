@@ -44,15 +44,18 @@ namespace NumericUpDownLib
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(ByteUpDown),
 					   new FrameworkPropertyMetadata(typeof(ByteUpDown)));
 
-			////            MaxValueProperty.OverrideMetadata(typeof(ByteUpDown),
-			////                                                  new PropertyMetadata(byte.MaxValue));
+			MaxValueProperty.OverrideMetadata(typeof(ByteUpDown),
+			                                      new PropertyMetadata(byte.MaxValue));
+
+			MinValueProperty.OverrideMetadata(typeof(ByteUpDown),
+												  new PropertyMetadata(byte.MinValue));
 
 			// Override Min/Max default values
-			////            AbstractBaseUpDown<byte>.MinValueProperty.OverrideMetadata(
-			////                typeof(ByteUpDown), new PropertyMetadata(byte.MinValue));
-			////
-			////            AbstractBaseUpDown<byte>.MaxValueProperty.OverrideMetadata(
-			////                typeof(ByteUpDown), new PropertyMetadata(byte.MaxValue));
+////		AbstractBaseUpDown<byte>.MinValueProperty.OverrideMetadata(
+////		    typeof(ByteUpDown), new PropertyMetadata(byte.MinValue));
+////		
+////		AbstractBaseUpDown<byte>.MaxValueProperty.OverrideMetadata(
+////		    typeof(ByteUpDown), new PropertyMetadata(byte.MaxValue));
 		}
 
 		/// <summary>
