@@ -531,7 +531,11 @@ namespace NumericUpDownLib.Base
 		{
 			Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(delegate ()
 			{
-				Keyboard.ClearFocus();
+				if (this.IsKeyboardFocused)
+				{
+					Keyboard.ClearFocus();
+				}
+
 				_objMouseIncr = null;
 			}));
 		}
