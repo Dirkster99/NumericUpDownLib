@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.4.2.0</Version>
-    <AssemblyVersion>2.4.2.0</AssemblyVersion>
-    <FileVersion>2.4.2.0</FileVersion>
+    <Version>2.4.2.1</Version>
+    <AssemblyVersion>2.4.2.1</AssemblyVersion>
+    <FileVersion>2.4.2.1</FileVersion>
     <Company>Open Source</Company>
     <Product>NumericUpDownLib</Product>
     <Copyright>2013-2020</Copyright>
@@ -18,7 +18,7 @@
     <Authors>https://github.com/Dirkster99/NumericUpDownLib</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>numericupdown numeric up down integer float double percentage increment decrement custom wpf control mvvm c# .net metro black light themed control library</PackageTags>
-    <PackageReleaseNotes>BugFix Issue #8 Usage of multiple controls in one application - when setting a value in xaml (binding or manual), increase no longer works.</PackageReleaseNotes>
+    <PackageReleaseNotes>BugFix PR #10 Do not clear focus when the control change its visibility and its not focused</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>SyncArrow_64x.png</PackageIcon>
   </PropertyGroup>
