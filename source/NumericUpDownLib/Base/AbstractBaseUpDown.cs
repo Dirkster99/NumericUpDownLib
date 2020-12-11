@@ -830,7 +830,7 @@ namespace NumericUpDownLib.Base
 				e.Handled = true;
 				return;
 			}
-
+			// support disable large change?
 			if (e.Key == Key.Right)
 			{
 				OnIncrement(LargeStepSize);
@@ -841,6 +841,13 @@ namespace NumericUpDownLib.Base
 			if (e.Key == Key.Left)
 			{
 				OnDecrement(LargeStepSize);
+				e.Handled = true;
+				return;
+			}
+
+			if (e.Key == Key.Enter)
+			{
+				_PART_TextBox?.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 				e.Handled = true;
 				return;
 			}
