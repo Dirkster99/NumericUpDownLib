@@ -813,7 +813,8 @@ namespace NumericUpDownLib.Base
 				return;
 			}
 
-			if (e.Key == Key.Up)
+			// support small value change via up cursor key
+			if (e.Key == Key.Up && IsModifierKeyDown() == false)
 			{
 				if (CanIncreaseCommand() == true)
 					IncreaseCommand.Execute(null, this);
@@ -822,7 +823,8 @@ namespace NumericUpDownLib.Base
 				return;
 			}
 
-			if (e.Key == Key.Down)
+			// support small value change via down cursor key
+			if (e.Key == Key.Down && IsModifierKeyDown() == false)
 			{
 				if (CanDecreaseCommand() == true)
 					DecreaseCommand.Execute(null, this);
@@ -830,27 +832,41 @@ namespace NumericUpDownLib.Base
 				e.Handled = true;
 				return;
 			}
-			// support disable large change?
-			if (e.Key == Key.Right)
+
+			// support large value change via right cursor key
+			if (e.Key == Key.Right && IsModifierKeyDown() == false)
 			{
 				OnIncrement(LargeStepSize);
 				e.Handled = true;
 				return;
 			}
 
-			if (e.Key == Key.Left)
+			// support large value change via left cursor key
+			if (e.Key == Key.Left && IsModifierKeyDown() == false)
 			{
 				OnDecrement(LargeStepSize);
 				e.Handled = true;
 				return;
 			}
 
+			// update value typed by the user
 			if (e.Key == Key.Enter)
 			{
 				_PART_TextBox?.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 				e.Handled = true;
 				return;
 			}
+		}
+
+		/// <summary>
+		/// Gets whether any keyboard modifier (ALT, SHIFT, or CTRL) is down or not.
+		/// </summary>
+		/// <returns></returns>
+		private bool IsModifierKeyDown()
+		{
+			return Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift) ||
+				   Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl) ||
+				   Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
 		}
 
 		/// <summary>
