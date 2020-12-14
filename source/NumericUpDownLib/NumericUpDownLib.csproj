@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.4.2.1</Version>
-    <AssemblyVersion>2.4.2.1</AssemblyVersion>
-    <FileVersion>2.4.2.1</FileVersion>
+    <Version>2.4.2.2</Version>
+    <AssemblyVersion>2.4.2.2</AssemblyVersion>
+    <FileVersion>2.4.2.2</FileVersion>
     <Company>Open Source</Company>
     <Product>NumericUpDownLib</Product>
     <Copyright>2013-2020</Copyright>
