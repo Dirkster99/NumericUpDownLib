@@ -40,7 +40,6 @@
                                                                 FontStyle="{TemplateBinding FontStyle}"
                                                                 FontWeight="{TemplateBinding FontWeight}"
                                                                 IsReadOnly="{TemplateBinding IsReadOnly}"
-								IsReadOnly="{TemplateBinding IsReadOnly}"
 								SpellCheck.IsEnabled="False"
 								Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"
 								TextAlignment="Right" />
