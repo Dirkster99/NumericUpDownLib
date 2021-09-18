@@ -175,6 +175,14 @@ namespace NumericUpDownLib.Base
 			DependencyProperty.Register("CanMouseDrag", typeof(CanIncDecMouseDrag),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(CanIncDecMouseDrag.VerticalHorizontal));
 
+
+		/// <summary>
+		/// Backing store of <see cref="IsLargeStepEnabled"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty IsLargeStepEnabledProperty =
+			DependencyProperty.Register("IsLargeStepEnabled", typeof(bool),
+				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
+
 		/// <summary>
 		/// Holds the REQUIRED textbox instance part for this control.
 		/// </summary>
@@ -375,6 +383,16 @@ namespace NumericUpDownLib.Base
 			set { SetValue(CanMouseDragProperty, value); }
 		}
 
+		
+		/// <summary>
+		/// Gets/sets wether enable large step Increment/Decrement
+		/// </summary>
+		public bool IsLargeStepEnabled
+		{
+			get { return (bool)GetValue(IsLargeStepEnabledProperty); }
+			set { SetValue(IsLargeStepEnabledProperty, value); }
+		}
+
 		/// <summary>
 		/// Determines whether last text input was from a user (key was down) or not.
 		/// </summary>
@@ -463,7 +481,7 @@ namespace NumericUpDownLib.Base
 				{
 					if (e.Delta < 0 && CanDecreaseCommand() == true)
 					{
-						if (System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
+						if (IsLargeStepEnabled && System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
 							OnDecrement(LargeStepSize);
 						else
 							OnDecrease();
@@ -474,7 +492,7 @@ namespace NumericUpDownLib.Base
 					{
 						if (e.Delta > 0 && CanIncreaseCommand() == true)
 						{
-							if (System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
+							if (IsLargeStepEnabled && System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
 								OnIncrement(LargeStepSize);
 							else
 								OnIncrease();
@@ -630,7 +648,7 @@ namespace NumericUpDownLib.Base
 					_PART_TextBox.CaptureMouse();
 			}
 
-			if (_objMouseIncr.MouseDirection == MouseDirections.LeftRight)
+			if (IsLargeStepEnabled && _objMouseIncr.MouseDirection == MouseDirections.LeftRight)
 			{
 				if (deltaX > 0)
 					OnDecrement(LargeStepSize);
@@ -833,20 +851,23 @@ namespace NumericUpDownLib.Base
 				return;
 			}
 
-			// support large value change via right cursor key
-			if (e.Key == Key.Right && IsModifierKeyDown() == false)
+			if (IsLargeStepEnabled)
 			{
-				OnIncrement(LargeStepSize);
-				e.Handled = true;
-				return;
-			}
+				// support large value change via right cursor key
+				if (e.Key == Key.Right && IsModifierKeyDown() == false)
+				{
+					OnIncrement(LargeStepSize);
+					e.Handled = true;
+					return;
+				}
 
-			// support large value change via left cursor key
-			if (e.Key == Key.Left && IsModifierKeyDown() == false)
-			{
-				OnDecrement(LargeStepSize);
-				e.Handled = true;
-				return;
+				// support large value change via left cursor key
+				if (e.Key == Key.Left && IsModifierKeyDown() == false)
+				{
+					OnDecrement(LargeStepSize);
+					e.Handled = true;
+					return;
+				}
 			}
 
 			// update value typed by the user
