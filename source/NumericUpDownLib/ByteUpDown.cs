@@ -45,17 +45,19 @@ namespace NumericUpDownLib
 					   new FrameworkPropertyMetadata(typeof(ByteUpDown)));
 
 			MaxValueProperty.OverrideMetadata(typeof(ByteUpDown),
-			                                      new PropertyMetadata(byte.MaxValue));
+												  new PropertyMetadata(byte.MaxValue));
 
 			MinValueProperty.OverrideMetadata(typeof(ByteUpDown),
 												  new PropertyMetadata(byte.MinValue));
 
 			// Override Min/Max default values
-////		AbstractBaseUpDown<byte>.MinValueProperty.OverrideMetadata(
-////		    typeof(ByteUpDown), new PropertyMetadata(byte.MinValue));
+			////		AbstractBaseUpDown<byte>.MinValueProperty.OverrideMetadata(
+			////		    typeof(ByteUpDown), new PropertyMetadata(byte.MinValue));
+			////		
 ////		
-////		AbstractBaseUpDown<byte>.MaxValueProperty.OverrideMetadata(
-////		    typeof(ByteUpDown), new PropertyMetadata(byte.MaxValue));
+			////		
+			////		AbstractBaseUpDown<byte>.MaxValueProperty.OverrideMetadata(
+			////		    typeof(ByteUpDown), new PropertyMetadata(byte.MaxValue));
 		}
 
 		/// <summary>
@@ -306,10 +308,12 @@ namespace NumericUpDownLib
 		/// </summary>
 		/// <param name="text"></param>
 		/// <param name="formatNumber"></param>
-		protected override void FormatText(string text, bool formatNumber = true)
+		protected override byte FormatText(string text, bool formatNumber = true)
 		{
-			byte number = 0;
+			if (_PART_TextBox == null)
+				return Value;
 
+			byte number = 0;
 			// Does this text represent a valid number ?
 			if (byte.TryParse(text, base.NumberStyle,
 							  CultureInfo.CurrentCulture, out number) == true)
@@ -339,10 +343,11 @@ namespace NumericUpDownLib
 			}
 			else
 			{
-				// Reset to minimum value since string does not appear to represent a number
+				// Reset to last value since string does not appear to represent a number
 				_PART_TextBox.SelectionStart = 0;
-				_PART_TextBox.Text = FormatNumber(MinValue);
+				_PART_TextBox.Text = FormatNumber(Value);
 			}
+			return _LastValidValue;
 		}
 
 		/// <summary>
@@ -365,9 +370,11 @@ namespace NumericUpDownLib
 		/// <param name="number">.Net type specific value to be formated as string</param>
 		/// <returns>The string that was formatted with the FormatString
 		/// dependency property</returns>
-		private string FormatNumber(byte number)
+		protected override string FormatNumber(byte number)
 		{
 			string format = "{0}";
+
+			_LastValidValue = number;
 
 			var form = (string)GetValue(FormatStringProperty);
 

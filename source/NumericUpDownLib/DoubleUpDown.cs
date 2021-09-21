@@ -310,11 +310,11 @@ namespace NumericUpDownLib
 		/// </summary>
 		/// <param name="text"></param>
 		/// <param name="formatNumber"></param>
-		protected override void FormatText(string text,
-								bool formatNumber = true)
+		protected override double FormatText(string text, bool formatNumber = true)
 		{
+			if (_PART_TextBox == null)
+				return Value;
 			double number = 0;
-
 			// Does this text represent a valid number ?
 			if (double.TryParse(text, base.NumberStyle,
 								CultureInfo.CurrentCulture, out number) == true)
@@ -344,10 +344,11 @@ namespace NumericUpDownLib
 			}
 			else
 			{
-				// Reset to minimum value since string does not appear to represent a number
+				// Reset to last value since string does not appear to represent a number
 				_PART_TextBox.SelectionStart = 0;
-				_PART_TextBox.Text = FormatNumber(MinValue);
+				_PART_TextBox.Text = FormatNumber(Value);
 			}
+			return _LastValidValue;
 		}
 
 		/// <summary>
@@ -370,9 +371,10 @@ namespace NumericUpDownLib
 		/// <param name="number">.Net type specific value to be formated as string</param>
 		/// <returns>The string that was formatted with the FormatString
 		/// dependency property</returns>
-		private string FormatNumber(double number)
+		protected override string FormatNumber(double number)
 		{
 			string format = "{0}";
+			_LastValidValue = number;
 
 			var form = (string)GetValue(FormatStringProperty);
 
