@@ -329,7 +329,16 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		public string FormatString
 		{
-			get { return (string)GetValue(FormatStringProperty); }
+			get
+			{
+				string fsp = (string)GetValue(FormatStringProperty);
+				if (fsp == "G" && (NumberStyle == System.Globalization.NumberStyles.HexNumber) ||
+					(NumberStyle == System.Globalization.NumberStyles.AllowHexSpecifier))
+				{
+					fsp = "X";
+				}
+				return fsp;
+			}
 			set { SetValue(FormatStringProperty, value); }
 		}
 
