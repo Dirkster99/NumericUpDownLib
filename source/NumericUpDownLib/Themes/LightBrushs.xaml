@@ -12,7 +12,7 @@
 
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=ControlAccentBrushKey}"
+		                             ResourceId=ControlAccentBrushKey}"
 		options:Freeze="true"
 		Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
 
@@ -20,25 +20,25 @@
 	<!--  Up/Down Glyphs  -->
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=GlyphNormalForegroundKey}"
+		                             ResourceId=GlyphNormalForegroundKey}"
 		options:Freeze="true"
 		Color="#FF000000" />
 
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=GlyphMouseOverForegroundKey}"
+		                             ResourceId=GlyphMouseOverForegroundKey}"
 		options:Freeze="true"
 		Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
 
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=GlyphDisabledForegroundKey}"
+		                             ResourceId=GlyphDisabledForegroundKey}"
 		options:Freeze="true"
 		Color="#FFA9A9A9" />
 
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=GlyphPressedBackroundKey}"
+		                             ResourceId=GlyphPressedBackroundKey}"
 		options:Freeze="true"
 		Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
 

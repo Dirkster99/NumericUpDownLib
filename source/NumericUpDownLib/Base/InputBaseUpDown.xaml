@@ -38,7 +38,7 @@
 								IsReadOnly="{TemplateBinding IsReadOnly}"
 								SpellCheck.IsEnabled="False"
 								TextAlignment="Right" />
-								<!-- Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=OneTime}" -->
+							<!--  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=OneTime}"  -->
 
 							<!--
 								Hidden measuring textbox ensure reservation of enough UI space

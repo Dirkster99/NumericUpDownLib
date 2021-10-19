@@ -13,7 +13,7 @@
 
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=ControlAccentBrushKey}"
+		                             ResourceId=ControlAccentBrushKey}"
 		options:Freeze="true"
 		Color="{DynamicResource {x:Static MLib_reskeys:ResourceKeys.ControlAccentColorKey}}" />
 
@@ -26,7 +26,7 @@
 
 	<SolidColorBrush
 		x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-									 ResourceId=GlyphPressedBackroundKey}"
+		                             ResourceId=GlyphPressedBackroundKey}"
 		options:Freeze="true"
 		Color="{DynamicResource {x:Static MLib_reskeys:ResourceKeys.ControlAccentColorKey}}" />
 </ResourceDictionary>

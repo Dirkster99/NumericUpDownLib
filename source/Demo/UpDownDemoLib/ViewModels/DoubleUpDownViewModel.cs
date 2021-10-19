@@ -31,7 +31,7 @@
             base.LargeStepSize = largestepSize;
         }
 
-        /// Method determine whether to objects of type {T} are equal.
+        /// Method determine whether two objects of type {T} are equal.
         /// 
         /// Returns false if both objects are in-equal, otherwise true.
         public override bool Compare(double intValue, double intValue1)
