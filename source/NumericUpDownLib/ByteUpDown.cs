@@ -7,7 +7,7 @@ namespace NumericUpDownLib
 
 	/// <summary>
 	/// Implements a Byte based Numeric Up/Down control.
-	/// 
+	///
 	/// Original Source:
 	/// http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
 	/// </summary>
@@ -53,9 +53,9 @@ namespace NumericUpDownLib
 			// Override Min/Max default values
 			////		AbstractBaseUpDown<byte>.MinValueProperty.OverrideMetadata(
 			////		    typeof(ByteUpDown), new PropertyMetadata(byte.MinValue));
-			////		
-////		
-			////		
+			////
+////
+			////
 			////		AbstractBaseUpDown<byte>.MaxValueProperty.OverrideMetadata(
 			////		    typeof(ByteUpDown), new PropertyMetadata(byte.MaxValue));
 		}
@@ -319,7 +319,7 @@ namespace NumericUpDownLib
 							  CultureInfo.CurrentCulture, out number) == true)
 			{
 				// yes -> but is the number within bounds?
-				if (number >= MaxValue)
+				if (number > MaxValue)
 				{
 					// Larger than allowed maximum
 					_PART_TextBox.Text = FormatNumber(MaxValue);
@@ -327,7 +327,7 @@ namespace NumericUpDownLib
 				}
 				else
 				{
-					if (number <= MinValue)
+					if (number < MinValue)
 					{
 						// Smaller than allowed minimum
 						_PART_TextBox.Text = FormatNumber(MinValue);
