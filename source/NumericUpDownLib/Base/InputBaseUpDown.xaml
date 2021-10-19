@@ -11,73 +11,78 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:InputBaseUpDown}">
-					<Grid VerticalAlignment="Top">
-						<Grid.Resources>
-							<conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
-							<conv:BoolToVisibilityPropConverter x:Key="BoolToVisibilityConverter" />
-						</Grid.Resources>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
+					<Border BorderBrush="{TemplateBinding BorderBrush}"
+					        BorderThickness="{TemplateBinding BorderThickness}">
+						<Grid VerticalAlignment="Top">
+							<Grid.Resources>
+								<conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
+								<conv:BoolToVisibilityPropConverter x:Key="BoolToVisibilityConverter" />
+							</Grid.Resources>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
 
-						<Grid Grid.RowSpan="2" Grid.Column="0">
-							<TextBox
-								x:Name="PART_TextBox"
-								Margin="0,0,1,0"
-								Padding="0"
-								HorizontalAlignment="Stretch"
-								VerticalAlignment="Stretch"
-								HorizontalContentAlignment="Right"
-								VerticalContentAlignment="Center"
-								AcceptsReturn="False"
-								IsReadOnly="{TemplateBinding IsReadOnly}"
-								SpellCheck.IsEnabled="False"
-								TextAlignment="Right" />
-							<!--  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=OneTime}"  -->
+							<Grid Grid.RowSpan="2" Grid.Column="0">
+								<TextBox
+									x:Name="PART_TextBox"
+									Background="{TemplateBinding Background}"
+									Foreground="{TemplateBinding Foreground}"
+									Margin="0,0,1,0"
+									Padding="0"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="Stretch"
+									HorizontalContentAlignment="Right"
+									VerticalContentAlignment="Center"
+									AcceptsReturn="False"
+									IsReadOnly="{TemplateBinding IsReadOnly}"
+									SpellCheck.IsEnabled="False"
+									TextAlignment="Right" />
+									<!-- Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}" -->
 
-							<!--
-								Hidden measuring textbox ensure reservation of enough UI space
-								according to DisplayLength dependency property
-							-->
-							<TextBox
-								x:Name="PART_Measuring_Element"
-								Margin="0,0,1,0"
-								HorizontalAlignment="Stretch"
-								VerticalAlignment="{TemplateBinding VerticalAlignment}"
-								HorizontalContentAlignment="Right"
-								VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
-								AcceptsReturn="False"
-								SpellCheck.IsEnabled="False"
-								Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
-								TextAlignment="Right"
-								Visibility="Hidden" />
+								<!--
+									Hidden measuring textbox ensure reservation of enough UI space
+									according to DisplayLength dependency property
+								-->
+								<TextBox
+									x:Name="PART_Measuring_Element"
+									Margin="0,0,1,0"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="{TemplateBinding VerticalAlignment}"
+									HorizontalContentAlignment="Right"
+									VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
+									AcceptsReturn="False"
+									SpellCheck.IsEnabled="False"
+									Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
+									TextAlignment="Right"
+									Visibility="Hidden" />
+							</Grid>
+
+							<!--  ArrowUp Increase value button  -->
+							<local:NumericRepeatButtonControl
+								x:Name="PART_IncrementButton"
+								Grid.Row="0"
+								Grid.Column="1"
+								HorizontalAlignment="Left"
+								ClickCommand="{x:Static local:InputBaseUpDown.IncreaseCommand}"
+								RepeatButtonContent="M 0 4 L 6 4 L 3 0 Z"
+								Visibility="{Binding Path=IsIncDecButtonsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+							<!--  ArrowDown Decrease value button  -->
+							<local:NumericRepeatButtonControl
+								x:Name="PART_DecrementButton"
+								Grid.Row="1"
+								Grid.Column="1"
+								HorizontalAlignment="Left"
+								ClickCommand="{x:Static local:InputBaseUpDown.DecreaseCommand}"
+								RepeatButtonContent="M 0 0 L 3 4 L 6 0 Z"
+								Visibility="{Binding Path=IsIncDecButtonsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}" />
 						</Grid>
-
-						<!--  ArrowUp Increase value button  -->
-						<local:NumericRepeatButtonControl
-							x:Name="PART_IncrementButton"
-							Grid.Row="0"
-							Grid.Column="1"
-							HorizontalAlignment="Left"
-							ClickCommand="{x:Static local:InputBaseUpDown.IncreaseCommand}"
-							RepeatButtonContent="M 0 4 L 6 4 L 3 0 Z"
-							Visibility="{Binding Path=IsIncDecButtonsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}" />
-
-						<!--  ArrowDown Decrease value button  -->
-						<local:NumericRepeatButtonControl
-							x:Name="PART_DecrementButton"
-							Grid.Row="1"
-							Grid.Column="1"
-							HorizontalAlignment="Left"
-							ClickCommand="{x:Static local:InputBaseUpDown.DecreaseCommand}"
-							RepeatButtonContent="M 0 0 L 3 4 L 6 0 Z"
-							Visibility="{Binding Path=IsIncDecButtonsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}" />
-					</Grid>
+					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
