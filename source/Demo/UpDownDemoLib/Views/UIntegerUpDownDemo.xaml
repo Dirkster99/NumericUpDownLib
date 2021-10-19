@@ -149,6 +149,12 @@
 							Content="Is Mouse Drag Enabled"
 							IsChecked="True"
 							ToolTip="Increment/Decrementing value with mouse drag should be possible if this is enabled." />
+
+						<CheckBox
+							Margin="21,0,0,0"
+							Content="Is Large Step Enabled"
+							IsChecked="{Binding ElementName=SampleUpDown, Path=IsLargeStepEnabled, Mode=TwoWay}"
+							ToolTip="Setting this controls whether large step increments can be input via mouse drag or keyboard." />
 					</StackPanel>
 
 					<StackPanel Margin="0,6,0,0">

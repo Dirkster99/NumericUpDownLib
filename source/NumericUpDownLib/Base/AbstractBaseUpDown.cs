@@ -495,8 +495,11 @@ namespace NumericUpDownLib.Base
 				{
 					if (e.Delta < 0 && CanDecreaseCommand() == true)
 					{
-						if (IsLargeStepEnabled && System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
-							OnDecrement(LargeStepSize);
+						if (System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
+						{
+							if (IsLargeStepEnabled)
+								OnDecrement(LargeStepSize);
+						}
 						else
 							OnDecrease();
 
@@ -506,8 +509,11 @@ namespace NumericUpDownLib.Base
 					{
 						if (e.Delta > 0 && CanIncreaseCommand() == true)
 						{
-							if (IsLargeStepEnabled && System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
-								OnIncrement(LargeStepSize);
+							if (System.Windows.Input.Keyboard.Modifiers == this.MouseWheelAccelaratorKey)
+							{
+								if (IsLargeStepEnabled)
+									OnIncrement(LargeStepSize);
+							}
 							else
 								OnIncrease();
 
@@ -662,14 +668,17 @@ namespace NumericUpDownLib.Base
 					_PART_TextBox.CaptureMouse();
 			}
 
-			if (IsLargeStepEnabled && _objMouseIncr.MouseDirection == MouseDirections.LeftRight)
+			if (_objMouseIncr.MouseDirection == MouseDirections.LeftRight)
 			{
-				if (deltaX > 0)
-					OnDecrement(LargeStepSize);
-				else
+				if (IsLargeStepEnabled)
 				{
-					if (deltaX < 0)
-						OnIncrement(LargeStepSize);
+					if (deltaX > 0)
+						OnDecrement(LargeStepSize);
+					else
+					{
+						if (deltaX < 0)
+							OnIncrement(LargeStepSize);
+					}
 				}
 			}
 			else
