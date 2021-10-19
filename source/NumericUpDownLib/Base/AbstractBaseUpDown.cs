@@ -43,7 +43,7 @@ namespace NumericUpDownLib.Base
 
 		/// <summary>
 		/// Gets/sets the default applicable minimum value
-		/// 
+		///
 		/// Set this value in the static constructor of an inheriting class if a different
 		/// default format string is more appropriate in the context of that inheriting class.
 		/// </summary>
@@ -51,11 +51,16 @@ namespace NumericUpDownLib.Base
 
 		/// <summary>
 		/// Gets/sets the default applicable maximum value
-		/// 
+		///
 		/// Set this value in the static constructor of an inheriting class if a different
 		/// default format string is more appropriate in the context of that inheriting class.
 		/// </summary>
 		protected static T _MaxValue = default(T);
+
+		/// <summary>
+		/// Gets/sets the newest available value while inputting for data verification
+		/// </summary>
+		protected T _LastValidValue = default(T);
 
 		/// <summary>
 		/// Dependency property backing store for the <see cref="IsIncDecButtonsVisible"/> property.
@@ -65,7 +70,7 @@ namespace NumericUpDownLib.Base
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
 		/// <summary>
-		/// Dependency property backing store for the Value property.
+		/// Dependency property backing store for the Value property. defalut value is _MinValue
 		/// </summary>
 		protected static readonly DependencyProperty ValueProperty =
 			DependencyProperty.Register("Value",
@@ -281,7 +286,7 @@ namespace NumericUpDownLib.Base
 		/// Implements an abstract place holder for a dependency property that should
 		/// be implemented in a deriving class. The place holder is necessary here because
 		/// the default value (usually 1 or greater 0) cannot be formulated with {T}.
-		/// 
+		///
 		/// Gets or sets the step size (actual distance) of increment or decrement step.
 		/// This value should at least be 1 or greater.
 		/// </summary>
@@ -291,7 +296,7 @@ namespace NumericUpDownLib.Base
 		/// Implements an abstract place holder for a dependency property that should
 		/// be implemented in a deriving class. The place holder is necessary here because
 		/// the default value (usually greater than 1) cannot be formulated with {T}.
-		/// 
+		///
 		/// Gets or sets a large step size (actual distance) of increment or decrement step.
 		/// This value should be greater than 1 but at least 1.
 		/// </summary>
@@ -324,7 +329,16 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		public string FormatString
 		{
-			get { return (string)GetValue(FormatStringProperty); }
+			get
+			{
+				string fsp = (string)GetValue(FormatStringProperty);
+				if (fsp == "G" && (NumberStyle == System.Globalization.NumberStyles.HexNumber) ||
+					(NumberStyle == System.Globalization.NumberStyles.AllowHexSpecifier))
+				{
+					fsp = "X";
+				}
+				return fsp;
+			}
 			set { SetValue(FormatStringProperty, value); }
 		}
 
@@ -354,7 +368,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Gets/sets whether the mouse can be used to increment/decrement the displayed value
 		/// be dragging the mouse over the control.
-		/// 
+		///
 		/// https://github.com/Dirkster99/NumericUpDownLib/issues/2
 		/// </summary>
 		public bool IsMouseDragEnabled
@@ -522,7 +536,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Clears the focus and resets the mouse incrementor object to cancel
 		/// editing and return to mouse drag mode.
-		/// 
+		///
 		/// https://www.codeproject.com/tips/478376/setting-focus-to-a-control-inside-a-usercontrol-in
 		/// </summary>
 		/// <param name="sender"></param>
@@ -737,11 +751,12 @@ namespace NumericUpDownLib.Base
 		#endregion textbox mouse and focus handlers
 
 		#region textinput handlers
+
 		/// <summary>
 		/// Method executes when the text portion in the textbox is changed
 		/// The Value is corrected to a valid value if text was illegal or
 		/// value was outside of the specified bounds.
-		/// 
+		///
 		/// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control#2752538
 		/// </summary>
 		/// <param name="sender"></param>
@@ -852,7 +867,8 @@ namespace NumericUpDownLib.Base
 			// update value typed by the user
 			if (e.Key == Key.Enter)
 			{
-				_PART_TextBox?.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+				var newText = _PART_TextBox.Text;
+				Value = FormatText(newText, true);
 				e.Handled = true;
 				return;
 			}
@@ -869,19 +885,29 @@ namespace NumericUpDownLib.Base
 				   Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
 		}
 
+
+		/// <summary>
+		/// format number value into string with formatstyle
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
+		protected abstract string FormatNumber(T number);
+
+
 		/// <summary>
 		/// Checks if the current string entered in the textbox is:
 		/// 1) A valid number (syntax)
 		/// 2) within bounds (Min &lt;= number &lt;= Max )
-		/// 
+		///
 		/// 3) adjusts the string if it appears to be invalid and
-		/// 
+		///
 		/// 4) <paramref name="formatNumber"/> true:
 		///    Applies the FormatString property to format the text in a certain way
 		/// </summary>
 		/// <param name="text"></param>
 		/// <param name="formatNumber"></param>
-		protected abstract void FormatText(string text, bool formatNumber = true);
+		/// <returns>the value of the string with special format</returns>
+		protected abstract T FormatText(string text, bool formatNumber = true);
 		#endregion textinput handlers
 
 		#region Coerce Value MinValue MaxValue abstract methods
@@ -920,6 +946,10 @@ namespace NumericUpDownLib.Base
 		/// <param name="args">Arguments associated with the ValueChanged event.</param>
 		protected virtual void OnValueChanged(RoutedPropertyChangedEventArgs<T> args)
 		{
+			if (_PART_TextBox != null)
+			{
+				_PART_TextBox.Text = FormatNumber(Value);
+			}
 			this.RaiseEvent(args);
 		}
 
@@ -1057,7 +1087,7 @@ namespace NumericUpDownLib.Base
 		/// Sets or Unsets a binding between a
 		/// - MeasuringControl.ActualWidth and
 		/// - UserControl.MaxWidth
-		/// 
+		///
 		/// Both controls can be any <see cref="FrameworkElement"/>.
 		/// </summary>
 		/// <param name="UserControl"></param>

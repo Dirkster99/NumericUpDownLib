@@ -306,16 +306,17 @@ namespace NumericUpDownLib
 		/// </summary>
 		/// <param name="text"></param>
 		/// <param name="formatNumber"></param>
-		protected override void FormatText(string text, bool formatNumber = true)
+		protected override uint FormatText(string text, bool formatNumber = true)
 		{
+			if (_PART_TextBox == null)
+				return Value;
 			uint number = 0;
-
 			// Does this text represent a valid number ?
 			if (uint.TryParse(text, base.NumberStyle,
 							 CultureInfo.CurrentCulture, out number) == true)
 			{
 				// yes -> but is the number within bounds?
-				if (number >= MaxValue)
+				if (number > MaxValue)
 				{
 					// Larger than allowed maximum
 					_PART_TextBox.Text = FormatNumber(MaxValue);
@@ -323,7 +324,7 @@ namespace NumericUpDownLib
 				}
 				else
 				{
-					if (number <= MinValue)
+					if (number < MinValue)
 					{
 						// Smaller than allowed minimum
 						_PART_TextBox.Text = FormatNumber(MinValue);
@@ -339,10 +340,11 @@ namespace NumericUpDownLib
 			}
 			else
 			{
-				// Reset to minimum value since string does not appear to represent a number
+				// Reset to last value since string does not appear to represent a number
 				_PART_TextBox.SelectionStart = 0;
-				_PART_TextBox.Text = FormatNumber(MinValue);
+				_PART_TextBox.Text = FormatNumber(Value);
 			}
+			return _LastValidValue;
 		}
 
 		/// <summary>
@@ -365,9 +367,11 @@ namespace NumericUpDownLib
 		/// <param name="number">.Net type specific value to be formated as string</param>
 		/// <returns>The string that was formatted with the FormatString
 		/// dependency property</returns>
-		private string FormatNumber(uint number)
+		protected override string FormatNumber(uint number)
 		{
 			string format = "{0}";
+
+			_LastValidValue = number;
 
 			var form = (string)GetValue(FormatStringProperty);
 
