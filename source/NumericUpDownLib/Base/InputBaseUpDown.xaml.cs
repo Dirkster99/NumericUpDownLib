@@ -80,6 +80,24 @@
 			get { return (NumberStyles)GetValue(NumberStyleProperty); }
 			set { SetValue(NumberStyleProperty, value); }
 		}
+
+		/// <summary>
+		/// Determines the input text is valid or not
+		/// </summary>
+		private bool _IsDataValid = true;
+
+		/// <summary>
+		/// Gets/sets determines the input text is valid or not.
+		/// </summary>
+		protected bool IsDataValid
+		{
+			get { return _IsDataValid; }
+			set
+			{
+				_IsDataValid = value;
+			}
+		}
+
 		#endregion properties
 
 		#region methods

@@ -397,7 +397,7 @@ namespace NumericUpDownLib.Base
 			set { SetValue(CanMouseDragProperty, value); }
 		}
 
-		
+
 		/// <summary>
 		/// Gets/sets wether enable large step Increment/Decrement
 		/// </summary>
@@ -785,6 +785,7 @@ namespace NumericUpDownLib.Base
 		/// value was outside of the specified bounds.
 		///
 		/// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control#2752538
+		/// also, <see cref="textBox_PreviewKeyDown"/> Text will be format by "Enter"
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -793,8 +794,11 @@ namespace NumericUpDownLib.Base
 		{
 			if (_PART_TextBox != null)
 			{
+
 				if (UserInput == true)
 				{
+					VerifyText(_PART_TextBox.Text);
+#if false
 					int pos = _PART_TextBox.CaretIndex;
 
 					FormatText(_PART_TextBox.Text, false);
@@ -803,6 +807,7 @@ namespace NumericUpDownLib.Base
 						UserInput = false;
 
 					_PART_TextBox.CaretIndex = pos;
+#endif
 				}
 				else
 				{
@@ -897,6 +902,16 @@ namespace NumericUpDownLib.Base
 			// update value typed by the user
 			if (e.Key == Key.Enter)
 			{
+				if (_PART_TextBox != null)
+				{
+					VerifyText(_PART_TextBox.Text);
+					if (!IsDataValid)
+					{
+						e.Handled = true;
+						return;
+					}
+				}
+
 				var newText = _PART_TextBox.Text;
 				Value = FormatText(newText, true);
 				e.Handled = true;
@@ -938,6 +953,14 @@ namespace NumericUpDownLib.Base
 		/// <param name="formatNumber"></param>
 		/// <returns>the value of the string with special format</returns>
 		protected abstract T FormatText(string text, bool formatNumber = true);
+
+		/// <summary>
+		/// Verify the text is valid or not while use is typing
+		/// </summary>
+		/// <param name="text"></param>
+		protected abstract void VerifyText(string text);
+
+
 		#endregion textinput handlers
 
 		#region Coerce Value MinValue MaxValue abstract methods
