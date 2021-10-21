@@ -62,12 +62,12 @@
 									Visibility="Hidden" />
 								<TextBlock
 									Background="#00ffffff"
-									Foreground="{TemplateBinding EditingColorBrush, Mode=OneWay}"
+									Foreground="{TemplateBinding EditingColorBrush}"
 									HorizontalAlignment="Left"
 									Margin="3, 0"
 									Text="*"
 									VerticalAlignment="Top"
-									Visibility="{TemplateBinding EditingVisibility, Mode=OneWay}"/>
+									Visibility="{TemplateBinding EditingVisibility}"/>
 							</Grid>
 
 							<!--  ArrowUp Increase value button  -->
