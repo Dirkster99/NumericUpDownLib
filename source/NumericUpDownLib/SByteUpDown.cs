@@ -7,7 +7,7 @@ namespace NumericUpDownLib
 
 	/// <summary>
 	/// Implements a <see cref="sbyte"/> based Numeric Up/Down control.
-	/// 
+	///
 	/// Source: http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
 	/// </summary>
 	public partial class SByteUpDown : AbstractBaseUpDown<sbyte>
@@ -298,6 +298,29 @@ namespace NumericUpDownLib
 			return newValue;
 		}
 
+
+		/// <summary>
+		/// Verify the text is valid or not while use is typing
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="tempValue">the last value</param>
+		protected override bool VerifyText(string text, ref sbyte tempValue)
+		{
+			if (sbyte.TryParse(text, base.NumberStyle, CultureInfo.CurrentCulture, out sbyte number))
+			{
+				tempValue = number;
+				if (number > MaxValue || number < MinValue)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		/// <summary>
 		/// Checks if the current string entered in the textbox is valid
 		/// and conforms to a known format
@@ -344,7 +367,7 @@ namespace NumericUpDownLib
 				_PART_TextBox.SelectionStart = 0;
 				_PART_TextBox.Text = FormatNumber(Value);
 			}
-			return _LastValidValue;
+			return LastEditingNumericValue;
 		}
 
 		/// <summary>
@@ -371,7 +394,7 @@ namespace NumericUpDownLib
 		{
 			string format = "{0}";
 
-			_LastValidValue = number;
+			LastEditingNumericValue = number;
 
 			var form = (string)GetValue(FormatStringProperty);
 

@@ -7,7 +7,7 @@ namespace NumericUpDownLib
 
 	/// <summary>
 	/// Implements an <see cref="long"/> based Numeric Up/Down control.
-	/// 
+	///
 	/// Original Source:
 	/// http://msdn.microsoft.com/en-us/library/vstudio/ms771573%28v=vs.90%29.aspx
 	/// </summary>
@@ -300,6 +300,28 @@ namespace NumericUpDownLib
 		}
 
 		/// <summary>
+		/// Verify the text is valid or not while use is typing
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="tempValue">the last value</param>
+		protected override bool VerifyText(string text, ref long tempValue)
+		{
+			if (long.TryParse(text, base.NumberStyle, CultureInfo.CurrentCulture, out long number))
+			{
+				tempValue = number;
+				if (number > MaxValue || number < MinValue)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
 		/// Checks if the current string entered in the textbox is valid
 		/// and conforms to a known format
 		/// (<see cref="AbstractBaseUpDown{T}"/> base method for more details).
@@ -344,7 +366,7 @@ namespace NumericUpDownLib
 				_PART_TextBox.SelectionStart = 0;
 				_PART_TextBox.Text = FormatNumber(Value);
 			}
-			return _LastValidValue;
+			return LastEditingNumericValue;
 		}
 
 		/// <summary>
@@ -370,7 +392,7 @@ namespace NumericUpDownLib
 		protected override string FormatNumber(long number)
 		{
 			string format = "{0}";
-			_LastValidValue = number;
+			LastEditingNumericValue = number;
 
 			var form = (string)GetValue(FormatStringProperty);
 
