@@ -895,6 +895,9 @@ namespace NumericUpDownLib.Base
 			// and edit value increment/decrement via mouse drag gesture
 			if (e.Key == Key.Escape)
 			{
+				// SUPPORT RESUME TO THE LAST VALUE WHEN USER DECIDE TO Exit editing
+				_PART_TextBox.Text = FormatNumber(Value);
+				_PART_TextBox.SelectionStart = 0;
 				Keyboard.ClearFocus();
 				e.Handled = true;
 				return;
