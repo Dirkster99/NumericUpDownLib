@@ -27,6 +27,38 @@
 			DependencyProperty.Register("NumberStyle", typeof(NumberStyles),
 				typeof(InputBaseUpDown), new PropertyMetadata(NumberStyles.Any));
 
+		/// <summary>
+		/// Backing store of <see cref="EditingVisibility"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty EditingVisibilityProperty =
+			DependencyProperty.Register("EditingVisibility", typeof(Visibility),
+				typeof(InputBaseUpDown), new PropertyMetadata(Visibility.Hidden));
+
+		/// <summary>
+		/// Backing store of <see cref="EditingColorBrush"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty EditingColorBrushProperty =
+			DependencyProperty.Register("EditingColorBrush", typeof(System.Windows.Media.SolidColorBrush),
+				typeof(InputBaseUpDown), new PropertyMetadata(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green)));
+
+
+		/// <summary>
+		/// identify that the inputing data is value,
+		/// </summary>
+		/// <value></value>
+		protected System.Windows.Media.SolidColorBrush EditingColorBrush
+		{
+			get { return (System.Windows.Media.SolidColorBrush)GetValue(EditingColorBrushProperty); }
+			set { SetValue(EditingColorBrushProperty, value); }
+		}
+
+		protected Visibility EditingVisibility
+		{
+			get { return (Visibility)GetValue(EditingVisibilityProperty); }
+			set { SetValue(EditingVisibilityProperty, value); }
+		}
+
+
 		private static RoutedCommand _IncreaseCommand;
 		private static RoutedCommand _DecreaseCommand;
 		#endregion fields
@@ -79,23 +111,6 @@
 		{
 			get { return (NumberStyles)GetValue(NumberStyleProperty); }
 			set { SetValue(NumberStyleProperty, value); }
-		}
-
-		/// <summary>
-		/// Determines the input text is valid or not
-		/// </summary>
-		private bool _IsDataValid = true;
-
-		/// <summary>
-		/// Gets/sets determines the input text is valid or not.
-		/// </summary>
-		protected bool IsDataValid
-		{
-			get { return _IsDataValid; }
-			set
-			{
-				_IsDataValid = value;
-			}
 		}
 
 		#endregion properties

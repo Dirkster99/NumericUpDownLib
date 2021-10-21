@@ -58,11 +58,6 @@ namespace NumericUpDownLib.Base
 		protected static T _MaxValue = default(T);
 
 		/// <summary>
-		/// Gets/sets the newest available value while inputting for data verification
-		/// </summary>
-		protected T _LastValidValue = default(T);
-
-		/// <summary>
 		/// Dependency property backing store for the <see cref="IsIncDecButtonsVisible"/> property.
 		/// </summary>
 		public static readonly DependencyProperty IsIncDecButtonsVisibleProperty =
@@ -405,6 +400,48 @@ namespace NumericUpDownLib.Base
 		{
 			get { return (bool)GetValue(IsLargeStepEnabledProperty); }
 			set { SetValue(IsLargeStepEnabledProperty, value); }
+		}
+
+		private bool _IsDataValid;
+
+		/// <summary>
+		/// Gets/sets determines the input text is valid or not.
+		/// </summary>
+		protected bool IsDataValid
+		{
+			get { return _IsDataValid; }
+			set
+			{
+				if (_IsDataValid != value)
+				{
+					_IsDataValid = value;
+
+					EditingColorBrush = _IsDataValid ?
+						new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green) :
+						new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
+
+					// FIX THE behavior when user input unsupported char like ghijk
+					if (!_IsDataValid)
+					{
+						EditingVisibility = Visibility.Visible;
+					}
+				}
+			}
+		}
+
+		private T lastEditingNumericValue;
+
+		/// <summary>
+		/// Gets/sets the newest available value while inputting for data verification
+		/// </summary>
+		protected T LastEditingNumericValue
+		{
+			get { return lastEditingNumericValue; }
+			set
+			{
+				lastEditingNumericValue = value;
+				EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
+			}
 		}
 
 		/// <summary>
@@ -771,8 +808,7 @@ namespace NumericUpDownLib.Base
 				_objMouseIncr = null;
 				(sender as TextBox).Cursor = Cursors.ScrollAll;
 			}
-
-			if (_PART_TextBox != null)
+			if (_PART_TextBox != null && Value.Equals(LastEditingNumericValue))
 				FormatText(_PART_TextBox.Text);
 		}
 		#endregion textbox mouse and focus handlers
@@ -794,10 +830,14 @@ namespace NumericUpDownLib.Base
 		{
 			if (_PART_TextBox != null)
 			{
-
 				if (UserInput == true)
 				{
-					VerifyText(_PART_TextBox.Text);
+					T temp = LastEditingNumericValue;
+					IsDataValid = VerifyText(_PART_TextBox.Text, ref temp);
+					if(!LastEditingNumericValue.Equals(temp))
+					{
+						LastEditingNumericValue = temp;
+					}
 #if false
 					int pos = _PART_TextBox.CaretIndex;
 
@@ -904,17 +944,16 @@ namespace NumericUpDownLib.Base
 			{
 				if (_PART_TextBox != null)
 				{
-					VerifyText(_PART_TextBox.Text);
 					if (!IsDataValid)
 					{
 						e.Handled = true;
 						return;
 					}
+					Value = FormatText(_PART_TextBox.Text, true);
+					LastEditingNumericValue = Value;
+					e.Handled = true;
 				}
 
-				var newText = _PART_TextBox.Text;
-				Value = FormatText(newText, true);
-				e.Handled = true;
 				return;
 			}
 		}
@@ -958,7 +997,7 @@ namespace NumericUpDownLib.Base
 		/// Verify the text is valid or not while use is typing
 		/// </summary>
 		/// <param name="text"></param>
-		protected abstract void VerifyText(string text);
+		protected abstract bool VerifyText(string text, ref T tempValue);
 
 
 		#endregion textinput handlers
