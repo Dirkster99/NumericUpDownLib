@@ -58,11 +58,6 @@ namespace NumericUpDownLib.Base
 		protected static T _MaxValue = default(T);
 
 		/// <summary>
-		/// Gets/sets the newest available value while inputting for data verification
-		/// </summary>
-		protected T _LastValidValue = default(T);
-
-		/// <summary>
 		/// Dependency property backing store for the <see cref="IsIncDecButtonsVisible"/> property.
 		/// </summary>
 		public static readonly DependencyProperty IsIncDecButtonsVisibleProperty =
@@ -397,7 +392,7 @@ namespace NumericUpDownLib.Base
 			set { SetValue(CanMouseDragProperty, value); }
 		}
 
-		
+
 		/// <summary>
 		/// Gets/sets wether enable large step Increment/Decrement
 		/// </summary>
@@ -405,6 +400,48 @@ namespace NumericUpDownLib.Base
 		{
 			get { return (bool)GetValue(IsLargeStepEnabledProperty); }
 			set { SetValue(IsLargeStepEnabledProperty, value); }
+		}
+
+		private bool _IsDataValid;
+
+		/// <summary>
+		/// Gets/sets determines the input text is valid or not.
+		/// </summary>
+		protected bool IsDataValid
+		{
+			get { return _IsDataValid; }
+			set
+			{
+				if (_IsDataValid != value)
+				{
+					_IsDataValid = value;
+
+					EditingColorBrush = _IsDataValid ?
+						new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green) :
+						new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
+
+					// FIX THE behavior when user input unsupported char like ghijk
+					if (!_IsDataValid)
+					{
+						EditingVisibility = Visibility.Visible;
+					}
+				}
+			}
+		}
+
+		private T lastEditingNumericValue;
+
+		/// <summary>
+		/// Gets/sets the newest available value while inputting for data verification
+		/// </summary>
+		protected T LastEditingNumericValue
+		{
+			get { return lastEditingNumericValue; }
+			set
+			{
+				lastEditingNumericValue = value;
+				EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
+			}
 		}
 
 		/// <summary>
@@ -771,8 +808,7 @@ namespace NumericUpDownLib.Base
 				_objMouseIncr = null;
 				(sender as TextBox).Cursor = Cursors.ScrollAll;
 			}
-
-			if (_PART_TextBox != null)
+			if (_PART_TextBox != null && Value.Equals(LastEditingNumericValue))
 				FormatText(_PART_TextBox.Text);
 		}
 		#endregion textbox mouse and focus handlers
@@ -785,6 +821,7 @@ namespace NumericUpDownLib.Base
 		/// value was outside of the specified bounds.
 		///
 		/// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control#2752538
+		/// also, <see cref="textBox_PreviewKeyDown"/> Text will be format by "Enter"
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -795,6 +832,13 @@ namespace NumericUpDownLib.Base
 			{
 				if (UserInput == true)
 				{
+					T temp = LastEditingNumericValue;
+					IsDataValid = VerifyText(_PART_TextBox.Text, ref temp);
+					if(!LastEditingNumericValue.Equals(temp))
+					{
+						LastEditingNumericValue = temp;
+					}
+#if false
 					int pos = _PART_TextBox.CaretIndex;
 
 					FormatText(_PART_TextBox.Text, false);
@@ -803,6 +847,7 @@ namespace NumericUpDownLib.Base
 						UserInput = false;
 
 					_PART_TextBox.CaretIndex = pos;
+#endif
 				}
 				else
 				{
@@ -850,6 +895,9 @@ namespace NumericUpDownLib.Base
 			// and edit value increment/decrement via mouse drag gesture
 			if (e.Key == Key.Escape)
 			{
+				// SUPPORT RESUME TO THE LAST VALUE WHEN USER DECIDE TO Exit editing
+				_PART_TextBox.Text = FormatNumber(Value);
+				_PART_TextBox.SelectionStart = 0;
 				Keyboard.ClearFocus();
 				e.Handled = true;
 				return;
@@ -897,9 +945,18 @@ namespace NumericUpDownLib.Base
 			// update value typed by the user
 			if (e.Key == Key.Enter)
 			{
-				var newText = _PART_TextBox.Text;
-				Value = FormatText(newText, true);
-				e.Handled = true;
+				if (_PART_TextBox != null)
+				{
+					if (!IsDataValid)
+					{
+						e.Handled = true;
+						return;
+					}
+					Value = FormatText(_PART_TextBox.Text, true);
+					LastEditingNumericValue = Value;
+					e.Handled = true;
+				}
+
 				return;
 			}
 		}
@@ -938,6 +995,14 @@ namespace NumericUpDownLib.Base
 		/// <param name="formatNumber"></param>
 		/// <returns>the value of the string with special format</returns>
 		protected abstract T FormatText(string text, bool formatNumber = true);
+
+		/// <summary>
+		/// Verify the text is valid or not while use is typing
+		/// </summary>
+		/// <param name="text"></param>
+		protected abstract bool VerifyText(string text, ref T tempValue);
+
+
 		#endregion textinput handlers
 
 		#region Coerce Value MinValue MaxValue abstract methods

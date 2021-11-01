@@ -11,7 +11,8 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:InputBaseUpDown}">
-					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+					<Border BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}">
 						<Grid VerticalAlignment="Top">
 							<Grid.Resources>
 								<conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
@@ -59,6 +60,14 @@
 									Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
 									TextAlignment="Right"
 									Visibility="Hidden" />
+								<TextBlock
+									Background="#00ffffff"
+									Foreground="{TemplateBinding EditingColorBrush}"
+									HorizontalAlignment="Left"
+									Margin="3, 0"
+									Text="*"
+									VerticalAlignment="Top"
+									Visibility="{TemplateBinding EditingVisibility}"/>
 							</Grid>
 
 							<!--  ArrowUp Increase value button  -->
