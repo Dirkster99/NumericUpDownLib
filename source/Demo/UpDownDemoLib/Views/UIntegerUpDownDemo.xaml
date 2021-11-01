@@ -18,6 +18,7 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 
+		<!--  Moved to ViewModel FormatString="D8" to support Hex Display On/Off  -->
 		<cntrl:UIntegerUpDown
 			Name="SampleUpDown"
 			Grid.Column="0"
@@ -25,7 +26,7 @@
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"
 			DisplayLength="10"
-			FormatString="D8"
+			FormatString="{Binding FormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			IsDisplayLengthFixed="True"
 			IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
 			IsReadOnly="False"
@@ -33,6 +34,7 @@
 			MaxValue="{Binding MaximumValue}"
 			MinValue="{Binding MinimumValue}"
 			MouseWheelAccelaratorKey="{Binding AccelModifierKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+			NumberStyle="{Binding NumberStyle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			StepSize="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -155,6 +157,12 @@
 							Content="Is Large Step Enabled"
 							IsChecked="{Binding ElementName=SampleUpDown, Path=IsLargeStepEnabled, Mode=TwoWay}"
 							ToolTip="Setting this controls whether large step increments can be input via mouse drag or keyboard." />
+
+						<CheckBox
+							Margin="21,0,0,0"
+							Content="Is Hex Display Enabled"
+							IsChecked="{Binding Path=IsHexDisplayEnabled, Mode=TwoWay}"
+							ToolTip="" />
 					</StackPanel>
 
 					<StackPanel Margin="0,6,0,0">
