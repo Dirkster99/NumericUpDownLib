@@ -30,8 +30,6 @@
 							<Grid Grid.RowSpan="2" Grid.Column="0">
 								<TextBox
 									x:Name="PART_TextBox"
-									Background="{TemplateBinding Background}"
-									Foreground="{TemplateBinding Foreground}"
 									Margin="0,0,1,0"
 									Padding="0"
 									HorizontalAlignment="Stretch"
@@ -39,10 +37,12 @@
 									HorizontalContentAlignment="Right"
 									VerticalContentAlignment="Center"
 									AcceptsReturn="False"
+									Background="{TemplateBinding Background}"
+									Foreground="{TemplateBinding Foreground}"
 									IsReadOnly="{TemplateBinding IsReadOnly}"
 									SpellCheck.IsEnabled="False"
 									TextAlignment="Right" />
-									<!-- Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}" -->
+								<!--  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"  -->
 
 								<!--
 									Hidden measuring textbox ensure reservation of enough UI space

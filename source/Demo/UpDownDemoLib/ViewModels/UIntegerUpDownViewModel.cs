@@ -24,6 +24,8 @@
             )
             : base()
         {
+            base._FormatString = "D8";
+
             base.Value = value;
             base.MinimumValue = minimumValue;
             base.MaximumValue = maximumValue;
