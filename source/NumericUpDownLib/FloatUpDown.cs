@@ -349,7 +349,7 @@ namespace NumericUpDownLib
 				}
 				else
 				{
-					if (number > MinValue)
+					if (number < MinValue)
 					{
 						// Smaller than allowed minimum
 						_PART_TextBox.Text = FormatNumber(MinValue);
