@@ -151,7 +151,7 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		protected static readonly DependencyProperty FormatStringProperty =
 			DependencyProperty.Register("FormatString", typeof(string),
-				typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G"));
+				typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G", OnIsFormatStringChanged));
 
 		/// <summary>
 		/// Backing store of <see cref="MouseWheelAccelaratorKey"/> dependency property.
@@ -834,7 +834,7 @@ namespace NumericUpDownLib.Base
 				{
 					T temp = LastEditingNumericValue;
 					IsDataValid = VerifyText(_PART_TextBox.Text, ref temp);
-					if(!LastEditingNumericValue.Equals(temp))
+					if (!LastEditingNumericValue.Equals(temp))
 					{
 						LastEditingNumericValue = temp;
 					}
@@ -1064,6 +1064,18 @@ namespace NumericUpDownLib.Base
 			}
 
 			return control.Value;
+		}
+
+		/// <summary>
+		/// CHANGE the display of value;
+		/// <see cref="InputBaseUpDown.NumberStyle"/>: before change the formatstring, please set Numberstyle is match the FormatString
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <param name="e"></param>
+		private static void OnIsFormatStringChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+		{
+			if (obj is AbstractBaseUpDown<T> control && control._PART_TextBox != null && e.NewValue is string)
+				control._PART_TextBox.Text = control.FormatNumber(control.Value);
 		}
 
 		private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
