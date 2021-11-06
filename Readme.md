@@ -6,6 +6,28 @@
 
 # Overview
 
+## Features Added in Version 3.0
+
+- Display and Edit of Hex values
+- Text portion editing can be: 
+  - Cancelled with Escape key or can be  
+  - Okay'ed with Enter Key
+
+- The Edit TextBox displays during editing a Red or Green indicator (in upper left corner) depending on whether current text is: 
+  - a valid number (GREEN) or  
+  - not valid number (RED)
+
+- Dependency Features Added:  
+  - IsLargeStepEnabled
+  - FormatString
+  - NumberStyle
+
+- Improved Style/Template
+
+Thanx for contributing go to [heartacker](https://github.com/heartacker) :pray:
+
+## More Features
+
 This library implements numeric up down WPF controls to edit a value:
 - by dragging the mouse vertically/horizontally (see recording below) or
 - by clicking up/down arrow (repeat) buttons or
