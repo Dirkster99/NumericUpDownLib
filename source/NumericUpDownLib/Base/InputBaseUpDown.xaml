@@ -28,22 +28,6 @@
 							</Grid.ColumnDefinitions>
 
 							<Grid Grid.RowSpan="2" Grid.Column="0">
-								<TextBox
-									x:Name="PART_TextBox"
-									Margin="0,0,1,0"
-									Padding="0"
-									HorizontalAlignment="Stretch"
-									VerticalAlignment="Stretch"
-									HorizontalContentAlignment="Right"
-									VerticalContentAlignment="Center"
-									AcceptsReturn="False"
-									Background="{TemplateBinding Background}"
-									Foreground="{TemplateBinding Foreground}"
-									IsReadOnly="{TemplateBinding IsReadOnly}"
-									SpellCheck.IsEnabled="False"
-									TextAlignment="Right" />
-								<!--  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"  -->
-
 								<!--
 									Hidden measuring textbox ensure reservation of enough UI space
 									according to DisplayLength dependency property
@@ -51,15 +35,33 @@
 								<TextBox
 									x:Name="PART_Measuring_Element"
 									Margin="0,0,1,0"
+									Foreground="#00000000"
+									Background="#00000000"
 									HorizontalAlignment="Stretch"
-									VerticalAlignment="{TemplateBinding VerticalAlignment}"
+									VerticalAlignment="Stretch"
 									HorizontalContentAlignment="Right"
 									VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
 									AcceptsReturn="False"
 									SpellCheck.IsEnabled="False"
 									Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
-									TextAlignment="Right"
-									Visibility="Hidden" />
+									TextAlignment="Right"/>
+								<!--Visibility="Hidden" />-->
+
+								<TextBox
+									x:Name="PART_TextBox"
+									BorderThickness="0"
+									Margin="1,0,1,0"
+									Padding="0"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalAlignment="Stretch"
+									VerticalContentAlignment="Center"
+									AcceptsReturn="False"
+									Background="{TemplateBinding Background}"
+									Foreground="{TemplateBinding Foreground}"
+									IsReadOnly="{TemplateBinding IsReadOnly}"
+									SpellCheck.IsEnabled="False"/>
+								<!--  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"  -->
+
 								<TextBlock
 									Background="#00ffffff"
 									Foreground="{TemplateBinding EditingColorBrush}"
