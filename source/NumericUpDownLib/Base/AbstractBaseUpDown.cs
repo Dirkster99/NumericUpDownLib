@@ -407,10 +407,10 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Gets/sets determines the input text is valid or not.
 		/// </summary>
-		protected bool IsDataValid
+		public bool IsValueValid
 		{
 			get { return _IsDataValid; }
-			set
+			protected set
 			{
 				if (_IsDataValid != value)
 				{
@@ -833,7 +833,7 @@ namespace NumericUpDownLib.Base
 				if (UserInput == true)
 				{
 					T temp = LastEditingNumericValue;
-					IsDataValid = VerifyText(_PART_TextBox.Text, ref temp);
+					IsValueValid = VerifyText(_PART_TextBox.Text, ref temp);
 					if (!LastEditingNumericValue.Equals(temp))
 					{
 						LastEditingNumericValue = temp;
@@ -947,7 +947,7 @@ namespace NumericUpDownLib.Base
 			{
 				if (_PART_TextBox != null)
 				{
-					if (!IsDataValid)
+					if (!IsValueValid)
 					{
 						e.Handled = true;
 						return;
