@@ -28,16 +28,11 @@
 				typeof(InputBaseUpDown), new PropertyMetadata(NumberStyles.Any));
 
 		/// <summary>
-		/// Backing store of <see cref="IsEnableValidatingIndicator"/> dependency property.
-		/// </summary>
-		public static readonly DependencyProperty IsEnableValidatingIndicatorProperty =
-			DependencyProperty.Register("IsEnableValidatingIndicator", typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(true));
-
-		/// <summary>
 		/// Backing store of <see cref="EditingVisibility"/> dependency property.
 		/// </summary>
 		public static readonly DependencyProperty EditingVisibilityProperty =
-			DependencyProperty.Register("EditingVisibility", typeof(Visibility), typeof(InputBaseUpDown), new PropertyMetadata(Visibility.Hidden));
+			DependencyProperty.Register("EditingVisibility", typeof(Visibility),
+				typeof(InputBaseUpDown), new PropertyMetadata(Visibility.Hidden));
 
 		/// <summary>
 		/// Backing store of <see cref="EditingColorBrush"/> dependency property.
@@ -48,7 +43,7 @@
 
 
 		/// <summary>
-		/// identify that the inputing data is valid or not.,
+		/// identify that the inputing data is value,
 		/// </summary>
 		/// <value></value>
 		protected System.Windows.Media.SolidColorBrush EditingColorBrush
@@ -57,25 +52,12 @@
 			set { SetValue(EditingColorBrushProperty, value); }
 		}
 
-		/// <summary>
-		/// identify that the editing Visibility
-		/// </summary>
-		/// <value></value>
 		protected Visibility EditingVisibility
 		{
 			get { return (Visibility)GetValue(EditingVisibilityProperty); }
 			set { SetValue(EditingVisibilityProperty, value); }
 		}
 
-		/// <summary>
-		/// identify that the is enable the red/green tip while editing
-		/// </summary>
-		/// <value></value>
-		protected bool IsEnableValidatingIndicator
-		{
-			get { return (bool)GetValue(IsEnableValidatingIndicatorProperty); }
-			set { SetValue(IsEnableValidatingIndicatorProperty, value); }
-		}
 
 		private static RoutedCommand _IncreaseCommand;
 		private static RoutedCommand _DecreaseCommand;

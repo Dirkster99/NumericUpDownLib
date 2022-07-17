@@ -423,10 +423,10 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Gets/sets determines the input text is valid or not.
 		/// </summary>
-		public bool IsValueValid
+		protected bool IsDataValid
 		{
 			get { return _IsDataValid; }
-			protected set
+			set
 			{
 				if (_IsDataValid != value)
 				{
@@ -437,7 +437,7 @@ namespace NumericUpDownLib.Base
 						new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
 
 					// FIX THE behavior when user input unsupported char like ghijk
-					if (IsEnableValidatingIndicator && !_IsDataValid)
+					if (!_IsDataValid)
 					{
 						EditingVisibility = Visibility.Visible;
 					}
@@ -456,8 +456,7 @@ namespace NumericUpDownLib.Base
 			set
 			{
 				lastEditingNumericValue = value;
-				if(IsEnableValidatingIndicator)
-					EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
+				EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
 			}
 		}
 
@@ -862,7 +861,7 @@ namespace NumericUpDownLib.Base
 				if (UserInput == true)
 				{
 					T temp = LastEditingNumericValue;
-					IsValueValid = VerifyText(_PART_TextBox.Text, ref temp);
+					IsDataValid = VerifyText(_PART_TextBox.Text, ref temp);
 					if (!LastEditingNumericValue.Equals(temp))
 					{
 						LastEditingNumericValue = temp;
@@ -976,7 +975,7 @@ namespace NumericUpDownLib.Base
 			{
 				if (_PART_TextBox != null)
 				{
-					if (!IsValueValid)
+					if (!IsDataValid)
 					{
 						e.Handled = true;
 						return;
