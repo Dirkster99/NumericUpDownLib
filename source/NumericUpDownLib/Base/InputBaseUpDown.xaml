@@ -11,8 +11,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:InputBaseUpDown}">
-					<Border BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}">
+					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
 						<Grid VerticalAlignment="Top">
 							<Grid.Resources>
 								<conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
@@ -35,21 +34,20 @@
 								<TextBox
 									x:Name="PART_Measuring_Element"
 									Margin="0,0,1,0"
-									Foreground="#00000000"
-									Background="#00000000"
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
 									HorizontalContentAlignment="Right"
 									VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
 									AcceptsReturn="False"
+									Background="#00000000"
+									Foreground="#00000000"
 									SpellCheck.IsEnabled="False"
 									Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
-									TextAlignment="Right"/>
-								<!--Visibility="Hidden" />-->
+									TextAlignment="Right" />
+								<!--  Visibility="Hidden" />  -->
 
 								<TextBox
 									x:Name="PART_TextBox"
-									BorderThickness="0"
 									Margin="1,0,1,0"
 									Padding="0"
 									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -57,19 +55,20 @@
 									VerticalContentAlignment="Center"
 									AcceptsReturn="False"
 									Background="{TemplateBinding Background}"
+									BorderThickness="0"
 									Foreground="{TemplateBinding Foreground}"
 									IsReadOnly="{TemplateBinding IsReadOnly}"
-									SpellCheck.IsEnabled="False"/>
+									SpellCheck.IsEnabled="False" />
 								<!--  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"  -->
 
 								<TextBlock
+									Margin="3,0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Top"
 									Background="#00ffffff"
 									Foreground="{TemplateBinding EditingColorBrush}"
-									HorizontalAlignment="Left"
-									Margin="3, 0"
 									Text="*"
-									VerticalAlignment="Top"
-									Visibility="{TemplateBinding EditingVisibility}"/>
+									Visibility="{TemplateBinding EditingVisibility}" />
 							</Grid>
 
 							<!--  ArrowUp Increase value button  -->

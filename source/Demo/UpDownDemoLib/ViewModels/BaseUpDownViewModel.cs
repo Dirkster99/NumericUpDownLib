@@ -20,6 +20,7 @@ namespace UpDownDemoLib.ViewModels
 		private bool _IsHexDisplayEnabled = false;
 		protected string _FormatString = "D";
 		protected string _NumberStyle = "None";
+		protected System.Windows.HorizontalAlignment _HzntalContentAlignment = System.Windows.HorizontalAlignment.Left;
 		#endregion fields
 
 		#region CTors
@@ -202,6 +203,21 @@ namespace UpDownDemoLib.ViewModels
 			}
 		}
 		#endregion  HEX DISPLAY ON/OFF Properties
+
+		/// <summary>Get/sets the the Alignment style <see cref="System.Windows.HorizontalAlignment"/> that defines the alignment (left, right, center) of the value display in the textbox portion.</summary>
+		public System.Windows.HorizontalAlignment HzntalContentAlignment
+		{
+			get { return _HzntalContentAlignment; }
+			set
+			{
+				if (_HzntalContentAlignment != value)
+				{
+					_HzntalContentAlignment = value;
+					NotifyPropertyChanged(() => HzntalContentAlignment);
+				}
+			}
+		}
+
 		#endregion properties
 
 		#region methods

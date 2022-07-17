@@ -24,16 +24,17 @@
 			Margin="3"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"
+			HorizontalContentAlignment="{Binding HzntalContentAlignment}"
 			DisplayLength="5"
-			IsDisplayLengthFixed="True"
 			FormatString="{Binding FormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-			NumberStyle="{Binding NumberStyle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+			IsDisplayLengthFixed="True"
 			IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
 			IsReadOnly="False"
 			LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			MaxValue="{Binding MaximumValue}"
 			MinValue="{Binding MinimumValue}"
 			MouseWheelAccelaratorKey="{Binding AccelModifierKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+			NumberStyle="{Binding NumberStyle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			StepSize="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -161,6 +162,19 @@
 							Content="Is Hex Display Enabled"
 							IsChecked="{Binding Path=IsHexDisplayEnabled, Mode=TwoWay}"
 							ToolTip="" />
+
+						<ComboBox
+							Width="120"
+							Margin="21,0,0,0"
+							IsEditable="False"
+							Text="{Binding Path=HzntalContentAlignment, Mode=TwoWay}"
+							ToolTip="Changes the alignment of the text shown in the textbox portion"
+							ToolTipService.IsEnabled="True">
+							<ComboBoxItem>Left</ComboBoxItem>
+							<ComboBoxItem>Center</ComboBoxItem>
+							<ComboBoxItem>Right</ComboBoxItem>
+							<ComboBoxItem>Stretch</ComboBoxItem>
+						</ComboBox>
 					</StackPanel>
 
 					<StackPanel Margin="0,6,0,0">

@@ -24,6 +24,7 @@
 			Margin="3"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"
+			HorizontalContentAlignment="{Binding HzntalContentAlignment}"
 			DisplayLength="5"
 			FormatString="{Binding FormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			IsDisplayLengthFixed="True"
@@ -162,6 +163,19 @@
 							Content="Is Hex Display Enabled"
 							IsChecked="{Binding Path=IsHexDisplayEnabled, Mode=TwoWay}"
 							ToolTip="" />
+
+						<ComboBox
+							Width="120"
+							Margin="21,0,0,0"
+							IsEditable="False"
+							Text="{Binding Path=HzntalContentAlignment, Mode=TwoWay}"
+							ToolTip="Changes the alignment of the text shown in the textbox portion"
+							ToolTipService.IsEnabled="True">
+							<ComboBoxItem>Left</ComboBoxItem>
+							<ComboBoxItem>Center</ComboBoxItem>
+							<ComboBoxItem>Right</ComboBoxItem>
+							<ComboBoxItem>Stretch</ComboBoxItem>
+						</ComboBox>
 					</StackPanel>
 
 					<StackPanel Margin="0,6,0,0">
