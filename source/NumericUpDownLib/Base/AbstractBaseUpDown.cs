@@ -184,6 +184,13 @@ namespace NumericUpDownLib.Base
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
 		/// <summary>
+		/// Backing store of <see cref="IsUpdateValueWhenLostFocus"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty IsUpdateValueWhenLostFocusProperty =
+			DependencyProperty.Register("IsUpdateValueWhenLostFocus", typeof(bool),
+				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(false));
+
+		/// <summary>
 		/// Holds the REQUIRED textbox instance part for this control.
 		/// </summary>
 		protected TextBox _PART_TextBox;
@@ -400,6 +407,15 @@ namespace NumericUpDownLib.Base
 		{
 			get { return (bool)GetValue(IsLargeStepEnabledProperty); }
 			set { SetValue(IsLargeStepEnabledProperty, value); }
+		}
+
+		/// <summary>
+		/// Gets/sets wether enable updata Value when Lost Focus
+		/// </summary>
+		public bool IsUpdateValueWhenLostFocus
+		{
+			get { return (bool)GetValue(IsUpdateValueWhenLostFocusProperty); }
+			set { SetValue(IsUpdateValueWhenLostFocusProperty, value); }
 		}
 
 		private bool _IsDataValid;
@@ -808,8 +824,20 @@ namespace NumericUpDownLib.Base
 				_objMouseIncr = null;
 				(sender as TextBox).Cursor = Cursors.ScrollAll;
 			}
-			if (_PART_TextBox != null && Value.Equals(LastEditingNumericValue))
-				FormatText(_PART_TextBox.Text);
+
+			if (_PART_TextBox != null)
+			{
+				// format the value string if value is no changed
+				if (Value.Equals(LastEditingNumericValue))
+					FormatText(_PART_TextBox.Text);
+
+				// trigger the change event if IsUpdateValueWhenLostFocus=true and value is valid
+				if (IsUpdateValueWhenLostFocus && IsDataValid)
+				{
+					Value = FormatText(_PART_TextBox.Text, true);
+					LastEditingNumericValue = Value;
+				}
+			}
 		}
 		#endregion textbox mouse and focus handlers
 
