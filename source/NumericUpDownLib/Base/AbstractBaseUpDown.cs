@@ -418,7 +418,7 @@ namespace NumericUpDownLib.Base
 			set { SetValue(IsUpdateValueWhenLostFocusProperty, value); }
 		}
 
-		private bool _IsDataValid;
+		private bool _IsDataValid = true;
 
 		/// <summary>
 		/// Gets/sets determines the input text is valid or not.
@@ -970,6 +970,8 @@ namespace NumericUpDownLib.Base
 				}
 			}
 
+			var isCtrlDown = (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl));
+
 			// update value typed by the user
 			if (e.Key == Key.Enter)
 			{
@@ -980,11 +982,19 @@ namespace NumericUpDownLib.Base
 						e.Handled = true;
 						return;
 					}
+					T OldValue = Value;
 					Value = FormatText(_PART_TextBox.Text, true);
 					LastEditingNumericValue = Value;
+
+					// force to raise value changed event to tigger re write /re-set for application
+					if (OldValue.Equals(Value) && isCtrlDown)
+					{
+						System.Diagnostics.Debug.WriteLine("ValueChanged forced by user");
+						OnValueChanged(this, new DependencyPropertyChangedEventArgs(ValueProperty, Value, Value));
+					}
+
 					e.Handled = true;
 				}
-
 				return;
 			}
 		}
