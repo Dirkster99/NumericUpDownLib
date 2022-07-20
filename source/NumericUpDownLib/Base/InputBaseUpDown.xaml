@@ -34,6 +34,7 @@
 								<TextBox
 									x:Name="PART_Measuring_Element"
 									Margin="0,0,1,0"
+									IsEnabled="False"
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
 									HorizontalContentAlignment="Right"
@@ -50,7 +51,8 @@
 									x:Name="PART_TextBox"
 									Margin="1,0,1,0"
 									Padding="0"
-									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									HorizontalAlignment="Stretch"
+									HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 									VerticalAlignment="Stretch"
 									VerticalContentAlignment="Center"
 									AcceptsReturn="False"
