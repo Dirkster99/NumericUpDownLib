@@ -152,4 +152,4 @@ These definitions do not theme all controls used within this library. You should
 
 to also theme standard elements, such as, button and textblock etc.
 
-Visit the project's [Wiki](https://github.com/Dirkster99/NumericUpDownLib/wiki) for mode details.
+Visit the project's [Wiki](https://github.com/Dirkster99/NumericUpDownLib/wiki) for more details.
