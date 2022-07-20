@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.0.0</Version>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.1.0.0</Version>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
     <Company>Open Source</Company>
     <Product>NumericUpDownLib</Product>
     <Copyright>2013-2021</Copyright>
@@ -18,7 +18,7 @@
     <Authors>https://github.com/Dirkster99/NumericUpDownLib</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>numericupdown numeric up down integer float double percentage increment decrement custom wpf control mvvm c# .net metro black light themed control library</PackageTags>
-    <PackageReleaseNotes>Adding Hex display and editing capabilities among othr features and changes</PackageReleaseNotes>
+    <PackageReleaseNotes>Adding features and fixes please refer to release notes.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>SyncArrow_64x.png</PackageIcon>
   </PropertyGroup>
