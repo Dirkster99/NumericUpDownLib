@@ -71,7 +71,7 @@
 		/// identify that the is enable the red/green tip while editing
 		/// </summary>
 		/// <value></value>
-		protected bool IsEnableValidatingIndicator
+		public bool IsEnableValidatingIndicator
 		{
 			get { return (bool)GetValue(IsEnableValidatingIndicatorProperty); }
 			set { SetValue(IsEnableValidatingIndicatorProperty, value); }
