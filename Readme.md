@@ -6,6 +6,24 @@
 ![Net4](https://badgen.net/badge/Framework/.Net&nbsp;4/blue) ![NetCore3](https://badgen.net/badge/Framework/NetCore&nbsp;3/blue)
 
 # Overview
+## Features Added in Version 3.1
+
+- [addr support update value when lostfocus,Fixes #36 #38](https://github.com/Dirkster99/NumericUpDownLib/pull/38)
+  Please use the `IsUpdateValueWhenLostFocus` property.
+
+- [support align the value to left/center/right #41](https://github.com/Dirkster99/NumericUpDownLib/pull/41)
+  Please use the HorizontalContentAlignment property.
+
+- [add support to force trigger the ValueChanged event with ctrl+enter #39](https://github.com/Dirkster99/NumericUpDownLib/pull/39)
+  Please use Control+Enter to trigger a value changed event without having to actually change a value.
+  This shortcut cannot be configured out.
+
+- [support disable editingTip Fixes #37 #43](https://github.com/Dirkster99/NumericUpDownLib/pull/43)
+  Please use the IsEnableValidatingIndicator property.
+
+- [fix: the cursor will focus to the PART_Measuring_Element by mistake #44](https://github.com/Dirkster99/NumericUpDownLib/pull/44)
+
+This release has been authored by [heartacker](https://github.com/heartacker) :pray:
 
 ## Features Added in Version 3.0
 
