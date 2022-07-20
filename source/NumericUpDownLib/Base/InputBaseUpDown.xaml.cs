@@ -31,7 +31,7 @@
 		/// Backing store of <see cref="IsEnableValidatingIndicator"/> dependency property.
 		/// </summary>
 		public static readonly DependencyProperty IsEnableValidatingIndicatorProperty =
-			DependencyProperty.Register("IsEnableValidatingIndicator", typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(true));
+			DependencyProperty.Register("IsEnableValidatingIndicator", typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(false));
 
 		/// <summary>
 		/// Backing store of <see cref="EditingVisibility"/> dependency property.
