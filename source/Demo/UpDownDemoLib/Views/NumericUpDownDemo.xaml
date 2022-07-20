@@ -177,8 +177,11 @@
 						</ComboBox>
 					</StackPanel>
 
-					<StackPanel Margin="0,6,0,0">
-						<CheckBox x:Name="IsPopUpOpen" Content="PopUp Test" />
+					<StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+						<CheckBox
+							x:Name="IsPopUpOpen"
+							Content="PopUp Test"
+							ToolTip="Test whether the numeric control can be used in a Pop-uo control." />
 						<Popup AllowsTransparency="True" IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
 							<Border
 								Background="{StaticResource PopUpBackground}"
@@ -211,6 +214,12 @@
 								</StackPanel>
 							</Border>
 						</Popup>
+
+						<CheckBox
+							Margin="21,0,0,0"
+							Content="EnableValidatingIndicator"
+							IsChecked="{Binding ElementName=SampleUpDown, Path=EnableValidatingIndicator, Mode=TwoWay}"
+							ToolTip="Toggles whether a validation indicator is shown in the upper left corner of the control." />
 					</StackPanel>
 
 					<Border

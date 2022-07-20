@@ -28,10 +28,10 @@
 				typeof(InputBaseUpDown), new PropertyMetadata(NumberStyles.Any));
 
 		/// <summary>
-		/// Backing store of <see cref="IsEnableValidatingIndicator"/> dependency property.
+		/// Backing store of <see cref="EnableValidatingIndicator"/> dependency property.
 		/// </summary>
-		public static readonly DependencyProperty IsEnableValidatingIndicatorProperty =
-			DependencyProperty.Register("IsEnableValidatingIndicator", typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(false));
+		public static readonly DependencyProperty EnableValidatingIndicatorProperty =
+			DependencyProperty.Register("EnableValidatingIndicator", typeof(bool), typeof(InputBaseUpDown), new PropertyMetadata(false));
 
 		/// <summary>
 		/// Backing store of <see cref="EditingVisibility"/> dependency property.
@@ -71,10 +71,10 @@
 		/// identify that the is enable the red/green tip while editing
 		/// </summary>
 		/// <value></value>
-		public bool IsEnableValidatingIndicator
+		public bool EnableValidatingIndicator
 		{
-			get { return (bool)GetValue(IsEnableValidatingIndicatorProperty); }
-			set { SetValue(IsEnableValidatingIndicatorProperty, value); }
+			get { return (bool)GetValue(EnableValidatingIndicatorProperty); }
+			set { SetValue(EnableValidatingIndicatorProperty, value); }
 		}
 
 		private static RoutedCommand _IncreaseCommand;

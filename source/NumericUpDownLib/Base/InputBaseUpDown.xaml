@@ -34,7 +34,6 @@
 								<TextBox
 									x:Name="PART_Measuring_Element"
 									Margin="0,0,1,0"
-									IsEnabled="False"
 									HorizontalAlignment="Stretch"
 									VerticalAlignment="Stretch"
 									HorizontalContentAlignment="Right"
@@ -42,6 +41,7 @@
 									AcceptsReturn="False"
 									Background="#00000000"
 									Foreground="#00000000"
+									IsEnabled="False"
 									SpellCheck.IsEnabled="False"
 									Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayLength, Converter={StaticResource ByteToPlaceHolderStringConverter}}"
 									TextAlignment="Right" />
@@ -52,8 +52,8 @@
 									Margin="1,0,1,0"
 									Padding="0"
 									HorizontalAlignment="Stretch"
-									HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 									VerticalAlignment="Stretch"
+									HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 									VerticalContentAlignment="Center"
 									AcceptsReturn="False"
 									Background="{TemplateBinding Background}"

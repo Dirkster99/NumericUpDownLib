@@ -437,7 +437,7 @@ namespace NumericUpDownLib.Base
 						new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
 
 					// FIX THE behavior when user input unsupported char like ghijk
-					if (IsEnableValidatingIndicator && !_IsDataValid)
+					if (EnableValidatingIndicator && !_IsDataValid)
 					{
 						EditingVisibility = Visibility.Visible;
 					}
@@ -456,7 +456,7 @@ namespace NumericUpDownLib.Base
 			set
 			{
 				lastEditingNumericValue = value;
-				if(IsEnableValidatingIndicator)
+				if(EnableValidatingIndicator)
 					EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
 			}
 		}
