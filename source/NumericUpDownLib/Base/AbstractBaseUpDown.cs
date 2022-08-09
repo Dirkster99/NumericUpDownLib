@@ -284,11 +284,11 @@ namespace NumericUpDownLib.Base
 		/// Dependency property backing store for CommandParameter Value property.
 		/// </summary>
 		public static readonly DependencyProperty CommandParameterProperty =
-			DependencyProperty.Register("CommandParameter", typeof(ICommand), typeof(AbstractBaseUpDown<T>));
+			DependencyProperty.Register("CommandParameter", typeof(object), typeof(AbstractBaseUpDown<T>));
 
 		public object CommandParameter
 		{
-			get { return (ICommand)GetValue(CommandParameterProperty); }
+			get { return (object)GetValue(CommandParameterProperty); }
 			set { SetValue(CommandParameterProperty, value); }
 		}
 
@@ -540,10 +540,10 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Gets/sets the newest available value while inputting for data verification
 		/// </summary>
-		protected T LastEditingNumericValue
+		public T LastEditingNumericValue
 		{
 			get { return lastEditingNumericValue; }
-			set
+			protected set
 			{
 				lastEditingNumericValue = value;
 				if (EnableValidatingIndicator)
