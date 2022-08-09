@@ -18,7 +18,7 @@ namespace NumericUpDownLib.Base
 	[TemplatePart(Name = PART_MeasuringElement, Type = typeof(FrameworkElement))]
 	[TemplatePart(Name = PART_IncrementButton, Type = typeof(RepeatButton))]
 	[TemplatePart(Name = PART_DecrementButton, Type = typeof(RepeatButton))]
-	public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown
+	public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown, ICommandSource
 	{
 		#region fields
 		/// <summary>
@@ -255,6 +255,96 @@ namespace NumericUpDownLib.Base
 		}
 		#endregion events
 
+		#region Command
+
+		public ICommand Command
+		{
+			get { return (ICommand)GetValue(CommandProperty); }
+			set { SetValue(CommandProperty, value); }
+		}
+
+		/// <summary>
+		/// Dependency property backing store for Command Value property.
+		/// </summary>
+		public static readonly DependencyProperty CommandProperty =
+			DependencyProperty.Register("Command", typeof(ICommand), typeof(AbstractBaseUpDown<T>),
+			new PropertyMetadata(null, new PropertyChangedCallback(CommandChangedCallBack)));
+
+		private static void CommandChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is AbstractBaseUpDown<T> nud)
+			{
+				ICommand oldCommand = e.OldValue as ICommand;
+				ICommand newCommand = e.NewValue as ICommand;
+				nud.HookUpCommand(oldCommand, newCommand);
+			}
+		}
+
+		/// <summary>
+		/// Dependency property backing store for CommandParameter Value property.
+		/// </summary>
+		public static readonly DependencyProperty CommandParameterProperty =
+			DependencyProperty.Register("CommandParameter", typeof(ICommand), typeof(AbstractBaseUpDown<T>));
+
+		public object CommandParameter
+		{
+			get { return (ICommand)GetValue(CommandParameterProperty); }
+			set { SetValue(CommandParameterProperty, value); }
+		}
+
+		/// <summary>
+		/// Identifies the InputElement Dependency Property.
+		/// </summary>
+		public static readonly DependencyProperty InputElementProperty = DependencyProperty.Register("CommandTarget",
+			typeof(IInputElement), typeof(AbstractBaseUpDown<T>));
+
+		/// <summary>
+		/// Gets or sets the InputElement assigned to the control.
+		/// </summary>
+		public IInputElement CommandTarget
+		{
+			get { return (IInputElement)GetValue(InputElementProperty); }
+			set { SetValue(InputElementProperty, value); }
+		}
+
+		#region CommandHelper
+
+		private void CommandExecute(ICommand cmd)
+		{
+			if (cmd is RoutedCommand command)
+				command.Execute(CommandParameter, CommandTarget);
+			else if (cmd != null)
+				cmd.Execute(CommandParameter);
+		}
+
+		private void HookUpCommand(ICommand oldCommand, ICommand newCommand)
+		{
+			if (oldCommand != null)
+			{
+				oldCommand.CanExecuteChanged -= CanExecuteChanged;
+			}
+			if (newCommand != null)
+			{
+				newCommand.CanExecuteChanged += CanExecuteChanged;
+			}
+		}
+
+		private void CanExecuteChanged(object sender, EventArgs e)
+		{
+			if (this.Command is RoutedCommand command)
+			{
+				this.IsEnabled = command.CanExecute(CommandParameter, CommandTarget);
+			}
+			else if (this.Command != null)
+			{
+				this.IsEnabled = this.Command.CanExecute(CommandParameter);
+			}
+		}
+
+		#endregion
+
+		#endregion
+
 		#region properties
 		/// <summary>
 		/// Gets/sets whether the Increment or Decrement button is currently visible or not.
@@ -456,7 +546,7 @@ namespace NumericUpDownLib.Base
 			set
 			{
 				lastEditingNumericValue = value;
-				if(EnableValidatingIndicator)
+				if (EnableValidatingIndicator)
 					EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
 			}
 		}
@@ -1084,6 +1174,7 @@ namespace NumericUpDownLib.Base
 			{
 				_PART_TextBox.Text = FormatNumber(Value);
 			}
+			CommandExecute(Command);
 			this.RaiseEvent(args);
 		}
 
