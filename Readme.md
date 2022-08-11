@@ -12,14 +12,14 @@
   Please use the `IsUpdateValueWhenLostFocus` property.
 
 - [support align the value to left/center/right #41](https://github.com/Dirkster99/NumericUpDownLib/pull/41)
-  Please use the HorizontalContentAlignment property.
+  Please use the `HorizontalContentAlignment` property.
 
 - [add support to force trigger the ValueChanged event with ctrl+enter #39](https://github.com/Dirkster99/NumericUpDownLib/pull/39)
-  Please use Control+Enter to trigger a value changed event without having to actually change a value.
+  Please use <kbd>Control+Enter</kbd> to trigger a value changed event without having to actually change a value.
   This shortcut cannot be configured out.
 
 - [support disable editingTip Fixes #37 #43](https://github.com/Dirkster99/NumericUpDownLib/pull/43)
-  Please use the IsEnableValidatingIndicator property.
+  Please use the `EnableValidatingIndicator` property.
 
 - [fix: the cursor will focus to the PART_Measuring_Element by mistake #44](https://github.com/Dirkster99/NumericUpDownLib/pull/44)
 
