@@ -22,10 +22,15 @@
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 
 		<cntrl:DoubleUpDown
 			Name="SampleUpDown"
 			Grid.Column="0"
+			Grid.ColumnSpan="2"
 			Margin="3"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"
@@ -42,7 +47,10 @@
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Converter={StaticResource FactorToDoubleConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-		<Grid Grid.Column="1" Margin="12,3,3,3">
+		<Grid
+			Grid.Row="1"
+			Grid.Column="1"
+			Margin="12,3,3,3">
 			<GroupBox Header="Debugging Values">
 				<StackPanel>
 					<Grid>
