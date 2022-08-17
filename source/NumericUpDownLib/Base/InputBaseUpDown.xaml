@@ -48,7 +48,8 @@
 								<!--  Visibility="Hidden" />  -->
 								<TextBox
 									Background="#00ffffff"
-									Foreground="#55000000"
+									Foreground="#80808080"
+									MaxWidth="{Binding Path=Width, ElementName=PART_Measuring_Element, Mode=OneWay}"
 									Text="{Binding Path=WaterMark, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 									Visibility="{TemplateBinding WaterMarkVisibility}" />
 

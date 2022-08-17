@@ -38,7 +38,7 @@
 		/// Backing store of <see cref="WaterMarkVisibility"/> dependency property.
 		/// </summary>
 		public static readonly DependencyProperty WaterMarkVisibilityProperty =
-			DependencyProperty.Register("WaterMarkVisibility", typeof(Visibility), typeof(InputBaseUpDown), new PropertyMetadata(Visibility.Hidden));
+			DependencyProperty.Register("WaterMarkVisibility", typeof(Visibility), typeof(InputBaseUpDown), new PropertyMetadata(Visibility.Collapsed));
 
 		/// <summary>
 		/// Backing store of <see cref="EnableValidatingIndicator"/> dependency property.
