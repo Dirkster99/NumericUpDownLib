@@ -322,12 +322,23 @@ namespace NumericUpDownLib.Base
 			set { SetValue(DisplayLengthProperty, value); }
 		}
 
-		/// <summary>
-		/// Gets/sets whether the textbox portion of the numeric up down control
-		/// can go grow and shrink with its input or whether it should stay with
-		/// a fixed width.
-		/// </summary>
-		public bool IsDisplayLengthFixed
+        /// <summary>
+        /// Gets/sets the MinWidth for the control. The width of the textbox portion of
+        /// the control is expanded to fill the MinWidth value while the width of the
+		/// UpDown buttons are auto sized.
+        /// </summary>
+        public virtual double MinWidth
+		{
+			get { return (double)GetValue(MinWidthProperty); }
+			set { SetValue(MinWidthProperty, value); }
+		}
+
+        /// <summary>
+        /// Gets/sets whether the textbox portion of the numeric up down control
+        /// can go grow and shrink with its input or whether it should stay with
+        /// a fixed width.
+        /// </summary>
+        public bool IsDisplayLengthFixed
 		{
 			get { return (bool)GetValue(IsDisplayLengthFixedProperty); }
 			set { SetValue(IsDisplayLengthFixedProperty, value); }
