@@ -29,6 +29,8 @@
             base.MaximumValue = maximumValue;
             base.StepSize = stepSize;
             base.LargeStepSize = largeStepSize;
+
+            FormatString = "F4";
         }
 
         /// Method determine whether two objects of type {T} are equal.
