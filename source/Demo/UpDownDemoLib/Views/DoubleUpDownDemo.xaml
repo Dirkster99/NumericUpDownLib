@@ -27,7 +27,7 @@
 			VerticalAlignment="Top"
 			HorizontalContentAlignment="{Binding HzntalContentAlignment}"
 			DisplayLength="7"
-			FormatString="F4"
+            FormatString="{Binding FormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			IsDisplayLengthFixed="True"
 			IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
 			IsReadOnly="False"
