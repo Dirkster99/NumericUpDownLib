@@ -15,7 +15,8 @@
 		Grid.ColumnSpan="2">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto" />
@@ -27,7 +28,7 @@
 			Grid.Column="0"
 			Grid.ColumnSpan="2"
 			Margin="3"
-			HorizontalAlignment="Left"
+			HorizontalAlignment="Stretch"
 			VerticalAlignment="Top"
 			HorizontalContentAlignment="{Binding HzntalContentAlignment}"
 			DisplayLength="5"
@@ -44,10 +45,9 @@
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-		<Grid
-			Grid.Row="1"
-			Grid.Column="1"
-			Margin="12,3,3,3">
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        
+        <Grid Grid.Column="2" Margin="12,3,3,3">
 			<Grid.Resources>
 				<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 			</Grid.Resources>
