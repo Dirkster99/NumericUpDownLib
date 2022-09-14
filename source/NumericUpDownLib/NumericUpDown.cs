@@ -396,8 +396,12 @@ namespace NumericUpDownLib
 
 			var form = (string)GetValue(FormatStringProperty);
 
-			if (string.IsNullOrEmpty(this.FormatString) == false)
-				format = "{0:" + this.FormatString + "}";
+            if (string.IsNullOrEmpty(this.FormatString) == false)
+            {
+                format = !FormatString.StartsWith("{") 
+                    ? "{0:" + this.FormatString + "}" 
+                    : FormatString;
+            }
 
 			return string.Format(format, number);
 		}
