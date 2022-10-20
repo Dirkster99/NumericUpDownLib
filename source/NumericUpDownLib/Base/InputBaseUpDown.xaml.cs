@@ -28,6 +28,19 @@
 				typeof(InputBaseUpDown), new PropertyMetadata(NumberStyles.Any));
 
 		/// <summary>
+		/// Determines the WaterMark in the textbox.
+		/// </summary>
+		public static readonly DependencyProperty WaterMarkProperty =
+			DependencyProperty.Register("WaterMark", typeof(string),
+				typeof(InputBaseUpDown), new PropertyMetadata(string.Empty));
+
+		/// <summary>
+		/// Backing store of <see cref="WaterMarkVisibility"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty WaterMarkVisibilityProperty =
+			DependencyProperty.Register("WaterMarkVisibility", typeof(Visibility), typeof(InputBaseUpDown), new PropertyMetadata(Visibility.Collapsed));
+
+		/// <summary>
 		/// Backing store of <see cref="EnableValidatingIndicator"/> dependency property.
 		/// </summary>
 		public static readonly DependencyProperty EnableValidatingIndicatorProperty =
@@ -129,6 +142,25 @@
 		{
 			get { return (NumberStyles)GetValue(NumberStyleProperty); }
 			set { SetValue(NumberStyleProperty, value); }
+		}
+
+		/// <summary>
+		/// Gets/sets the watermark style of a number entered and displayed in the textbox.
+		/// </summary>
+		public string WaterMark
+		{
+			get { return (string)GetValue(WaterMarkProperty); }
+			set { SetValue(WaterMarkProperty, value); }
+		}
+
+		/// <summary>
+		/// identify that the WaterMark Visibility
+		/// </summary>
+		/// <value></value>
+		protected Visibility WaterMarkVisibility
+		{
+			get { return (Visibility)GetValue(WaterMarkVisibilityProperty); }
+			set { SetValue(WaterMarkVisibilityProperty, value); }
 		}
 
 		#endregion properties

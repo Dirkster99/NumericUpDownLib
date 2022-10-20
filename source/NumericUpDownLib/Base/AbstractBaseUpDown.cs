@@ -18,7 +18,7 @@ namespace NumericUpDownLib.Base
 	[TemplatePart(Name = PART_MeasuringElement, Type = typeof(FrameworkElement))]
 	[TemplatePart(Name = PART_IncrementButton, Type = typeof(RepeatButton))]
 	[TemplatePart(Name = PART_DecrementButton, Type = typeof(RepeatButton))]
-	public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown
+	public abstract partial class AbstractBaseUpDown<T> : InputBaseUpDown, ICommandSource
 	{
 		#region fields
 		/// <summary>
@@ -255,6 +255,121 @@ namespace NumericUpDownLib.Base
 		}
 		#endregion events
 
+		#region Command
+		/// <summary>
+		/// Gets/Sets a command that can be invoked when a up/down button is clicked.
+		/// </summary>
+		public ICommand Command
+		{
+			get { return (ICommand)GetValue(CommandProperty); }
+			set { SetValue(CommandProperty, value); }
+		}
+
+		/// <summary>
+		/// Dependency property backing store for Command Value property.
+		/// </summary>
+		public static readonly DependencyProperty CommandProperty =
+			DependencyProperty.Register("Command", typeof(ICommand), typeof(AbstractBaseUpDown<T>),
+			new PropertyMetadata(null, new PropertyChangedCallback(CommandChangedCallBack)));
+
+		private static void CommandChangedCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is AbstractBaseUpDown<T> nud)
+			{
+				ICommand oldCommand = e.OldValue as ICommand;
+				ICommand newCommand = e.NewValue as ICommand;
+				nud.HookUpCommand(oldCommand, newCommand);
+			}
+		}
+
+		/// <summary>
+		/// Dependency property backing store for CommandParameter Value property.
+		/// </summary>
+		public static readonly DependencyProperty CommandParameterProperty =
+			DependencyProperty.Register("CommandParameter", typeof(object), typeof(AbstractBaseUpDown<T>));
+
+		/// <summary>
+		/// Gets/Sets a Command Parameter for the Command <see cref="Command"/> binding
+		/// that can be invoked when a up/down button is clicked.
+		/// </summary>
+		public object CommandParameter
+		{
+			get { return (object)GetValue(CommandParameterProperty); }
+			set { SetValue(CommandParameterProperty, value); }
+		}
+
+		/// <summary>
+		/// Identifies the InputElement Dependency Property.
+		/// </summary>
+		public static readonly DependencyProperty InputElementProperty = DependencyProperty.Register("CommandTarget",
+			typeof(IInputElement), typeof(AbstractBaseUpDown<T>));
+
+		/// <summary>
+		/// Gets or sets the InputElement assigned to the control.
+		/// </summary>
+		public IInputElement CommandTarget
+		{
+			get { return (IInputElement)GetValue(InputElementProperty); }
+			set { SetValue(InputElementProperty, value); }
+		}
+
+		#region CommandHelper
+
+		/// <summary>
+		/// Executes a bound click command that is invoked when a up/down button is clicked
+		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings)
+		/// </summary>
+		/// <param name="cmd"></param>
+		private void CommandExecute(ICommand cmd)
+		{
+			if (cmd is RoutedCommand command)
+				command.Execute(CommandParameter, CommandTarget);
+			else if (cmd != null)
+				cmd.Execute(CommandParameter);
+		}
+
+		/// <summary>
+		/// Is invocked when the command binding for a bound click command changes
+		/// (Click Command is invoked when a up/down button is clicked)
+		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings).
+		/// </summary>
+		/// <param name="oldCommand"></param>
+		/// <param name="newCommand"></param>
+		private void HookUpCommand(ICommand oldCommand, ICommand newCommand)
+		{
+			if (oldCommand != null)
+			{
+				oldCommand.CanExecuteChanged -= CanExecuteChanged;
+			}
+			if (newCommand != null)
+			{
+				newCommand.CanExecuteChanged += CanExecuteChanged;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a bound click command (that is invoked when a up/down button is clicked)
+		/// can currently execute, or not, based on the currently bound 'CanExecute' method.
+		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void CanExecuteChanged(object sender, EventArgs e)
+		{
+			if (this.Command is RoutedCommand command)
+			{
+				this.IsEnabled = command.CanExecute(CommandParameter, CommandTarget);
+			}
+			else if (this.Command != null)
+			{
+				this.IsEnabled = this.Command.CanExecute(CommandParameter);
+			}
+		}
+
+		#endregion
+
+		#endregion
+
 		#region properties
 		/// <summary>
 		/// Gets/sets whether the Increment or Decrement button is currently visible or not.
@@ -322,12 +437,23 @@ namespace NumericUpDownLib.Base
 			set { SetValue(DisplayLengthProperty, value); }
 		}
 
-		/// <summary>
-		/// Gets/sets whether the textbox portion of the numeric up down control
-		/// can go grow and shrink with its input or whether it should stay with
-		/// a fixed width.
-		/// </summary>
-		public bool IsDisplayLengthFixed
+        /// <summary>
+        /// Gets/sets the MinWidth for the control. The width of the textbox portion of
+        /// the control is expanded to fill the MinWidth value while the width of the
+		/// UpDown buttons are auto sized.
+        /// </summary>
+        public virtual double MinWidth
+		{
+			get { return (double)GetValue(MinWidthProperty); }
+			set { SetValue(MinWidthProperty, value); }
+		}
+
+        /// <summary>
+        /// Gets/sets whether the textbox portion of the numeric up down control
+        /// can go grow and shrink with its input or whether it should stay with
+        /// a fixed width.
+        /// </summary>
+        public bool IsDisplayLengthFixed
 		{
 			get { return (bool)GetValue(IsDisplayLengthFixedProperty); }
 			set { SetValue(IsDisplayLengthFixedProperty, value); }
@@ -450,13 +576,13 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Gets/sets the newest available value while inputting for data verification
 		/// </summary>
-		protected T LastEditingNumericValue
+		public T LastEditingNumericValue
 		{
 			get { return lastEditingNumericValue; }
-			set
+			protected set
 			{
 				lastEditingNumericValue = value;
-				if(EnableValidatingIndicator)
+				if (EnableValidatingIndicator)
 					EditingVisibility = lastEditingNumericValue.Equals(Value) ? Visibility.Hidden : Visibility.Visible;
 			}
 		}
@@ -862,6 +988,7 @@ namespace NumericUpDownLib.Base
 				if (UserInput == true)
 				{
 					T temp = LastEditingNumericValue;
+					WaterMarkVisibility = string.IsNullOrEmpty(_PART_TextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
 					IsValueValid = VerifyText(_PART_TextBox.Text, ref temp);
 					if (!LastEditingNumericValue.Equals(temp))
 					{
@@ -1098,6 +1225,7 @@ namespace NumericUpDownLib.Base
 			{
 				_PART_TextBox.Text = FormatNumber(Value);
 			}
+			CommandExecute(Command);
 			this.RaiseEvent(args);
 		}
 
