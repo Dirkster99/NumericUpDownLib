@@ -256,7 +256,9 @@ namespace NumericUpDownLib.Base
 		#endregion events
 
 		#region Command
-
+		/// <summary>
+		/// Gets/Sets a command that can be invoked when a up/down button is clicked.
+		/// </summary>
 		public ICommand Command
 		{
 			get { return (ICommand)GetValue(CommandProperty); }
@@ -286,6 +288,10 @@ namespace NumericUpDownLib.Base
 		public static readonly DependencyProperty CommandParameterProperty =
 			DependencyProperty.Register("CommandParameter", typeof(object), typeof(AbstractBaseUpDown<T>));
 
+		/// <summary>
+		/// Gets/Sets a Command Parameter for the Command <see cref="Command"/> binding
+		/// that can be invoked when a up/down button is clicked.
+		/// </summary>
 		public object CommandParameter
 		{
 			get { return (object)GetValue(CommandParameterProperty); }
@@ -309,6 +315,11 @@ namespace NumericUpDownLib.Base
 
 		#region CommandHelper
 
+		/// <summary>
+		/// Executes a bound click command that is invoked when a up/down button is clicked
+		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings)
+		/// </summary>
+		/// <param name="cmd"></param>
 		private void CommandExecute(ICommand cmd)
 		{
 			if (cmd is RoutedCommand command)
@@ -317,6 +328,13 @@ namespace NumericUpDownLib.Base
 				cmd.Execute(CommandParameter);
 		}
 
+		/// <summary>
+		/// Is invocked when the command binding for a bound click command changes
+		/// (Click Command is invoked when a up/down button is clicked)
+		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings).
+		/// </summary>
+		/// <param name="oldCommand"></param>
+		/// <param name="newCommand"></param>
 		private void HookUpCommand(ICommand oldCommand, ICommand newCommand)
 		{
 			if (oldCommand != null)
@@ -329,6 +347,13 @@ namespace NumericUpDownLib.Base
 			}
 		}
 
+		/// <summary>
+		/// Determines whether a bound click command (that is invoked when a up/down button is clicked)
+		/// can currently execute, or not, based on the currently bound 'CanExecute' method.
+		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void CanExecuteChanged(object sender, EventArgs e)
 		{
 			if (this.Command is RoutedCommand command)
