@@ -15,8 +15,7 @@
 		Grid.ColumnSpan="2">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto" />
@@ -28,8 +27,8 @@
 			Grid.Column="0"
 			Grid.ColumnSpan="2"
 			Margin="3"
-			HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
 			HorizontalContentAlignment="{Binding HzntalContentAlignment}"
 			DisplayLength="5"
 			FormatString="{Binding FormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -45,9 +44,10 @@
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-
-    <Grid Grid.Column="2" Margin="12,3,3,3">
+		<Grid
+			Grid.Row="1"
+			Grid.Column="1"
+			Margin="12,3,3,3">
 			<Grid.Resources>
 				<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 			</Grid.Resources>
@@ -230,47 +230,35 @@
 							ToolTip="Toggles whether a validation indicator is shown in the upper left corner of the control." />
 					</StackPanel>
 
-                    <Border
+					<Border
 						Margin="0,3"
 						BorderBrush="Gray"
 						BorderThickness="1">
-                        <StackPanel xmlns:input="System.Windows.Input" Margin="3">
-                            <StackPanel.Resources>
-                                <conv:EnumMatchToBooleanConverter x:Key="enumConverter" />
-                            </StackPanel.Resources>
+						<StackPanel xmlns:input="System.Windows.Input" Margin="3">
+							<StackPanel.Resources>
+								<conv:EnumMatchToBooleanConverter x:Key="enumConverter" />
+							</StackPanel.Resources>
 
 
-                            <TextBlock Margin="3" Text="Press this key to accelerate increments/decrements when scrolling with mouse wheel." />
+							<TextBlock Margin="3" Text="Press this key to accelerate increments/decrements when scrolling with mouse wheel." />
 
-                            <RadioButton
+							<RadioButton
 								Margin="3"
 								Content="Alt"
 								IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Alt}" />
 
-                            <RadioButton
+							<RadioButton
 								Margin="3"
 								Content="Control"
 								IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Control}" />
 
-                            <RadioButton
+							<RadioButton
 								Margin="3"
 								Content="Shift"
 								IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Shift}" />
-                        </StackPanel>
-                    </Border>
-                    <Border
-                        Margin="0,3"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                        <StackPanel Margin="3">
-
-                            <Label Content="FormatString" />
-                            <TextBox Text="{Binding FormatString}" />
-
-                        </StackPanel>
-
-                    </Border>
-                </StackPanel>
+						</StackPanel>
+					</Border>
+				</StackPanel>
 			</GroupBox>
 		</Grid>
 	</Grid>

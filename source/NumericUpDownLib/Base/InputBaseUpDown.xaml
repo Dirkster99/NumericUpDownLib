@@ -6,6 +6,8 @@
 	xmlns:local="clr-namespace:NumericUpDownLib.Base">
 
 	<Style x:Key="InputBaseUpDownStyle" TargetType="{x:Type local:InputBaseUpDown}">
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:InputBaseUpDown}">
@@ -69,7 +71,7 @@
 
 								<TextBlock
 									Margin="3,0"
-									HorizontalAlignment="Stretch"
+									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
 									Background="#00ffffff"
 									Foreground="{TemplateBinding EditingColorBrush}"
@@ -82,7 +84,7 @@
 								x:Name="PART_IncrementButton"
 								Grid.Row="0"
 								Grid.Column="1"
-								HorizontalAlignment="Right"
+								HorizontalAlignment="Left"
 								ClickCommand="{x:Static local:InputBaseUpDown.IncreaseCommand}"
 								RepeatButtonContent="M 0 4 L 6 4 L 3 0 Z"
 								Visibility="{Binding Path=IsIncDecButtonsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -92,7 +94,7 @@
 								x:Name="PART_DecrementButton"
 								Grid.Row="1"
 								Grid.Column="1"
-								HorizontalAlignment="Right"
+								HorizontalAlignment="Left"
 								ClickCommand="{x:Static local:InputBaseUpDown.DecreaseCommand}"
 								RepeatButtonContent="M 0 0 L 3 4 L 6 0 Z"
 								Visibility="{Binding Path=IsIncDecButtonsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}" />
