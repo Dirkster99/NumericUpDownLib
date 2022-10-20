@@ -12,7 +12,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:InputBaseUpDown}">
 					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid VerticalAlignment="Top" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MinWidth}">
+						<Grid MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MinWidth}" VerticalAlignment="Top">
 							<Grid.Resources>
 								<conv:ByteToPlaceHolderStringConverter x:Key="ByteToPlaceHolderStringConverter" />
 								<conv:BoolToVisibilityPropConverter x:Key="BoolToVisibilityConverter" />
@@ -47,9 +47,9 @@
 									TextAlignment="Right" />
 								<!--  Visibility="Hidden" />  -->
 								<TextBox
+									MaxWidth="{Binding Path=Width, ElementName=PART_Measuring_Element, Mode=OneWay}"
 									Background="#00ffffff"
 									Foreground="#80808080"
-									MaxWidth="{Binding Path=Width, ElementName=PART_Measuring_Element, Mode=OneWay}"
 									Text="{Binding Path=WaterMark, RelativeSource={RelativeSource AncestorType={x:Type local:InputBaseUpDown}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 									Visibility="{TemplateBinding WaterMarkVisibility}" />
 
