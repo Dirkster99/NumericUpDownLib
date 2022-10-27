@@ -26,7 +26,6 @@
 		<cntrl:NumericUpDown
 			Name="SampleUpDown"
 			Grid.Column="0"
-			Grid.ColumnSpan="2"
 			Margin="3"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Top"
@@ -45,9 +44,9 @@
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        
-        <Grid Grid.Column="2" Margin="12,3,3,3">
+        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="5" HorizontalAlignment="Stretch" />
+
+        <Grid Grid.Row="0" Grid.Column="2" Margin="12,3,3,3">
 			<Grid.Resources>
 				<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 			</Grid.Resources>
