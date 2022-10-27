@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
 	x:Class="UpDownDemoLib.Views.ByteUpDownDemo"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,10 +18,15 @@
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 
 		<cntrl:ByteUpDown
 			Name="SampleUpDown"
 			Grid.Column="0"
+			Grid.ColumnSpan="2"
 			Margin="3"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Top"
@@ -39,9 +44,9 @@
 			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+   <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-        <Grid Grid.Column="2" Margin="12,3,3,3">
+   <Grid Grid.Column="2" Margin="12,3,3,3">
 			<Grid.Resources>
 				<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 			</Grid.Resources>
