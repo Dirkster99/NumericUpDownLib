@@ -29,6 +29,9 @@
             base.MaximumValue = maximumValue;
             base.StepSize = stepSize;
             base.LargeStepSize = largeStepSize;
+
+            // "decimal" does not support format string "D" as set in base class
+            FormatString = "F4";
         }
 
         /// <summary>
