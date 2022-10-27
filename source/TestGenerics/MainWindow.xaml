@@ -4,8 +4,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
 	Title="MainWindow"
-	Width="777"
-	Height="450">
+	Width="800"
+	Height="575">
 	<Grid>
 		<TabControl
 			xmlns:demoviews="clr-namespace:UpDownDemoLib.Views;assembly=UpDownDemoLib"

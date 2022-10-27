@@ -6,6 +6,24 @@
 ![Net4](https://badgen.net/badge/Framework/.Net&nbsp;4/blue) ![NetCore3](https://badgen.net/badge/Framework/NetCore&nbsp;3/blue)
 
 # Overview
+
+## Fixes and Features Added in Version 3.2
+
+### Bug Fixes
+
+- [Add AbstractBaseUpDown MinWidth virtual property](https://github.com/Dirkster99/NumericUpDownLib/pull/49)
+- [do not adjust the control panel length when use mouse to drap the control of displayLength](https://github.com/Dirkster99/NumericUpDownLib/pull/48)
+
+### Features Added
+
+- [WaterMark support](https://github.com/Dirkster99/NumericUpDownLib/pull/47)
+  Use the Watermark binding to display a default string (when the user deletes all characters in the textbox portion) to hint at the expected input format.
+
+- [add support command binding](https://github.com/Dirkster99/NumericUpDownLib/pull/46)
+  Use the new **Command** binding to process the event when the user clicks on the Up/Dowm button of the UpDown Control.
+
+This release has been authored by [heartacker](https://github.com/heartacker) and [Ryan Weldin](https://github.com/rweldin) :pray:
+
 ## Features Added in Version 3.1
 
 - [addr support update value when lostfocus,Fixes #36 #38](https://github.com/Dirkster99/NumericUpDownLib/pull/38)

@@ -703,15 +703,15 @@ namespace NumericUpDownLib.Base
 				}
 			}
 		}
-		
-        #region IsMouseDragEnabled
-        /// <summary>
-        /// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
-        /// has been changed to update all states accordingly.
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        private static void OnIsMouseDragEnabledChanged(DependencyObject d,
+
+		#region IsMouseDragEnabled
+		/// <summary>
+		/// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
+		/// has been changed to update all states accordingly.
+		/// </summary>
+		/// <param name="d"></param>
+		/// <param name="e"></param>
+		private static void OnIsMouseDragEnabledChanged(DependencyObject d,
 														DependencyPropertyChangedEventArgs e)
 		{
 			(d as AbstractBaseUpDown<T>).OnIsMouseDragEnabledChanged(e);
@@ -1139,29 +1139,15 @@ namespace NumericUpDownLib.Base
 		}
 
 
-        /// <summary>
-        /// Gets a formatted string for the value of the number passed in
-        /// and ensures that a default string is returned even if there is
-        /// no format specified.
-        /// </summary>
-        /// <param name="number">.Net type specific value to be formated as string</param>
-        /// <returns>The string that was formatted with the FormatString
-        /// dependency property</returns>
-        protected string FormatNumber(T number)
-        {
-            string format = "{0}";
-            var form = (string) GetValue(FormatStringProperty);
-            if (string.IsNullOrEmpty(this.FormatString) == false)
-            {
-                format = !FormatString.StartsWith("{")
-                    ? "{0:" + this.FormatString + "}"
-                    : FormatString;
-            }
+		/// <summary>
+		/// format number value into string with formatstyle
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
+		protected abstract string FormatNumber(T number);
 
-            return string.Format(format, number);
-        }
 
-        /// <summary>
+		/// <summary>
 		/// Checks if the current string entered in the textbox is:
 		/// 1) A valid number (syntax)
 		/// 2) within bounds (Min &lt;= number &lt;= Max )
