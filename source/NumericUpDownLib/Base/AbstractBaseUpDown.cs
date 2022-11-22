@@ -386,7 +386,11 @@ namespace NumericUpDownLib.Base
 		public T Value
 		{
 			get { return (T)GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
+			set 
+			{
+				SetValue(ValueProperty, value);
+				LastEditingNumericValue = value;
+			}
 		}
 
 		/// <summary>
@@ -962,7 +966,6 @@ namespace NumericUpDownLib.Base
 				if (IsUpdateValueWhenLostFocus && IsValueValid)
 				{
 					Value = FormatText(_PART_TextBox.Text, true);
-					LastEditingNumericValue = Value;
 				}
 			}
 		}
@@ -1112,7 +1115,6 @@ namespace NumericUpDownLib.Base
 					}
 					T OldValue = Value;
 					Value = FormatText(_PART_TextBox.Text, true);
-					LastEditingNumericValue = Value;
 
 					// force to raise value changed event to tigger re write /re-set for application
 					if (OldValue.Equals(Value) && isCtrlDown)
