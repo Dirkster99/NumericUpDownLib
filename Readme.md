@@ -7,6 +7,21 @@
 
 # Overview
 
+## Fixes and Features Added in Version 3.3
+
+### Bug Fixes
+
+- [#53 Fixes "FormatString not working with custom texts", "Control not scaling correctly with HorizontalAlignment set to 'Stretch'"](https://github.com/Dirkster99/NumericUpDownLib/pull/53)
+
+This release has been authored by [Jürgen Holzer](https://github.com/jholzer) :pray:
+
+## Fixes and Features Added in Version 3.3
+
+### Bug Fixes
+
+- [Add AbstractBaseUpDown MinWidth virtual property](https://github.com/Dirkster99/NumericUpDownLib/pull/49)
+- [do not adjust the control panel length when use mouse to drap the control of displayLength](https://github.com/Dirkster99/NumericUpDownLib/pull/48)
+
 ## Fixes and Features Added in Version 3.2
 
 ### Bug Fixes
