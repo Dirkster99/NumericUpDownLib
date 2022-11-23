@@ -386,11 +386,7 @@ namespace NumericUpDownLib.Base
 		public T Value
 		{
 			get { return (T)GetValue(ValueProperty); }
-			set 
-			{
-				SetValue(ValueProperty, value);
-				LastEditingNumericValue = value;
-			}
+			set { SetValue(ValueProperty, value); }
 		}
 
 		/// <summary>
@@ -707,7 +703,7 @@ namespace NumericUpDownLib.Base
 				}
 			}
 		}
-		
+
         #region IsMouseDragEnabled
         /// <summary>
         /// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
@@ -1225,6 +1221,7 @@ namespace NumericUpDownLib.Base
 			if (_PART_TextBox != null)
 			{
 				_PART_TextBox.Text = FormatNumber(Value);
+				LastEditingNumericValue = Value;
 			}
 			CommandExecute(Command);
 			this.RaiseEvent(args);
