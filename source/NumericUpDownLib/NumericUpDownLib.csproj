@@ -1,16 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFrameworks>net4;netcoreapp3.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.3.0.0</Version>
-    <AssemblyVersion>3.3.0.0</AssemblyVersion>
-    <FileVersion>3.3.0.0</FileVersion>
+    <Version>3.3.1.0</Version>
+    <AssemblyVersion>3.3.1.0</AssemblyVersion>
+    <FileVersion>3.3.1.0</FileVersion>
     <Company>Open Source</Company>
     <Product>NumericUpDownLib</Product>
-    <Copyright>2013-2021</Copyright>
+    <Copyright>2013-2022</Copyright>
     <Description>Provides a numeric up down WPF control that can be used to edit (integer, byte, decimal, double, float, short and many more) values with a textbox and/or up/down arrow (repeat) buttons. Editing can be based on input via mouse wheel, mouse drag, cursor keys, or text editing.</Description>
     <PackageProjectUrl>https://github.com/Dirkster99/NumericUpDownLib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Dirkster99/NumericUpDownLib</RepositoryUrl>
