@@ -991,7 +991,6 @@ namespace NumericUpDownLib.Base
 				if (UserInput == true)
 				{
 					T temp = LastEditingNumericValue;
-					WaterMarkVisibility = string.IsNullOrEmpty(_PART_TextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
 					IsValueValid = VerifyText(_PART_TextBox.Text, ref temp);
 					if (!LastEditingNumericValue.Equals(temp))
 					{
