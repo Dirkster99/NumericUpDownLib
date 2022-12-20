@@ -703,7 +703,7 @@ namespace NumericUpDownLib.Base
 				}
 			}
 		}
-		
+
         #region IsMouseDragEnabled
         /// <summary>
         /// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
@@ -962,7 +962,6 @@ namespace NumericUpDownLib.Base
 				if (IsUpdateValueWhenLostFocus && IsValueValid)
 				{
 					Value = FormatText(_PART_TextBox.Text, true);
-					LastEditingNumericValue = Value;
 				}
 			}
 		}
@@ -988,7 +987,6 @@ namespace NumericUpDownLib.Base
 				if (UserInput == true)
 				{
 					T temp = LastEditingNumericValue;
-					WaterMarkVisibility = string.IsNullOrEmpty(_PART_TextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
 					IsValueValid = VerifyText(_PART_TextBox.Text, ref temp);
 					if (!LastEditingNumericValue.Equals(temp))
 					{
@@ -1112,7 +1110,6 @@ namespace NumericUpDownLib.Base
 					}
 					T OldValue = Value;
 					Value = FormatText(_PART_TextBox.Text, true);
-					LastEditingNumericValue = Value;
 
 					// force to raise value changed event to tigger re write /re-set for application
 					if (OldValue.Equals(Value) && isCtrlDown)
@@ -1224,6 +1221,7 @@ namespace NumericUpDownLib.Base
 			if (_PART_TextBox != null)
 			{
 				_PART_TextBox.Text = FormatNumber(Value);
+				LastEditingNumericValue = Value;
 			}
 			CommandExecute(Command);
 			this.RaiseEvent(args);
