@@ -7,6 +7,12 @@
 
 # Overview
 
+## Fixes and Features Added in Version 3.3.1
+
+- [#54 LastEditingNumericValue should be as same as Value when ValueChanged](https://github.com/Dirkster99/NumericUpDownLib/pull/54)
+
+This release has been authored by [heartacker](https://github.com/heartacker) :pray:
+
 ## Fixes and Features Added in Version 3.3
 
 ### Bug Fixes
