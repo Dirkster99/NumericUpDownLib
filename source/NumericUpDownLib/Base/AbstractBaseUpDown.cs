@@ -3,6 +3,7 @@ namespace NumericUpDownLib.Base
 	using NumericUpDownLib.Enums;
 	using NumericUpDownLib.Models;
 	using System;
+	using System.Globalization;
 	using System.Windows;
 	using System.Windows.Controls;
 	using System.Windows.Controls.Primitives;
@@ -1159,21 +1160,44 @@ namespace NumericUpDownLib.Base
         }
 
         /// <summary>
-		/// Checks if the current string entered in the textbox is:
-		/// 1) A valid number (syntax)
-		/// 2) within bounds (Min &lt;= number &lt;= Max )
-		///
-		/// 3) adjusts the string if it appears to be invalid and
-		///
-		/// 4) <paramref name="formatNumber"/> true:
-		///    Applies the FormatString property to format the text in a certain way
-		/// </summary>
-		/// <param name="text"></param>
-		/// <param name="formatNumber"></param>
-		/// <returns>the value of the string with special format</returns>
-		protected abstract T FormatText(string text, bool formatNumber = true);
+        /// Checks if the current string entered in the textbox is:
+        /// 1) A valid number (syntax)
+        /// 2) within bounds (Min &lt;= number &lt;= Max )
+        ///
+        /// 3) adjusts the string if it appears to be invalid and
+        ///
+        /// 4) <paramref name="formatNumber"/> true:
+        ///    Applies the FormatString property to format the text in a certain way
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="formatNumber"></param>
+        /// <returns>the value of the string with special format</returns>
+        protected T FormatText(string text, bool formatNumber = true)
+        {
+            if (_PART_TextBox == null)
+                return Value;
 
-		/// <summary>
+            T number = default;
+            // Does this text represent a valid number ?
+            if (ParseText(text, out number))
+            {
+                number = CoerceValue(number);
+
+                _PART_TextBox.Text = FormatNumber(number);
+                _PART_TextBox.SelectionStart = 0;
+
+                return number;
+            }
+
+            // Reset to last value since string does not appear to represent a number
+            _PART_TextBox.SelectionStart = 0;
+            _PART_TextBox.Text = FormatNumber(Value);
+            return LastEditingNumericValue;
+        }
+
+        protected abstract bool ParseText(string text, out T number);
+
+        /// <summary>
 		/// Verify the text is valid or not while use is typing
 		/// </summary>
 		/// <param name="text"></param>

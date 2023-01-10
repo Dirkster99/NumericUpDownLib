@@ -321,53 +321,10 @@ namespace NumericUpDownLib
 			return false;
 		}
 
-		/// <summary>
-		/// Checks if the current string entered in the textbox is valid
-		/// and conforms to a known format
-		/// (<see cref="AbstractBaseUpDown{T}"/> base method for more details).
-		/// </summary>
-		/// <param name="text"></param>
-		/// <param name="formatNumber"></param>
-		protected override short FormatText(string text, bool formatNumber = true)
-		{
-			if (_PART_TextBox == null)
-				return Value;
-			short number = 0;
-			// Does this text represent a valid number ?
-			if (short.TryParse(text, base.NumberStyle,
-							  CultureInfo.CurrentCulture, out number) == true)
-			{
-				// yes -> but is the number within bounds?
-				if (number > MaxValue)
-				{
-					// Larger than allowed maximum
-					_PART_TextBox.Text = FormatNumber(MaxValue);
-					_PART_TextBox.SelectionStart = 0;
-				}
-				else
-				{
-					if (number < MinValue)
-					{
-						// Smaller than allowed minimum
-						_PART_TextBox.Text = FormatNumber(MinValue);
-						_PART_TextBox.SelectionStart = 0;
-					}
-					else
-					{
-						// Number is valid and within bounds, just format if requested
-						if (formatNumber == true)
-							_PART_TextBox.Text = FormatNumber(number);
-					}
-				}
-			}
-			else
-			{
-				// Reset to last value since string does not appear to represent a number
-				_PART_TextBox.SelectionStart = 0;
-				_PART_TextBox.Text = FormatNumber(Value);
-			}
-			return LastEditingNumericValue;
-		}
+        protected override bool ParseText(string text, out short number)
+        {
+            return short.TryParse(text, base.NumberStyle, CultureInfo.CurrentCulture, out number);
+        }
 
 		/// <summary>
 		/// Determines whether the step size in the <paramref name="value"/> parameter
