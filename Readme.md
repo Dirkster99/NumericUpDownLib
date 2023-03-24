@@ -7,6 +7,12 @@
 
 # Overview
 
+## Fixes and Features Added in Version 3.4
+
+- [#55 Bugfix: Format-Text must return parsed value, else value in textbox will be overwritten with "LastEditingNumericValue" if "IsUpdateValueWhenLostFocus" is enabled on lost focus](https://github.com/Dirkster99/NumericUpDownLib/pull/55)
+
+- [#56 Feature optionally disable mouse wheel](https://github.com/Dirkster99/NumericUpDownLib/pull/56)
+
 ## Fixes and Features Added in Version 3.3.1
 
 - [#54 LastEditingNumericValue should be as same as Value when ValueChanged](https://github.com/Dirkster99/NumericUpDownLib/pull/54)
