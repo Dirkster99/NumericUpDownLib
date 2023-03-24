@@ -176,11 +176,15 @@ namespace NumericUpDownLib.Base
 			DependencyProperty.Register("CanMouseDrag", typeof(CanIncDecMouseDrag),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(CanIncDecMouseDrag.VerticalHorizontal));
 
+        public static readonly DependencyProperty MouseWheelEnabledProperty =
+            DependencyProperty.Register("MouseWheelEnabled", typeof(bool),
+                                        typeof(AbstractBaseUpDown<T>),
+                                        new PropertyMetadata(true));
 
-		/// <summary>
-		/// Backing store of <see cref="IsLargeStepEnabled"/> dependency property.
-		/// </summary>
-		public static readonly DependencyProperty IsLargeStepEnabledProperty =
+        /// <summary>
+        /// Backing store of <see cref="IsLargeStepEnabled"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty IsLargeStepEnabledProperty =
 			DependencyProperty.Register("IsLargeStepEnabled", typeof(bool),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
@@ -526,11 +530,16 @@ namespace NumericUpDownLib.Base
 			set { SetValue(CanMouseDragProperty, value); }
 		}
 
+        public bool MouseWheelEnabled
+        {
+            get { return (bool)GetValue(MouseWheelEnabledProperty); }
+            set { SetValue(MouseWheelEnabledProperty, value); }
+        }
 
-		/// <summary>
-		/// Gets/sets wether enable large step Increment/Decrement
-		/// </summary>
-		public bool IsLargeStepEnabled
+        /// <summary>
+        /// Gets/sets wether enable large step Increment/Decrement
+        /// </summary>
+        public bool IsLargeStepEnabled
 		{
 			get { return (bool)GetValue(IsLargeStepEnabledProperty); }
 			set { SetValue(IsLargeStepEnabledProperty, value); }
@@ -670,7 +679,9 @@ namespace NumericUpDownLib.Base
 		{
 			base.OnMouseWheel(e);
 
-			if (e.Handled == false)
+            if (!MouseWheelEnabled)
+                return;
+            if (e.Handled == false)
 			{
 				if (e.Delta != 0)
 				{
