@@ -35,6 +35,7 @@
 			IsDisplayLengthFixed="True"
 			IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
 			IsReadOnly="False"
+			IsUpdateValueWhenLostFocus="True"
 			LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 			MaxValue="{Binding MaximumValue}"
 			MinValue="{Binding MinimumValue}"
