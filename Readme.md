@@ -13,6 +13,8 @@
 
 - [#56 Feature optionally disable mouse wheel](https://github.com/Dirkster99/NumericUpDownLib/pull/56)
 
+This release has been authored by [Jürgen Holzer](https://github.com/jholzer) :pray:
+
 ## Fixes and Features Added in Version 3.3.1
 
 - [#54 LastEditingNumericValue should be as same as Value when ValueChanged](https://github.com/Dirkster99/NumericUpDownLib/pull/54)
