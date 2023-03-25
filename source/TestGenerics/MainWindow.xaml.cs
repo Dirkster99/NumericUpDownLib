@@ -1,18 +1,18 @@
 ﻿namespace TestGenerics
 {
-	using System.Windows;
-	using TestGenerics.ViewModel;
+    using System.Windows;
+    using TestGenerics.ViewModel;
 
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		public MainWindow()
-		{
-			InitializeComponent();
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
 
-			DataContext = new AppViewModel();
-		}
-	}
+            DataContext = new AppViewModel();
+        }
+    }
 }
