@@ -200,8 +200,8 @@
                             ToolTip="Test whether the numeric control can be used in a Pop-uo control." />
                         <Popup AllowsTransparency="True" IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
                             <Border
-                                Background="{StaticResource PopUpBackground}"
-                                BorderBrush="{StaticResource PopUpBorder}"
+                                Background="{DynamicResource PopUpBackground}"
+                                BorderBrush="{DynamicResource PopUpBorder}"
                                 BorderThickness="1">
                                 <StackPanel Margin="3">
                                     <cntrl:UShortUpDown

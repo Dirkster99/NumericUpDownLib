@@ -214,7 +214,7 @@
                                         DisplayLength="13"
                                         IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
                                         IsReadOnly="False"
-                                        IsUpdateValueWhenLostFocus="{Binding ElementName=UpdateValueWhenLostFocusCheckBox, Path=IsChecked}"
+                                        IsUpdateValueWhenLostFocus="True"
                                         LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                         MaxValue="{Binding MaximumValue}"
                                         MinValue="{Binding MinimumValue}"
