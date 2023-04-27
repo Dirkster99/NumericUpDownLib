@@ -24,7 +24,11 @@
 								VerticalAlignment="Center"
 								HorizontalContentAlignment="Left"
 								VerticalContentAlignment="Center"
-								Command="{TemplateBinding ClickCommand}">
+								Background="#00000000"
+								BorderThickness="1"
+								BorderBrush="#508F8F8F"
+								Command="{TemplateBinding ClickCommand}"
+								Style="{x:Null}">
 								<Grid
 									x:Name="arrowGlyph"
 									HorizontalAlignment="Center"
