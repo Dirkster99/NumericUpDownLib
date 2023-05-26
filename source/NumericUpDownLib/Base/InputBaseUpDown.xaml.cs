@@ -46,6 +46,15 @@
 			DependencyProperty.Register("EditingColorBrush", typeof(System.Windows.Media.SolidColorBrush),
 				typeof(InputBaseUpDown), new PropertyMetadata(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green)));
 
+		// Using a DependencyProperty as the backing store for HeaderProperty.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register(nameof(Header), typeof(object), typeof(InputBaseUpDown), new PropertyMetadata(null));
+
+		// Using a DependencyProperty as the backing store for HeaderProperty.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty OrientationProperty =
+			DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(InputBaseUpDown), new PropertyMetadata(Orientation.Vertical));
+
+
 
 		/// <summary>
 		/// identify that the inputing data is valid or not.,
@@ -129,6 +138,23 @@
 		{
 			get { return (NumberStyles)GetValue(NumberStyleProperty); }
 			set { SetValue(NumberStyleProperty, value); }
+		}
+		/// <summary>
+		/// Header, <see langword="null"/> will be not visible
+		/// </summary>
+		public object Header
+		{
+			get { return GetValue(HeaderProperty); }
+			set { SetValue(HeaderProperty, value); }
+		}
+
+		/// <summary>
+		/// default <see cref="Orientation.Vertical"/>, Header is on top
+		/// </summary>
+		public Orientation Orientation
+		{
+			get { return (Orientation)GetValue(OrientationProperty); }
+			set { SetValue(OrientationProperty, value); }
 		}
 
 		#endregion properties
