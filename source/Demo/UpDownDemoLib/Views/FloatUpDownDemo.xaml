@@ -1,256 +1,270 @@
 ﻿<UserControl
-	x:Class="UpDownDemoLib.Views.FloatUpDownDemo"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	mc:Ignorable="d">
-	<Grid
-		xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
-		xmlns:conv="clr-namespace:UpDownDemoLib.Converters"
-		Grid.Row="1"
-		Grid.Column="0"
-		Grid.ColumnSpan="2">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" />
+    x:Class="UpDownDemoLib.Views.FloatUpDownDemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid
+        xmlns:cntrl="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+        xmlns:conv="clr-namespace:UpDownDemoLib.Converters"
+        Grid.Row="1"
+        Grid.Column="0"
+        Grid.ColumnSpan="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="auto" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-		<cntrl:FloatUpDown
-			Name="SampleUpDown"
-			Grid.Column="0"
-			Margin="3"
-			HorizontalAlignment="Stretch"
-			VerticalAlignment="Top"
-			HorizontalContentAlignment="{Binding HzntalContentAlignment}"
-			DisplayLength="5"
+        <cntrl:FloatUpDown
+            Name="SampleUpDown"
+            Grid.Column="0"
+            Margin="3"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="{Binding HzntalContentAlignment}"
+            DisplayLength="5"
             FormatString="{Binding FormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-			IsDisplayLengthFixed="True"
-			IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
-			IsReadOnly="False"
-            IsUpdateValueWhenLostFocus="True"
-			LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-			MaxValue="{Binding MaximumValue}"
-			MinValue="{Binding MinimumValue}"
-			MouseWheelAccelaratorKey="{Binding AccelModifierKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-			StepSize="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-			ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-			Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            IsDisplayLengthFixed="True"
+            IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
+            IsReadOnly="False"
+            IsUpdateValueWhenLostFocus="{Binding ElementName=UpdateValueWhenLostFocusCheckBox, Path=IsChecked}"
+            LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            MaxValue="{Binding MaximumValue}"
+            MinValue="{Binding MinimumValue}"
+            MouseWheelAccelaratorKey="{Binding AccelModifierKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            StepSize="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="5" HorizontalAlignment="Stretch" />
+        <GridSplitter
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch" />
 
-        <Grid Grid.Row="0" Grid.Column="2" Margin="12,3,3,3">
-			<Grid.Resources>
-				<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-			</Grid.Resources>
-			<GroupBox Header="Debugging Values">
-				<StackPanel>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="2*" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="12,3,3,3">
+            <Grid.Resources>
+                <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            </Grid.Resources>
+            <GroupBox Header="Debugging Values">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-						<StackPanel Grid.Column="0" Margin="3">
-							<Label Content="Actual Value:" />
-							<Slider
-								Maximum="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-								Minimum="{Binding MinimumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-								Value="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-							<TextBox IsReadOnly="True" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
-						</StackPanel>
-						<StackPanel Grid.Column="1" Margin="3">
-							<Label Content="Step Size:" />
-							<Slider
-								Maximum="1024"
-								Minimum="1"
-								ToolTip="The StepSize changes the size of increment on button click."
-								Value="{Binding StepSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-							<TextBox IsReadOnly="True" Text="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-						</StackPanel>
-						<StackPanel Grid.Column="2" Margin="3">
-							<Label Content="Large Step Size:" />
-							<Slider
-								Maximum="512"
-								Minimum="1"
-								ToolTip="The LargeStepSize changes a LARGE size of increment on cursor/mouse drag right/left."
-								Value="{Binding LargeStepSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-							<TextBox IsReadOnly="True" Text="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-						</StackPanel>
-					</Grid>
+                        <StackPanel Grid.Column="0" Margin="3">
+                            <Label Content="Actual Value:" />
+                            <Slider
+                                Maximum="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Minimum="{Binding MinimumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Value="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <TextBox IsReadOnly="True" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="3">
+                            <Label Content="Step Size:" />
+                            <Slider
+                                Maximum="1024"
+                                Minimum="1"
+                                ToolTip="The StepSize changes the size of increment on button click."
+                                Value="{Binding StepSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox IsReadOnly="True" Text="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="3">
+                            <Label Content="Large Step Size:" />
+                            <Slider
+                                Maximum="512"
+                                Minimum="1"
+                                ToolTip="The LargeStepSize changes a LARGE size of increment on cursor/mouse drag right/left."
+                                Value="{Binding LargeStepSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox IsReadOnly="True" Text="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Grid>
 
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-						<StackPanel Margin="12">
-							<Label Content="Minimum Value:" />
-							<Slider
-								Maximum="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-								Minimum="2147483647"
-								Value="{Binding MinimumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-							<TextBox IsReadOnly="True" Text="{Binding MinimumValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
-						</StackPanel>
+                        <StackPanel Margin="12">
+                            <Label Content="Minimum Value:" />
+                            <Slider
+                                Maximum="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Minimum="2147483647"
+                                Value="{Binding MinimumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <TextBox IsReadOnly="True" Text="{Binding MinimumValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                        </StackPanel>
 
-						<StackPanel Grid.Column="2" Margin="12">
-							<Label Content="Maximum Value:" />
-							<Slider
-								Maximum="2147483647"
-								Minimum="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-								Value="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-							<TextBox IsReadOnly="True" Text="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
-						</StackPanel>
-					</Grid>
+                        <StackPanel Grid.Column="2" Margin="12">
+                            <Label Content="Maximum Value:" />
+                            <Slider
+                                Maximum="2147483647"
+                                Minimum="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Value="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <TextBox IsReadOnly="True" Text="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                        </StackPanel>
+                    </Grid>
 
-					<StackPanel Margin="12">
-						<Label Content="Display Length:" />
-						<Slider
-							Maximum="255"
-							Minimum="0"
-							Value="{Binding DisplayLength, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=SampleUpDown}" />
-						<TextBox IsReadOnly="True" Text="{Binding ElementName=SampleUpDown, Path=DisplayLength, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
-					</StackPanel>
+                    <StackPanel Margin="12">
+                        <Label Content="Display Length:" />
+                        <Slider
+                            Maximum="255"
+                            Minimum="0"
+                            Value="{Binding DisplayLength, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ElementName=SampleUpDown}" />
+                        <TextBox IsReadOnly="True" Text="{Binding ElementName=SampleUpDown, Path=DisplayLength, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                    </StackPanel>
 
-					<StackPanel Margin="3" Orientation="Horizontal">
-						<CheckBox
-							Content="Is Visible"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=Visibility, Converter={StaticResource BoolToVisibilityConverter}}"
-							ToolTip="Check if value changes as expected when control is invisible." />
-						<CheckBox
-							Margin="21,0,0,0"
-							Content="Is IncDec Button Visible"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=IsIncDecButtonsVisible}"
-							ToolTip="Check to test visibility of radio buttons." />
-						<CheckBox
-							Margin="21,0,0,0"
-							Content="Is Display Length Fixed"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=IsDisplayLengthFixed}"
-							ToolTip="Determines whether control shrinks or grows with its text portion input." />
+                    <StackPanel Margin="3" Orientation="Horizontal">
+                        <CheckBox
+                            Content="Is Visible"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=Visibility, Converter={StaticResource BoolToVisibilityConverter}}"
+                            ToolTip="Check if value changes as expected when control is invisible." />
+                        <CheckBox
+                            Margin="21,0,0,0"
+                            Content="Is IncDec Button Visible"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=IsIncDecButtonsVisible}"
+                            ToolTip="Check to test visibility of radio buttons." />
+                        <CheckBox
+                            Margin="21,0,0,0"
+                            Content="Is Display Length Fixed"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=IsDisplayLengthFixed}"
+                            ToolTip="Determines whether control shrinks or grows with its text portion input." />
 
-						<CheckBox
-							Margin="21,0,0,0"
-							Content="Is ReadOnly"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=IsReadOnly}"
-							ToolTip="Setting the control readonly enables the buttons but disables textbox edits." />
+                        <CheckBox
+                            Margin="21,0,0,0"
+                            Content="Is ReadOnly"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=IsReadOnly}"
+                            ToolTip="Setting the control readonly enables the buttons but disables textbox edits." />
 
-						<CheckBox
-							Margin="21,0,0,0"
-							Content="Is Enabled"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=IsEnabled}"
-							ToolTip="Setting the control IsEnabled=False disables all edit capabilities." />
-					</StackPanel>
+                        <CheckBox
+                            Margin="21,0,0,0"
+                            Content="Is Enabled"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=IsEnabled}"
+                            ToolTip="Setting the control IsEnabled=False disables all edit capabilities." />
+                    </StackPanel>
 
-					<StackPanel Margin="3" Orientation="Horizontal">
-						<CheckBox
-							Name="IsMouseDragEnabledCheckBox"
-							Margin="0,0,0,0"
-							Content="Is Mouse Drag Enabled"
-							IsChecked="True"
-							ToolTip="Increment/Decrementing value with mouse drag should be possible if this is enabled." />
+                    <StackPanel Margin="3" Orientation="Horizontal">
+                        <CheckBox
+                            Name="IsMouseDragEnabledCheckBox"
+                            Margin="0,0,0,0"
+                            Content="Is Mouse Drag Enabled"
+                            IsChecked="True"
+                            ToolTip="Increment/Decrementing value with mouse drag should be possible if this is enabled." />
 
-						<CheckBox
-							Margin="21,0,0,0"
-							Content="Is Large Step Enabled"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=IsLargeStepEnabled, Mode=TwoWay}"
-							ToolTip="Setting this controls whether large step increments can be input via mouse drag or keyboard." />
+                        <CheckBox
+                            Margin="21,0,0,0"
+                            Content="Is Large Step Enabled"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=IsLargeStepEnabled, Mode=TwoWay}"
+                            ToolTip="Setting this controls whether large step increments can be input via mouse drag or keyboard." />
 
-						<ComboBox
-							Width="120"
-							Margin="21,0,0,0"
-							IsEditable="False"
-							Text="{Binding Path=HzntalContentAlignment, Mode=TwoWay}"
-							ToolTip="Changes the alignment of the text shown in the textbox portion"
-							ToolTipService.IsEnabled="True">
-							<ComboBoxItem>Left</ComboBoxItem>
-							<ComboBoxItem>Center</ComboBoxItem>
-							<ComboBoxItem>Right</ComboBoxItem>
-							<ComboBoxItem>Stretch</ComboBoxItem>
-						</ComboBox>
-					</StackPanel>
+                        <ComboBox
+                            Width="120"
+                            Margin="21,0,0,0"
+                            IsEditable="False"
+                            Text="{Binding Path=HzntalContentAlignment, Mode=TwoWay}"
+                            ToolTip="Changes the alignment of the text shown in the textbox portion"
+                            ToolTipService.IsEnabled="True">
+                            <ComboBoxItem>Left</ComboBoxItem>
+                            <ComboBoxItem>Center</ComboBoxItem>
+                            <ComboBoxItem>Right</ComboBoxItem>
+                            <ComboBoxItem>Stretch</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
 
-					<StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-						<CheckBox
-							x:Name="IsPopUpOpen"
-							Content="PopUp Test"
-							ToolTip="Test whether the numeric control can be used in a Pop-uo control." />
-						<Popup AllowsTransparency="True" IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
-							<Border
-								Background="{StaticResource PopUpBackground}"
-								BorderBrush="{StaticResource PopUpBorder}"
-								BorderThickness="1">
-								<StackPanel Margin="3">
-									<cntrl:FloatUpDown
-										Name="SamplePopUpDown"
-										Grid.Column="0"
-										Margin="3"
-										HorizontalAlignment="Left"
-										VerticalAlignment="Top"
-										DisplayLength="13"
-										IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
-										IsReadOnly="False"
-										LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-										MaxValue="{Binding MaximumValue}"
-										MinValue="{Binding MinimumValue}"
-										MouseWheelAccelaratorKey="{Binding AccelModifierKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-										StepSize="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-										ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-										Visibility="Hidden"
-										Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+                        <CheckBox
+                            x:Name="IsPopUpOpen"
+                            Content="PopUp Test"
+                            ToolTip="Test whether the numeric control can be used in a Pop-uo control." />
+                        <Popup AllowsTransparency="True" IsOpen="{Binding ElementName=IsPopUpOpen, Path=IsChecked}">
+                            <Border
+                                Background="{DynamicResource PopUpBackground}"
+                                BorderBrush="{DynamicResource PopUpBorder}"
+                                BorderThickness="1">
+                                <StackPanel Margin="3">
+                                    <cntrl:FloatUpDown
+                                        Name="SamplePopUpDown"
+                                        Grid.Column="0"
+                                        Margin="3"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        DisplayLength="13"
+                                        IsMouseDragEnabled="{Binding ElementName=IsMouseDragEnabledCheckBox, Path=IsChecked}"
+                                        IsReadOnly="False"
+                                        LargeStepSize="{Binding LargeStepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        MaxValue="{Binding MaximumValue}"
+                                        MinValue="{Binding MinimumValue}"
+                                        MouseWheelAccelaratorKey="{Binding AccelModifierKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        StepSize="{Binding StepSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ToolTip="{Binding ToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Visibility="Hidden"
+                                        Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-									<StackPanel Margin="3">
-										<Label Content="Is Visible:" />
-										<CheckBox IsChecked="{Binding ElementName=SamplePopUpDown, Path=Visibility, Converter={StaticResource BoolToVisibilityConverter}}" ToolTip="Check if value changes as expected when control is invisible." />
-									</StackPanel>
-									<TextBlock Text="Pop Up Is Open." />
-								</StackPanel>
-							</Border>
-						</Popup>
+                                    <StackPanel Margin="3">
+                                        <Label Content="Is Visible:" />
+                                        <CheckBox IsChecked="{Binding ElementName=SamplePopUpDown, Path=Visibility, Converter={StaticResource BoolToVisibilityConverter}}" ToolTip="Check if value changes as expected when control is invisible." />
+                                    </StackPanel>
+                                    <TextBlock Text="Pop Up Is Open." />
+                                </StackPanel>
+                            </Border>
+                        </Popup>
 
-						<CheckBox
-							Margin="21,0,0,0"
-							Content="EnableValidatingIndicator"
-							IsChecked="{Binding ElementName=SampleUpDown, Path=EnableValidatingIndicator, Mode=TwoWay}"
-							ToolTip="Toggles whether a validation indicator is shown in the upper left corner of the control." />
-					</StackPanel>
+                        <CheckBox
+                            Margin="21,0,0,0"
+                            Content="EnableValidatingIndicator"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=EnableValidatingIndicator, Mode=TwoWay}"
+                            ToolTip="Toggles whether a validation indicator is shown in the upper left corner of the control." />
+                        <CheckBox
+                            Name="UpdateValueWhenLostFocusCheckBox"
+                            Margin="21,0,0,0"
+                            Content="UpdateValueWhenLostFocus"
+                            IsChecked="{Binding ElementName=SampleUpDown, Path=IsUpdateValueWhenLostFocus, Mode=TwoWay}"
+                            ToolTip="Toggles UpdateValueWhenLostFocus." />
+                    </StackPanel>
 
-					<Border
-						Margin="0,3"
-						BorderBrush="Gray"
-						BorderThickness="1">
-						<StackPanel xmlns:input="System.Windows.Input" Margin="3">
-							<StackPanel.Resources>
-								<conv:EnumMatchToBooleanConverter x:Key="enumConverter" />
-							</StackPanel.Resources>
+                    <Border
+                        Margin="0,3"
+                        BorderBrush="Gray"
+                        BorderThickness="1">
+                        <StackPanel xmlns:input="System.Windows.Input" Margin="3">
+                            <StackPanel.Resources>
+                                <conv:EnumMatchToBooleanConverter x:Key="enumConverter" />
+                            </StackPanel.Resources>
 
 
-							<TextBlock Margin="3" Text="Press this key to accelerate increments/decrements when scrolling with mouse wheel." />
+                            <TextBlock Margin="3" Text="Press this key to accelerate increments/decrements when scrolling with mouse wheel." />
 
-							<RadioButton
-								Margin="3"
-								Content="Alt"
-								IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Alt}" />
+                            <RadioButton
+                                Margin="3"
+                                Content="Alt"
+                                IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Alt}" />
 
-							<RadioButton
-								Margin="3"
-								Content="Control"
-								IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Control}" />
+                            <RadioButton
+                                Margin="3"
+                                Content="Control"
+                                IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Control}" />
 
-							<RadioButton
-								Margin="3"
-								Content="Shift"
-								IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Shift}" />
-						</StackPanel>
-					</Border>
+                            <RadioButton
+                                Margin="3"
+                                Content="Shift"
+                                IsChecked="{Binding Path=AccelModifierKey, Mode=TwoWay, Converter={StaticResource enumConverter}, ConverterParameter=Shift}" />
+                        </StackPanel>
+                    </Border>
                     <Border
                         Margin="0,3"
                         BorderBrush="Gray"
@@ -264,8 +278,8 @@
 
                     </Border>
                 </StackPanel>
-			</GroupBox>
-		</Grid>
-	</Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
 
 </UserControl>
