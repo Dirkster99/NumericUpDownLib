@@ -325,7 +325,7 @@ namespace NumericUpDownLib.Base
 		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings)
 		/// </summary>
 		/// <param name="cmd"></param>
-		private void CommandExecute(ICommand cmd)
+		protected void CommandExecute(ICommand cmd)
 		{
 			if (cmd is RoutedCommand command)
 				command.Execute(CommandParameter, CommandTarget);
@@ -340,7 +340,7 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		/// <param name="oldCommand"></param>
 		/// <param name="newCommand"></param>
-		private void HookUpCommand(ICommand oldCommand, ICommand newCommand)
+		protected void HookUpCommand(ICommand oldCommand, ICommand newCommand)
 		{
 			if (oldCommand != null)
 			{
@@ -359,7 +359,7 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void CanExecuteChanged(object sender, EventArgs e)
+		protected void CanExecuteChanged(object sender, EventArgs e)
 		{
 			if (this.Command is RoutedCommand command)
 			{
