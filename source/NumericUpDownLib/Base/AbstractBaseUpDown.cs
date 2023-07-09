@@ -68,7 +68,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Dependency property backing store for the Value property. defalut value is _MinValue
 		/// </summary>
-		protected static readonly DependencyProperty ValueProperty =
+		public static readonly DependencyProperty ValueProperty =
 			DependencyProperty.Register("Value",
 				typeof(T), typeof(AbstractBaseUpDown<T>),
 				new PropertyMetadata(_MinValue, new PropertyChangedCallback(OnValueChanged),
@@ -77,7 +77,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Dependency property backing store for Minimum Value property.
 		/// </summary>
-		protected static readonly DependencyProperty MinValueProperty =
+		public static readonly DependencyProperty MinValueProperty =
 			DependencyProperty.Register("MinValue",
 				typeof(T), typeof(AbstractBaseUpDown<T>),
 				new PropertyMetadata(_MinValue, new PropertyChangedCallback(OnMinValueChanged),
@@ -86,7 +86,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Dependency property backing store for Maximum Value property.
 		/// </summary>
-		protected static readonly DependencyProperty MaxValueProperty =
+		public static readonly DependencyProperty MaxValueProperty =
 			DependencyProperty.Register("MaxValue",
 				typeof(T), typeof(AbstractBaseUpDown<T>),
 				new PropertyMetadata(_MaxValue, new PropertyChangedCallback(OnMaxValueChanged),
@@ -124,7 +124,7 @@ namespace NumericUpDownLib.Base
 		/// that should be displayed in the control without having to scroll inside
 		/// the textbox portion.
 		/// </summary>
-		protected static readonly DependencyProperty DisplayLengthProperty =
+		public static readonly DependencyProperty DisplayLengthProperty =
 			DependencyProperty.Register("DisplayLength", typeof(byte),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
 
@@ -134,7 +134,7 @@ namespace NumericUpDownLib.Base
 		/// if user types longer string), or not (control will resize in dependence
 		/// of string length and available space).
 		/// </summary>
-		protected static readonly DependencyProperty IsDisplayLengthFixedProperty =
+		public static readonly DependencyProperty IsDisplayLengthFixedProperty =
 			DependencyProperty.Register("IsDisplayLengthFixed",
 				typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true, OnIsDisplayLengthFixedChanged));
 
@@ -142,7 +142,7 @@ namespace NumericUpDownLib.Base
 		/// Backing store for dependency property to decide whether all text in textbox
 		/// should be selected upon focus or not.
 		/// </summary>
-		protected static readonly DependencyProperty SelectAllTextOnFocusProperty =
+		public static readonly DependencyProperty SelectAllTextOnFocusProperty =
 			DependencyProperty.Register("SelectAllTextOnFocus",
 				typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
@@ -150,7 +150,7 @@ namespace NumericUpDownLib.Base
 		/// Backing store for dependency property for .Net FormatString that is
 		/// applied to the textbox text portion of the up down control.
 		/// </summary>
-		protected static readonly DependencyProperty FormatStringProperty =
+		public static readonly DependencyProperty FormatStringProperty =
 			DependencyProperty.Register("FormatString", typeof(string),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G", OnIsFormatStringChanged));
 
@@ -176,15 +176,15 @@ namespace NumericUpDownLib.Base
 			DependencyProperty.Register("CanMouseDrag", typeof(CanIncDecMouseDrag),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(CanIncDecMouseDrag.VerticalHorizontal));
 
-        public static readonly DependencyProperty MouseWheelEnabledProperty =
-            DependencyProperty.Register("MouseWheelEnabled", typeof(bool),
-                                        typeof(AbstractBaseUpDown<T>),
-                                        new PropertyMetadata(true));
+		public static readonly DependencyProperty MouseWheelEnabledProperty =
+			DependencyProperty.Register("MouseWheelEnabled", typeof(bool),
+										typeof(AbstractBaseUpDown<T>),
+										new PropertyMetadata(true));
 
-        /// <summary>
-        /// Backing store of <see cref="IsLargeStepEnabled"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty IsLargeStepEnabledProperty =
+		/// <summary>
+		/// Backing store of <see cref="IsLargeStepEnabled"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty IsLargeStepEnabledProperty =
 			DependencyProperty.Register("IsLargeStepEnabled", typeof(bool),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
@@ -325,7 +325,7 @@ namespace NumericUpDownLib.Base
 		/// (supporting <see cref="RoutedCommand"/> and <see cref="ICommand"/> bindings)
 		/// </summary>
 		/// <param name="cmd"></param>
-		private void CommandExecute(ICommand cmd)
+		protected void CommandExecute(ICommand cmd)
 		{
 			if (cmd is RoutedCommand command)
 				command.Execute(CommandParameter, CommandTarget);
@@ -340,7 +340,7 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		/// <param name="oldCommand"></param>
 		/// <param name="newCommand"></param>
-		private void HookUpCommand(ICommand oldCommand, ICommand newCommand)
+		protected void HookUpCommand(ICommand oldCommand, ICommand newCommand)
 		{
 			if (oldCommand != null)
 			{
@@ -359,7 +359,7 @@ namespace NumericUpDownLib.Base
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void CanExecuteChanged(object sender, EventArgs e)
+		protected void CanExecuteChanged(object sender, EventArgs e)
 		{
 			if (this.Command is RoutedCommand command)
 			{
@@ -442,23 +442,23 @@ namespace NumericUpDownLib.Base
 			set { SetValue(DisplayLengthProperty, value); }
 		}
 
-        /// <summary>
-        /// Gets/sets the MinWidth for the control. The width of the textbox portion of
-        /// the control is expanded to fill the MinWidth value while the width of the
+		/// <summary>
+		/// Gets/sets the MinWidth for the control. The width of the textbox portion of
+		/// the control is expanded to fill the MinWidth value while the width of the
 		/// UpDown buttons are auto sized.
-        /// </summary>
-        public virtual double MinWidth
+		/// </summary>
+		public virtual double MinWidth
 		{
 			get { return (double)GetValue(MinWidthProperty); }
 			set { SetValue(MinWidthProperty, value); }
 		}
 
-        /// <summary>
-        /// Gets/sets whether the textbox portion of the numeric up down control
-        /// can go grow and shrink with its input or whether it should stay with
-        /// a fixed width.
-        /// </summary>
-        public bool IsDisplayLengthFixed
+		/// <summary>
+		/// Gets/sets whether the textbox portion of the numeric up down control
+		/// can go grow and shrink with its input or whether it should stay with
+		/// a fixed width.
+		/// </summary>
+		public bool IsDisplayLengthFixed
 		{
 			get { return (bool)GetValue(IsDisplayLengthFixedProperty); }
 			set { SetValue(IsDisplayLengthFixedProperty, value); }
@@ -530,16 +530,16 @@ namespace NumericUpDownLib.Base
 			set { SetValue(CanMouseDragProperty, value); }
 		}
 
-        public bool MouseWheelEnabled
-        {
-            get { return (bool)GetValue(MouseWheelEnabledProperty); }
-            set { SetValue(MouseWheelEnabledProperty, value); }
-        }
+		public bool MouseWheelEnabled
+		{
+			get { return (bool)GetValue(MouseWheelEnabledProperty); }
+			set { SetValue(MouseWheelEnabledProperty, value); }
+		}
 
-        /// <summary>
-        /// Gets/sets wether enable large step Increment/Decrement
-        /// </summary>
-        public bool IsLargeStepEnabled
+		/// <summary>
+		/// Gets/sets wether enable large step Increment/Decrement
+		/// </summary>
+		public bool IsLargeStepEnabled
 		{
 			get { return (bool)GetValue(IsLargeStepEnabledProperty); }
 			set { SetValue(IsLargeStepEnabledProperty, value); }
@@ -600,7 +600,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Determines whether last text input was from a user (key was down) or not.
 		/// </summary>
-		protected bool UserInput { get; set; }
+		public bool UserInput { get; protected set; }
 		#endregion properties
 
 		#region methods
@@ -679,9 +679,9 @@ namespace NumericUpDownLib.Base
 		{
 			base.OnMouseWheel(e);
 
-            if (!MouseWheelEnabled)
-                return;
-            if (e.Handled == false)
+			if (!MouseWheelEnabled)
+				return;
+			if (e.Handled == false)
 			{
 				if (e.Delta != 0)
 				{
@@ -716,14 +716,14 @@ namespace NumericUpDownLib.Base
 			}
 		}
 
-        #region IsMouseDragEnabled
-        /// <summary>
-        /// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
-        /// has been changed to update all states accordingly.
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        private static void OnIsMouseDragEnabledChanged(DependencyObject d,
+		#region IsMouseDragEnabled
+		/// <summary>
+		/// Is invoked when <see cref="IsMouseDragEnabled"/> dependency property value
+		/// has been changed to update all states accordingly.
+		/// </summary>
+		/// <param name="d"></param>
+		/// <param name="e"></param>
+		private static void OnIsMouseDragEnabledChanged(DependencyObject d,
 														DependencyPropertyChangedEventArgs e)
 		{
 			(d as AbstractBaseUpDown<T>).OnIsMouseDragEnabledChanged(e);
@@ -1148,67 +1148,67 @@ namespace NumericUpDownLib.Base
 		}
 
 
-        /// <summary>
-        /// Gets a formatted string for the value of the number passed in
-        /// and ensures that a default string is returned even if there is
-        /// no format specified.
-        /// </summary>
-        /// <param name="number">.Net type specific value to be formated as string</param>
-        /// <returns>The string that was formatted with the FormatString
-        /// dependency property</returns>
-        protected string FormatNumber(T number)
-        {
-            string format = "{0}";
-            var form = (string) GetValue(FormatStringProperty);
-            if (string.IsNullOrEmpty(this.FormatString) == false)
-            {
-                format = !FormatString.StartsWith("{")
-                    ? "{0:" + this.FormatString + "}"
-                    : FormatString;
-            }
+		/// <summary>
+		/// Gets a formatted string for the value of the number passed in
+		/// and ensures that a default string is returned even if there is
+		/// no format specified.
+		/// </summary>
+		/// <param name="number">.Net type specific value to be formated as string</param>
+		/// <returns>The string that was formatted with the FormatString
+		/// dependency property</returns>
+		protected string FormatNumber(T number)
+		{
+			string format = "{0}";
+			var form = (string)GetValue(FormatStringProperty);
+			if (string.IsNullOrEmpty(this.FormatString) == false)
+			{
+				format = !FormatString.StartsWith("{")
+					? "{0:" + this.FormatString + "}"
+					: FormatString;
+			}
 
-            return string.Format(format, number);
-        }
+			return string.Format(format, number);
+		}
 
-        /// <summary>
-        /// Checks if the current string entered in the textbox is:
-        /// 1) A valid number (syntax)
-        /// 2) within bounds (Min &lt;= number &lt;= Max )
-        ///
-        /// 3) adjusts the string if it appears to be invalid and
-        ///
-        /// 4) <paramref name="formatNumber"/> true:
-        ///    Applies the FormatString property to format the text in a certain way
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="formatNumber"></param>
-        /// <returns>the value of the string with special format</returns>
-        protected T FormatText(string text, bool formatNumber = true)
-        {
-            if (_PART_TextBox == null)
-                return Value;
+		/// <summary>
+		/// Checks if the current string entered in the textbox is:
+		/// 1) A valid number (syntax)
+		/// 2) within bounds (Min &lt;= number &lt;= Max )
+		///
+		/// 3) adjusts the string if it appears to be invalid and
+		///
+		/// 4) <paramref name="formatNumber"/> true:
+		///    Applies the FormatString property to format the text in a certain way
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="formatNumber"></param>
+		/// <returns>the value of the string with special format</returns>
+		protected T FormatText(string text, bool formatNumber = true)
+		{
+			if (_PART_TextBox == null)
+				return Value;
 
-            T number = default;
-            // Does this text represent a valid number ?
-            if (ParseText(text, out number))
-            {
-                number = CoerceValue(number);
+			T number = default;
+			// Does this text represent a valid number ?
+			if (ParseText(text, out number))
+			{
+				number = CoerceValue(number);
 
-                _PART_TextBox.Text = FormatNumber(number);
-                _PART_TextBox.SelectionStart = 0;
+				_PART_TextBox.Text = FormatNumber(number);
+				_PART_TextBox.SelectionStart = 0;
 
-                return number;
-            }
+				return number;
+			}
 
-            // Reset to last value since string does not appear to represent a number
-            _PART_TextBox.SelectionStart = 0;
-            _PART_TextBox.Text = FormatNumber(Value);
-            return LastEditingNumericValue;
-        }
+			// Reset to last value since string does not appear to represent a number
+			_PART_TextBox.SelectionStart = 0;
+			_PART_TextBox.Text = FormatNumber(Value);
+			return LastEditingNumericValue;
+		}
 
-        protected abstract bool ParseText(string text, out T number);
+		protected abstract bool ParseText(string text, out T number);
 
-        /// <summary>
+		/// <summary>
 		/// Verify the text is valid or not while use is typing
 		/// </summary>
 		/// <param name="text"></param>

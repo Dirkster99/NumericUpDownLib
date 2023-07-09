@@ -51,20 +51,20 @@
 		/// identify that the inputing data is valid or not.,
 		/// </summary>
 		/// <value></value>
-		protected System.Windows.Media.SolidColorBrush EditingColorBrush
+		public System.Windows.Media.SolidColorBrush EditingColorBrush
 		{
 			get { return (System.Windows.Media.SolidColorBrush)GetValue(EditingColorBrushProperty); }
-			set { SetValue(EditingColorBrushProperty, value); }
+			protected set { SetValue(EditingColorBrushProperty, value); }
 		}
 
 		/// <summary>
 		/// identify that the editing Visibility
 		/// </summary>
 		/// <value></value>
-		protected Visibility EditingVisibility
+		public Visibility EditingVisibility
 		{
 			get { return (Visibility)GetValue(EditingVisibilityProperty); }
-			set { SetValue(EditingVisibilityProperty, value); }
+			protected set { SetValue(EditingVisibilityProperty, value); }
 		}
 
 		/// <summary>
