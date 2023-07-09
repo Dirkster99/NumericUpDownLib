@@ -16,7 +16,7 @@
 						Background="{TemplateBinding Background}"
 						BorderBrush="{TemplateBinding BorderBrush}"
 						BorderThickness="{TemplateBinding BorderThickness}">
-						<Grid>
+						<Grid Background="#00000000">
 							<RepeatButton
 								Name="MyRepeatButton"
 								Padding="3"
