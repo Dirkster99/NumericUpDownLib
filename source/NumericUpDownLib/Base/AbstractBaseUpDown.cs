@@ -68,7 +68,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Dependency property backing store for the Value property. defalut value is _MinValue
 		/// </summary>
-		protected static readonly DependencyProperty ValueProperty =
+		public static readonly DependencyProperty ValueProperty =
 			DependencyProperty.Register("Value",
 				typeof(T), typeof(AbstractBaseUpDown<T>),
 				new PropertyMetadata(_MinValue, new PropertyChangedCallback(OnValueChanged),
@@ -77,7 +77,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Dependency property backing store for Minimum Value property.
 		/// </summary>
-		protected static readonly DependencyProperty MinValueProperty =
+		public static readonly DependencyProperty MinValueProperty =
 			DependencyProperty.Register("MinValue",
 				typeof(T), typeof(AbstractBaseUpDown<T>),
 				new PropertyMetadata(_MinValue, new PropertyChangedCallback(OnMinValueChanged),
@@ -86,7 +86,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Dependency property backing store for Maximum Value property.
 		/// </summary>
-		protected static readonly DependencyProperty MaxValueProperty =
+		public static readonly DependencyProperty MaxValueProperty =
 			DependencyProperty.Register("MaxValue",
 				typeof(T), typeof(AbstractBaseUpDown<T>),
 				new PropertyMetadata(_MaxValue, new PropertyChangedCallback(OnMaxValueChanged),
@@ -124,7 +124,7 @@ namespace NumericUpDownLib.Base
 		/// that should be displayed in the control without having to scroll inside
 		/// the textbox portion.
 		/// </summary>
-		protected static readonly DependencyProperty DisplayLengthProperty =
+		public static readonly DependencyProperty DisplayLengthProperty =
 			DependencyProperty.Register("DisplayLength", typeof(byte),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata((byte)3));
 
@@ -134,7 +134,7 @@ namespace NumericUpDownLib.Base
 		/// if user types longer string), or not (control will resize in dependence
 		/// of string length and available space).
 		/// </summary>
-		protected static readonly DependencyProperty IsDisplayLengthFixedProperty =
+		public static readonly DependencyProperty IsDisplayLengthFixedProperty =
 			DependencyProperty.Register("IsDisplayLengthFixed",
 				typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true, OnIsDisplayLengthFixedChanged));
 
@@ -142,7 +142,7 @@ namespace NumericUpDownLib.Base
 		/// Backing store for dependency property to decide whether all text in textbox
 		/// should be selected upon focus or not.
 		/// </summary>
-		protected static readonly DependencyProperty SelectAllTextOnFocusProperty =
+		public static readonly DependencyProperty SelectAllTextOnFocusProperty =
 			DependencyProperty.Register("SelectAllTextOnFocus",
 				typeof(bool), typeof(AbstractBaseUpDown<T>), new PropertyMetadata(true));
 
@@ -150,7 +150,7 @@ namespace NumericUpDownLib.Base
 		/// Backing store for dependency property for .Net FormatString that is
 		/// applied to the textbox text portion of the up down control.
 		/// </summary>
-		protected static readonly DependencyProperty FormatStringProperty =
+		public static readonly DependencyProperty FormatStringProperty =
 			DependencyProperty.Register("FormatString", typeof(string),
 				typeof(AbstractBaseUpDown<T>), new PropertyMetadata("G", OnIsFormatStringChanged));
 
@@ -600,7 +600,7 @@ namespace NumericUpDownLib.Base
 		/// <summary>
 		/// Determines whether last text input was from a user (key was down) or not.
 		/// </summary>
-		protected bool UserInput { get; set; }
+		public bool UserInput { get; protected set; }
 		#endregion properties
 
 		#region methods
@@ -1159,7 +1159,7 @@ namespace NumericUpDownLib.Base
 		protected string FormatNumber(T number)
 		{
 			string format = "{0}";
-			var form = (string) GetValue(FormatStringProperty);
+			var form = (string)GetValue(FormatStringProperty);
 			if (string.IsNullOrEmpty(this.FormatString) == false)
 			{
 				format = !FormatString.StartsWith("{")
